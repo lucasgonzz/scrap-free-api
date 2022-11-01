@@ -89,7 +89,7 @@ class CreateClaimsTable extends Migration
             $table->string('nro_documento')->nullable();
             $table->timestamp('fecha_ocurrencia')->nullable();
             $table->timestamp('fecha_denuncia')->nullable();
-            $table->timestamp('fecha_alta_scrap_free')->nullable();
+            $table->timestamp('fecha_alta_scrap_free')->nullable(); 
             $table->timestamp('fecha_cierre_scrap_free')->nullable();
 
             /*
