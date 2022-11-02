@@ -89,7 +89,7 @@ class CreateClaimsTable extends Migration
             $table->string('nro_documento')->nullable();
             $table->timestamp('fecha_ocurrencia')->nullable();
             $table->timestamp('fecha_denuncia')->nullable();
-            $table->timestamp('fecha_alta_scrap_free')->nullable(); 
+            $table->timestamp('fecha_alta_scrap_free')->nullable();  
             $table->timestamp('fecha_cierre_scrap_free')->nullable();
 
             /*
@@ -113,6 +113,17 @@ class CreateClaimsTable extends Migration
             |
             */
             $table->foreignId('service_order_type_id')->nullable()->constrained();
+            /*
+            |--------------------------------------------------------------------------
+            | resolution_id
+            |--------------------------------------------------------------------------
+            |
+            | Hace referencia a la resolucion del siniestro
+            | Enlaza el siniestro con el id de los registros de la tabla "Resolutions" (Resoluciones)
+            | Se llama mediante el metodo "resolucion" definido en la clase "App\Models\Claim"
+            |
+            */
+            $table->foreignId('resolution_id')->nullable()->constrained();
             $table->text('comentarios_seguro')->nullable();
             /*
             |--------------------------------------------------------------------------
@@ -172,7 +183,6 @@ class CreateClaimsTable extends Migration
             $table->text('domicilio_retiro')->nullable();
             // domicilio_devolucion se tendria que omitir?
             $table->text('domicilio_devolucion')->nullable();
-            // Aca iria "estado_siniestro" que se omite en la linea 125
             $table->text('nota_domicilio')->nullable();
             $table->string('codigo_postal')->nullable();
             $table->text('accesorios')->nullable();

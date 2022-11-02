@@ -36,6 +36,10 @@ class Claim extends Model
         return $this->belongsTo('App\Model\ServiceOrderType');
     }
 
+    function resolucion() {
+        return $this->belongsTo('App\Model\Resolution');
+    }
+
     function estados() {
         return $this->belongsToMany('App\Model\Status');
     }

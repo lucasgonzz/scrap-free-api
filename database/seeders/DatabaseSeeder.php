@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(StatusSeeder::class);
         $this->call(DeprecationSeeder::class);
         $this->call(BusinessUnitSeeder::class);
+        $this->call(ResolutionSeeder::class);
     }
 }
