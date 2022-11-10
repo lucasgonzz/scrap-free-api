@@ -186,10 +186,7 @@ class CreateClaimsTable extends Migration
             $table->text('nota_domicilio')->nullable();
             $table->string('codigo_postal')->nullable();
             $table->text('accesorios')->nullable();
-
-            // La columna "quien_embala" hace referencia al transporte como la columna "Transporte"? Esto habilitaria que se pueda seleccionar dentro de los transportistas ingresados en el sistema. 
-            $table->text('quien_embala')->nullable();
-
+            $table->booelan('embala_transportista')->nullable()->default(0);
             $table->timestamp('fecha_alta_retiro')->nullable();
             $table->timestamp('fecha_agenda_retiro')->nullable();
             $table->timestamp('fecha_agenda_entrega')->nullable();

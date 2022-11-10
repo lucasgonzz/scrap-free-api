@@ -24,6 +24,9 @@ class ResolutionSeeder extends Seeder
             [
                 'name' => 'Desistio',
             ],
+            [
+                'name' => 'Otros',
+            ],
         ];
         foreach ($models as $model) {
             Resolution::create([
