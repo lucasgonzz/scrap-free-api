@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInsurerManagersTable extends Migration
+class CreateClaimStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateInsurerManagersTable extends Migration
      */
     public function up()
     {
-        Schema::create('insurer_managers', function (Blueprint $table) {
+        Schema::create('claim_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nombre');
+            $table->string('codigo')->nullable();
+            $table->text('descripcion')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateInsurerManagersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('insurer_managers');
+        Schema::dropIfExists('claim_statuses');
     }
 }

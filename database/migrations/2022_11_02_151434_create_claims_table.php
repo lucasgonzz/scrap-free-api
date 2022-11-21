@@ -43,7 +43,7 @@ class CreateClaimsTable extends Migration
             | Se llama mediante el metodo "producto" definido en la clase "App\Models\Claim"
             |
             */
-            $table->foreignId('product_id')->nullable()->constrained();
+            // $table->foreignId('product_id')->nullable()->constrained();
             // Deducibles 
             $table->decimal('cobertura_1', 12,2)->nullable();
             $table->decimal('deducible_1', 12,2)->nullable();
@@ -61,7 +61,7 @@ class CreateClaimsTable extends Migration
             | Se llama mediante el metodo "causa" definido en la clase "App\Models\Claim"
             |
             */
-            $table->foreignId('cause_id')->nullable()->constrained();
+            // $table->foreignId('cause_id')->nullable()->constrained();
             /*
             |--------------------------------------------------------------------------
             | scrap_free_manager_id
@@ -72,7 +72,7 @@ class CreateClaimsTable extends Migration
             | Se llama mediante el metodo "gestor_scrap_free" definido en la clase "App\Models\Claim"
             |
             */
-            $table->foreignId('scrap_free_manager_id')->nullable()->constrained();
+            // $table->foreignId('scrap_free_manager_id')->nullable()->constrained();
             /*
             |--------------------------------------------------------------------------
             | insurer_manager_id
@@ -83,7 +83,7 @@ class CreateClaimsTable extends Migration
             | Se llama mediante el metodo "gestor_aseguradora" definido en la clase "App\Models\Claim"
             |
             */
-            $table->foreignId('insurer_manager_id')->nullable()->constrained();
+            // $table->foreignId('insurer_manager_id')->nullable()->constrained();
             $table->string('titular_poliza')->nullable();
             $table->enum('tipo_documento', ['DNI', 'CI', 'LE'])->nullable();
             $table->string('nro_documento')->nullable();
@@ -112,7 +112,7 @@ class CreateClaimsTable extends Migration
             | Se llama mediante el metodo "tipo_orden_servicio" definido en la clase "App\Models\Claim"
             |
             */
-            $table->foreignId('service_order_type_id')->nullable()->constrained();
+            // $table->foreignId('service_order_type_id')->nullable()->constrained();
             /*
             |--------------------------------------------------------------------------
             | resolution_id

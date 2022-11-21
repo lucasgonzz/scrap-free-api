@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(InsurerSeeder::class);
-        $this->call(ProductSeeder::class);
         $this->call(CauseSeeder::class);
         $this->call(ServiceOrderTypeSeeder::class);
-        $this->call(StatusSeeder::class);
+        $this->call(ClaimStatusSeeder::class);
+        $this->call(AssetStatusSeeder::class);
         $this->call(DeprecationSeeder::class);
         $this->call(BusinessUnitSeeder::class);
         $this->call(ResolutionSeeder::class);

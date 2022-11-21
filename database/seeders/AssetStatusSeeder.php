@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Insurer;
+use App\Models\AssetStatus;
 use Illuminate\Database\Seeder;
 
-class InsurerSeeder extends Seeder
+class AssetStatusSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,14 +16,17 @@ class InsurerSeeder extends Seeder
     {
         $models = [
             [
-                'nombre' => 'Sancor',
+                'nombre' => 'Aprobado',
             ],
             [
-                'nombre' => 'MetLife',
+                'nombre' => 'Rechazado',
+            ],
+            [
+                'nombre' => 'Pendiente IT',
             ],
         ];
         foreach ($models as $model) {
-            Insurer::create([
+            AssetStatus::create([
                 'nombre' => $model['nombre'],
             ]);
         }

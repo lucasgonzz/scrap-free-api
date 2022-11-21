@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScrapFreeManagersTable extends Migration
+class CreateSecuredsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,15 @@ class CreateScrapFreeManagersTable extends Migration
      */
     public function up()
     {
-        Schema::create('scrap_free_managers', function (Blueprint $table) {
+        Schema::create('secureds', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('phone');
+            $table->string('alternative_phone');
+            $table->string('email');
+            $table->text('address');
+            $table->text('address_notes');
+            $table->text('notes');
             $table->timestamps();
         });
     }
@@ -27,6 +33,6 @@ class CreateScrapFreeManagersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scrap_free_managers');
+        Schema::dropIfExists('secureds');
     }
 }
