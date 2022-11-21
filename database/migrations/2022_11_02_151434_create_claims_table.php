@@ -186,7 +186,7 @@ class CreateClaimsTable extends Migration
             $table->text('nota_domicilio')->nullable();
             $table->string('codigo_postal')->nullable();
             $table->text('accesorios')->nullable();
-            $table->booelan('embala_transportista')->nullable()->default(0);
+            $table->boolean('embala_transportista')->nullable()->default(0);
             $table->timestamp('fecha_alta_retiro')->nullable();
             $table->timestamp('fecha_agenda_retiro')->nullable();
             $table->timestamp('fecha_agenda_entrega')->nullable();
