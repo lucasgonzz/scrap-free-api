@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Insurer extends Model
+class AuditLog extends Model
 {
     protected $guarded = [];
 
-    function coverages() {
-        return $this->belongsToMany('App\Models\Coverage');
+    function sinister() {
+        return $this->belongsTo('App\Models\Sinister');
     }
 }

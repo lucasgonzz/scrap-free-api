@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransportsTable extends Migration
+class CreateAssetSinisterCausesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateTransportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transports', function (Blueprint $table) {
+        Schema::create('asset_sinister_causes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('codigo')->nullable();
-            $table->string('email')->nullable();
-            $table->string('telefono')->nullable();
-            $table->text('notas')->nullable();
+            $table->text('descripcion_corta')->nullable();
+            $table->text('descripcion_larga')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateTransportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transports');
+        Schema::dropIfExists('asset_sinister_causes');
     }
 }

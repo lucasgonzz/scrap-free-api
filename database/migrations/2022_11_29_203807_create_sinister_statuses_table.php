@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssetClaimCausesTable extends Migration
+class CreateSinisterStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateAssetClaimCausesTable extends Migration
      */
     public function up()
     {
-        Schema::create('asset_claim_causes', function (Blueprint $table) {
+        Schema::create('sinister_statuses', function (Blueprint $table) {
             $table->id();
-            $table->text('descripcion_corta')->nullable();
-            $table->text('descripcion_larga')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateAssetClaimCausesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asset_claim_causes');
+        Schema::dropIfExists('sinister_statuses');
     }
 }

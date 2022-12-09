@@ -221,10 +221,11 @@ class BusinessUnitSeeder extends Seeder
         ];
         for ($i=0; $i < count($names); $i++) { 
             BusinessUnit::create([
-                'name'      => $names[$i],
-                'email'     => $emails[$i],
-                'address'   => $addresses[$i],
-                'phone'     => $phones[$i],
+                'nombre'                => $names[$i],
+                'email'                 => $emails[$i],
+                'domicilio'             => $addresses[$i],
+                'telefono_conmutador'   => $phones[$i],
+                'insurer_id'            => 1,
             ]);
         }
     }

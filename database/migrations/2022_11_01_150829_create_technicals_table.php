@@ -16,6 +16,10 @@ class CreateTechnicalsTable extends Migration
         Schema::create('technicals', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('domicilio')->nullable();
+            $table->text('notas')->nullable();
+            $table->string('telefono_celular')->nullable();
+            $table->string('telefono_fijo')->nullable();
             $table->timestamps();
         });
     }

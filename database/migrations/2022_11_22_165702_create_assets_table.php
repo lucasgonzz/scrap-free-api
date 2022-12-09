@@ -16,7 +16,7 @@ class CreateAssetsTable extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->foreignId('asset_claim_cause_id')->constrained()->nullable();
+            $table->foreignId('asset_sinister_cause_id')->constrained()->nullable();
             $table->foreignId('asset_status_id')->constrained()->nullable();
             $table->foreignId('line_id')->constrained()->nullable();
             $table->foreignId('sub_line_id')->constrained()->nullable();

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessUnit extends Model
 {
     protected $guarded = [];
+
+    function insurer() {
+        return $this->belongsTo('App\Model\Insurer');
+    }
 }

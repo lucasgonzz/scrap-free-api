@@ -15,11 +15,13 @@ class CreateBusinessUnitsTable extends Migration
     {
         Schema::create('business_units', function (Blueprint $table) {
             $table->id();
-            $table->text('name');
+            $table->text('nombre');
+            $table->foreignId('insurer_id')->constrained()->nullable();
             $table->text('email')->nullable();
-            $table->text('business_inut')->nullable();
-            $table->text('address')->nullable();
-            $table->text('phone')->nullable();
+            $table->text('domicilio')->nullable();
+            $table->text('notas')->nullable();
+            $table->text('responsable')->nullable();
+            $table->text('telefono_conmutador')->nullable();
             $table->timestamps();
         });
     }

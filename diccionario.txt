@@ -1,0 +1,14 @@
+Asegurado:   Secured
+Aseguradora: Insurer
+Bien: Asset
+Causa:
+Cobertura: Coverage
+Estado Bien: Asset Status
+Esatdo siniestro: Claim Status
+Gestor: Manager
+Honorarios liquidacion: settlement fee
+Informe tecnico: Technical Report
+Linea: Line
+Logistica: Logistic
+Tipo de producto asegurado (usado en las polizas): Secured Product Type
+Siniestro: Sinister

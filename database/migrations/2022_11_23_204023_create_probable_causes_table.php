@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClaimClaimStatusTable extends Migration
+class CreateProbableCausesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateClaimClaimStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('claim_claim_status', function (Blueprint $table) {
+        Schema::create('probable_causes', function (Blueprint $table) {
             $table->id();
-            $table->integer('claim_id')->unsigned();
-            $table->integer('claim_status_id')->unsigned();
+            $table->text('descripcion_corta')->nullable();
+            $table->text('descripcion_larga')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateClaimClaimStatusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('claim_claim_status');
+        Schema::dropIfExists('probable_causes');
     }
 }

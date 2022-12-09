@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCausesTable extends Migration
+class CreatePoliciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateCausesTable extends Migration
      */
     public function up()
     {
-        Schema::create('causes', function (Blueprint $table) {
+        Schema::create('policies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->integer('num')->nullable();
+            $table->unsignedBigInteger('secured_id')->constrained()->nullable();
+            $table->unsignedBigInteger('secured_product_type_id')->constrained()->nullable();
+            $table->text('ramo')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateCausesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('causes');
+        Schema::dropIfExists('policies');
     }
 }
