@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\MODEL_NAME;
+use Illuminate\Http\Request;
+
+class MODEL_NAMEController extends Controller
+{
+   
+    public function index() {
+        $models = MODEL_NAME::where('user_id', $this->userId())
+                            ->orderBy('created_at', 'DESC')
+                            ->withAll()
+                            ->get();
+        return response()->json(['models' => $models], 200);
+    }
+
+    // FROM DATES
+    public function index($from_date, $until_date = null) {
+        $models = MODEL_NAME::where('user_id', $this->userId())
+                        ->orderBy('created_at', 'DESC')
+                        ->withAll();
+        if (!is_null($until_date)) {
+            $models = $models->whereDate('created_at', '>=', $from_date)
+                            ->whereDate('created_at', '<=', $until_date);
+        } else {
+            $models = $models->whereDate('created_at', $from_date);
+        }
+
+        $models = $models->get();
+        return response()->json(['models' => $models], 200);
+    }
+
+    public function store(Request $request) {
+        $model = MODEL_NAME::create([
+            'num'                   => $this->num('MODEL_NAME'),
+            'name'                  => $request->name,
+            'user_id'               => $this->userId(),
+        ]);
+        return response()->json(['model' => $this->fullModel('MODEL_NAME', $model->id)], 201);
+    }  
+
+    public function update(Request $request, $id) {
+        $model = MODEL_NAME::find($id);
+        $model->name                = $request->name;
+        $model->save();
+        return response()->json(['model' => $this->fullModel('MODEL_NAME', $model->id)], 200);
+    }
+
+    public function destroy($id) {
+        $model = MODEL_NAME::find($id);
+        $model->delete();
+        return response(null, 200);
+    }
+}
