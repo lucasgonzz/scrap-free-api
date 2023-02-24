@@ -54,7 +54,7 @@ class GeneralHelper {
             $_pivot_values = [];
             if (!is_null($pivot_values)) {
                 foreach ($pivot_values as $pivot_value) {
-                    $_pivot_values[$pivot_value] = $relation_model['pivot'][$pivot_value];
+                    $_pivot_values[$pivot_value] = Self::getPivotValue($relation_model, $pivot_value);
                 }
             }
             $model->{$relation_name}()->attach($relation_model['id'], $_pivot_values);

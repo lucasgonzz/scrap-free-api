@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PermissionSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(TipoDocumentoSeeder::class);
         $this->call(AseguradoraSeeder::class);
         $this->call(AseguradoSeeder::class);
         $this->call(RamoSeeder::class);
@@ -37,6 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GestorScrapFreeSeeder::class);
         $this->call(GestorAseguradoraSeeder::class);
         $this->call(TransportistaSeeder::class);
+        $this->call(CentroReparacionSeeder::class);
         $this->call(SiniestroSeeder::class);
     }
 }

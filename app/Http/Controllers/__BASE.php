@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MODEL_NAMEController extends Controller
 {
-   
+
     public function index() {
         $models = MODEL_NAME::where('user_id', $this->userId())
                             ->orderBy('created_at', 'DESC')
@@ -38,6 +38,7 @@ class MODEL_NAMEController extends Controller
             'name'                  => $request->name,
             'user_id'               => $this->userId(),
         ]);
+        $this->sendAddModelNotification('MODEL_NAME', $model->id);
         return response()->json(['model' => $this->fullModel('MODEL_NAME', $model->id)], 201);
     }  
 
@@ -45,12 +46,13 @@ class MODEL_NAMEController extends Controller
         $model = MODEL_NAME::find($id);
         $model->name                = $request->name;
         $model->save();
+        $this->sendAddModelNotification('MODEL_NAME', $model->id);
         return response()->json(['model' => $this->fullModel('MODEL_NAME', $model->id)], 200);
     }
 
     public function destroy($id) {
         $model = MODEL_NAME::find($id);
         $model->delete();
-        return response(null, 200);
+        return response(null);
     }
 }

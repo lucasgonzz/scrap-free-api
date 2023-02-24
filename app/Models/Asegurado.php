@@ -10,10 +10,14 @@ class Asegurado extends Model
     protected $guarded = [];
 
     function scopeWithAll($q) {
-        $q->with('aseguradoras');        
+        $q->with('aseguradoras', 'polizas');        
     } 
 
     function aseguradoras() {
         return $this->belongsToMany('App\Models\Aseguradora');
+    }
+
+    function polizas() {
+        return $this->hasMany('App\Models\Poliza');
     }
 }

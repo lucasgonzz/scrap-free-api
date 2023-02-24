@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 class ImageController extends Controller
 {
     function setImage(Request $request, $prop_name) {
-        Log::info('prop_name: '.$prop_name);
         $model_name = GeneralHelper::getModelName($request->model_name);
         
         $name = Storage::disk('public')->put('', $request->image_url);
@@ -43,7 +42,10 @@ class ImageController extends Controller
         $model_name = GeneralHelper::getModelName($_model_name);
         $model = $model_name::find($id);
         if (!is_null($model->{$prop_name})) {
-            Storage::disk('public')->delete($model->{$prop_name});
+            $storage_name = explode('/', $model->{$prop_name});
+            $storage_name = $storage_name[count($storage_name)-1];
+            Log::info('Por borrar: '.$storage_name);
+            Storage::disk('public')->delete($storage_name);
         }
         $model->{$prop_name} = null;
         $model->save();

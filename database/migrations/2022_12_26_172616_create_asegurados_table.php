@@ -17,6 +17,9 @@ class CreateAseguradosTable extends Migration
             $table->id();
             $table->integer('num');
             $table->string('nombre');
+            $table->string('numero_asociado')->nullable();
+            $table->string('tipo_documento_id')->nullable();
+            $table->string('numero_documento')->nullable();
             $table->string('telefono')->nullable();
             $table->string('telefono_alternativo')->nullable();
             $table->string('email')->nullable();

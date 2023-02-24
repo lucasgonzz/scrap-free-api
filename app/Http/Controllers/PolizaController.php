@@ -22,6 +22,7 @@ class PolizaController extends Controller
         $model = Poliza::create([
             'num'                           => $this->num('polizas'),
             'asegurado_id'                  => $request->asegurado_id,
+            'numero_poliza'                 => $request->numero_poliza,
             'tipo_producto_de_seguro_id'    => $request->tipo_producto_de_seguro_id,
             'ramo_id'                       => $request->ramo_id,
             'user_id'                       => $this->userId(),
@@ -34,6 +35,7 @@ class PolizaController extends Controller
     public function update(Request $request, $id) {
         $model = Poliza::find($id);
         $model->asegurado_id                    = $request->asegurado_id;
+        $model->numero_poliza                   = $request->numero_poliza;
         $model->tipo_producto_de_seguro_id      = $request->tipo_producto_de_seguro_id;
         $model->ramo_id                         = $request->ramo_id;
         $model->save();

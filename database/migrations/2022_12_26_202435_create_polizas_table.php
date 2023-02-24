@@ -17,6 +17,7 @@ class CreatePolizasTable extends Migration
             $table->id();
             $table->integer('num')->nullable();
             $table->foreignId('asegurado_id')->nullable()->constrained();
+            $table->string('numero_poliza')->nullable();
             $table->foreignId('tipo_producto_de_seguro_id')->nullable()->constrained();
             $table->foreignId('ramo_id')->nullable()->constrained();
             $table->foreignId('user_id')->constrained();

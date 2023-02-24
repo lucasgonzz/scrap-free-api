@@ -20,6 +20,7 @@ class LocalidadController extends Controller
         $model = Localidad::create([
             'num'                   => $this->num('localidads'),
             'nombre'                => $request->nombre,
+            'codigo_postal'         => $request->codigo_postal,
             'provincia_id'          => $request->provincia_id,
             'user_id'               => $this->userId(),
         ]);
@@ -29,6 +30,7 @@ class LocalidadController extends Controller
     public function update(Request $request, $id) {
         $model = Localidad::find($id);
         $model->nombre                = $request->nombre;
+        $model->codigo_postal         = $request->codigo_postal;
         $model->provincia_id          = $request->provincia_id;
         $model->save();
         return response()->json(['model' => $this->fullModel('Localidad', $model->id)], 200);

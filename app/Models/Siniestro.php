@@ -11,7 +11,7 @@ class Siniestro extends Model
     protected $guarded = [];
 
     function scopeWithAll($query) {
-        $query->with('aseguradora', 'asegurado', 'bienes', 'causa_siniestro', 'estado_general_siniestro', 'estado_siniestro', 'estado_siniestros', 'provincia', 'localidad', 'tipo_orden_de_servicio', 'gestor_scrap_free', 'gestor_aseguradora', 'logisticas.bienes', 'logisticas.transportista_devolucion', 'logisticas.transportista_retiro');
+        $query->with('aseguradora', 'asegurado.polizas.coberturas', 'asegurado.aseguradoras', 'bienes', 'causa_siniestro', 'estado_general_siniestro', 'estado_siniestro', 'estado_siniestros', 'provincia', 'localidad', 'tipo_orden_de_servicio', 'gestor_scrap_free', 'gestor_aseguradora', 'logisticas.bienes', 'logisticas.transportista_devolucion', 'logisticas.transportista_retiro', 'centro_reparacion', 'poliza.coberturas');
     }
 
     function aseguradora() {
@@ -64,5 +64,13 @@ class Siniestro extends Model
 
     function logisticas() {
         return $this->hasMany('App\Models\Logistica');
+    }
+
+    function centro_reparacion() {
+        return $this->belongsTo('App\Models\CentroReparacion');
+    }
+
+    function poliza() {
+        return $this->belongsTo('App\Models\Poliza');
     }
 }

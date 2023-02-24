@@ -30,6 +30,7 @@ class SiniestroSeeder extends Seeder
                 'tipo_orden_de_servicio_id'     => 1,
                 'gestor_scrap_free_id'          => 1,
                 'gestor_aseguradora_id'         => 1,
+                'centro_reparacion_id'          => 1,
                 'user_id'                       => 1,
             ],
             [
@@ -42,6 +43,7 @@ class SiniestroSeeder extends Seeder
                 'tipo_orden_de_servicio_id'     => 2,
                 'gestor_scrap_free_id'          => 1,
                 'gestor_aseguradora_id'         => 1,
+                'centro_reparacion_id'          => 2,
                 'user_id'                       => 1,
             ],
             [
@@ -54,6 +56,7 @@ class SiniestroSeeder extends Seeder
                 'tipo_orden_de_servicio_id'     => 2,
                 'gestor_scrap_free_id'          => 1,
                 'gestor_aseguradora_id'         => 1,
+                'centro_reparacion_id'          => 1,
                 'user_id'                       => 1,
             ],
         ];
@@ -147,6 +150,7 @@ class SiniestroSeeder extends Seeder
             ],
         ];
 
+        // $estados_siniestro = EstadoSiniestro::where('id', 1)->get();
         $estados_siniestro = EstadoSiniestro::all();
         $ct = new Controller();
         $hours = count($estados_siniestro) * count($siniestros);

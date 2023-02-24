@@ -18,6 +18,8 @@ class AseguradoSeeder extends Seeder
             [
                 'num'                       => 1,
                 'nombre'                    => 'Lucas',
+                'tipo_documento_id'         => 1,
+                'numero_documento'          => '234321432',
                 'telefono'                  => '244434233',
                 'telefono_alternativo'      => '4234324324',
                 'email'                     => 'lucasgonzalez5500@gmail.com',

@@ -13,7 +13,7 @@ class SiniestroController extends Controller
         $models = Siniestro::where('user_id', $this->userId())
                             ->orderBy('created_at', 'DESC')
                             ->withAll()
-                            ->get();
+                            ->paginate(25);
         return response()->json(['models' => $models], 200);
     }
 
@@ -24,6 +24,7 @@ class SiniestroController extends Controller
             'asegurado_id'                  => $request->asegurado_id,
             'causa_siniestro_id'            => $request->causa_siniestro_id,
             'estado_siniestro_id'           => $request->estado_siniestro_id,
+            'estado_general_siniestro_id'   => $request->estado_general_siniestro_id,
             'localidad_id'                  => $request->localidad_id,
             'provincia_id'                  => $request->provincia_id,
             'tipo_orden_de_servicio_id'     => $request->tipo_orden_de_servicio_id,
@@ -51,6 +52,8 @@ class SiniestroController extends Controller
             'reparacion_paga_asegurado'     => $request->reparacion_paga_asegurado,
             'reparacion_siniestro'          => $request->reparacion_siniestro,
             'numero_siniestro'              => $request->numero_siniestro,
+            'poliza_id'                     => $request->poliza_id,
+            'centro_reparacion_id'          => $request->centro_reparacion_id,
             'user_id'                       => $this->userId(),
         ]);
         SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id, true);
@@ -64,6 +67,7 @@ class SiniestroController extends Controller
         $model->asegurado_id                  = $request->asegurado_id;
         $model->causa_siniestro_id            = $request->causa_siniestro_id;
         $model->estado_siniestro_id           = $request->estado_siniestro_id;
+        $model->estado_general_siniestro_id   = $request->estado_general_siniestro_id;
         $model->localidad_id                  = $request->localidad_id;
         $model->provincia_id                  = $request->provincia_id;
         $model->tipo_orden_de_servicio_id     = $request->tipo_orden_de_servicio_id;
@@ -91,6 +95,8 @@ class SiniestroController extends Controller
         $model->reparacion_paga_asegurado     = $request->reparacion_paga_asegurado;
         $model->reparacion_siniestro          = $request->reparacion_siniestro;
         $model->numero_siniestro              = $request->numero_siniestro;
+        $model->poliza_id                     = $request->poliza_id;
+        $model->centro_reparacion_id          = $request->centro_reparacion_id;
         $model->save();
         return response()->json(['model' => $this->fullModel('Siniestro', $model->id)], 200);
     }

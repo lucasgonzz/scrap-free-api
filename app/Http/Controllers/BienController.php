@@ -21,12 +21,13 @@ class BienController extends Controller
             'num'                                   => $this->num('biens'),
             'nombre'                                => $request->nombre,
             'estado_bien_id'                        => $request->estado_bien_id,
+            'causa_bien_id'                         => $request->causa_bien_id,
             'linea_id'                              => $request->linea_id,
             'sub_linea_id'                          => $request->sub_linea_id,
             'tecnico_asegurado_id'                  => $request->tecnico_asegurado_id,
             'tecnico_scrap_free_id'                 => $request->tecnico_scrap_free_id,
             'logistica_id'                          => $request->logistica_id,
-            'siniestro_id'                          => $request->siniestro_id,
+            'siniestro_id'                          => $request->model_id,
             'accesorios'                            => $request->accesorios,
             'tiene_base'                            => $request->tiene_base,
             'tiene_cable'                           => $request->tiene_cable,
@@ -66,6 +67,7 @@ class BienController extends Controller
         $model = Bien::find($id);
         $model->nombre                                = $request->nombre;
         $model->estado_bien_id                        = $request->estado_bien_id;
+        $model->causa_bien_id                         = $request->causa_bien_id;
         $model->linea_id                              = $request->linea_id;
         $model->sub_linea_id                          = $request->sub_linea_id;
         $model->tecnico_asegurado_id                  = $request->tecnico_asegurado_id;
