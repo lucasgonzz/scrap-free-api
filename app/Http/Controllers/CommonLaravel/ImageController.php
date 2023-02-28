@@ -42,10 +42,10 @@ class ImageController extends Controller
         $model_name = GeneralHelper::getModelName($_model_name);
         $model = $model_name::find($id);
         if (!is_null($model->{$prop_name})) {
-            $storage_name = explode('/', $model->{$prop_name});
-            $storage_name = $storage_name[count($storage_name)-1];
-            Log::info('Por borrar: '.$storage_name);
-            Storage::disk('public')->delete($storage_name);
+            Self::deleteImage($model->{$prop_name});
+            // $storage_name = explode('/', $model->{$prop_name});
+            // $storage_name = $storage_name[count($storage_name)-1];
+            // Storage::disk('public')->delete($storage_name);
         }
         $model->{$prop_name} = null;
         $model->save();
@@ -57,5 +57,19 @@ class ImageController extends Controller
         Storage::disk('public')->delete($image->image_url);
         $image->delete();
         return response()->json(['model' => $this->fullModel($model_name, $model_id)], 200);
+    }
+
+    static function deleteModelImages($model) {
+        foreach ($model->getAttributes() as $prop => $_prop) {
+            if (substr($prop, 0, 4) == 'foto' || substr($model->{$prop}, 0, 5) == 'image') {
+                Self::deleteImage($model->{$prop});
+            }
+        }
+    }
+
+    static function deleteImage($prop_value) {
+        $storage_name = explode('/', $prop_value);
+        $storage_name = $storage_name[count($storage_name)-1];
+        Storage::disk('public')->delete($storage_name);
     }
 }

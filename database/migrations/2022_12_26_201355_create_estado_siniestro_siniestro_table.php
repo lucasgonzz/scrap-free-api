@@ -15,8 +15,9 @@ class CreateEstadoSiniestroSiniestroTable extends Migration
     {
         Schema::create('estado_siniestro_siniestro', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('estado_siniestro_id')->nullable()->constrained();
-            $table->foreignId('siniestro_id')->nullable()->constrained();
+            $table->integer('estado_siniestro_id')->nullable();
+            $table->integer('siniestro_id')->nullable();
+            $table->integer('dias_en_estado_siniestro')->nullable();
             $table->timestamps();
         });
     }

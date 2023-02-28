@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\CommonLaravel\Helpers\GeneralHelper;
 use App\Models\User;
+use App\Notifications\AddedModel;
+use App\Notifications\DeletedModel;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -35,6 +37,14 @@ class Controller extends BaseController
 
     function user() {
         return User::find($this->userId());
+    }
+
+    function sendAddModelNotification($model_name, $model_id) {
+        Auth()->user()->notify(new AddedModel($model_name, $model_id));
+    }
+
+    function sendDeleteModelNotification($model_name, $model_id) {
+        Auth()->user()->notify(new DeletedModel($model_name, $model_id));
     }
 
     function getModelBy($table, $prop_name, $prop_value, $from_user = false, $prop_to_return = null, $return_0 = false) {

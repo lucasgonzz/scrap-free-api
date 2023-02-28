@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\CommonLaravel\ImageController;
 use App\Models\MODEL_NAME;
 use Illuminate\Http\Request;
 
@@ -42,6 +43,10 @@ class MODEL_NAMEController extends Controller
         return response()->json(['model' => $this->fullModel('MODEL_NAME', $model->id)], 201);
     }  
 
+    public function show($id) {
+        return response()->json(['model' => $this->fullModel('MODEL_NAME', $id)], 200);
+    }
+
     public function update(Request $request, $id) {
         $model = MODEL_NAME::find($id);
         $model->name                = $request->name;
@@ -53,6 +58,8 @@ class MODEL_NAMEController extends Controller
     public function destroy($id) {
         $model = MODEL_NAME::find($id);
         $model->delete();
+        ImageController::deleteModelImages($model);
+        $this->sendDeleteModelNotification('MODEL_NAME', $model->id);
         return response(null);
     }
 }

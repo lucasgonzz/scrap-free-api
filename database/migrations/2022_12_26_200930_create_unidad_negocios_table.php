@@ -17,7 +17,7 @@ class CreateUnidadNegociosTable extends Migration
             $table->id();
             $table->integer('num');
             $table->text('nombre');
-            $table->foreignId('aseguradora_id')->nullable()->constrained();
+            $table->integer('aseguradora_id')->nullable();
             $table->text('email')->nullable();
             $table->text('domicilio')->nullable();
             $table->text('notas')->nullable();

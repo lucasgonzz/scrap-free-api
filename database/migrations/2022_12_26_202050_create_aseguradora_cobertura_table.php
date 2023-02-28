@@ -15,8 +15,8 @@ class CreateAseguradoraCoberturaTable extends Migration
     {
         Schema::create('aseguradora_cobertura', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('aseguradora_id')->constrained();
-            $table->foreignId('cobertura_id')->constrained();
+            $table->integer('aseguradora_id');
+            $table->integer('cobertura_id');
             $table->timestamps();
         });
     }

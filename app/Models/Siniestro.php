@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Siniestro extends Model
 {
@@ -13,6 +15,26 @@ class Siniestro extends Model
     function scopeWithAll($query) {
         $query->with('aseguradora', 'asegurado.polizas.coberturas', 'asegurado.aseguradoras', 'bienes', 'causa_siniestro', 'estado_general_siniestro', 'estado_siniestro', 'estado_siniestros', 'provincia', 'localidad', 'tipo_orden_de_servicio', 'gestor_scrap_free', 'gestor_aseguradora', 'logisticas.bienes', 'logisticas.transportista_devolucion', 'logisticas.transportista_retiro', 'centro_reparacion', 'poliza.coberturas');
     }
+
+    function getDiasEnEstadoSiniestroAttribute() {
+        if (!is_null($this->estado_siniestro)) {
+            if (count($this->estado_siniestros) == 1) {
+                // Log::info('created_at del estado '.$this->estado_siniestros[0]->nombre.': '.$this->estado_siniestros[0]->pivot->created_at);
+                return $this->estado_siniestros[0]->pivot->created_at->diffInDays(Carbon::now());
+            } 
+            return $this->estado_siniestros[count($this->estado_siniestros)-1]->pivot->created_at->diffInDays(Carbon::now());
+        }
+        return '-';
+    }
+
+    // function getEstadoSiniestrosAttribute() {
+    //     if (!is_null($this->estado_siniestro)) {
+    //         Log::info('aca '.count($this->estado_siniestros));
+    //         if (count($this->estado_siniestros) >= 1) {
+    //             return $this->estado_siniestros[count($this->estado_siniestros)-1]->pivot->dias_en_estado_siniestro = $this->dias_en_estado_siniestro;
+    //         }
+    //     }
+    // }
 
     function aseguradora() {
         return $this->belongsTo('App\Models\Aseguradora');
@@ -39,7 +61,7 @@ class Siniestro extends Model
     }
 
     function estado_siniestros() {
-        return $this->belongsToMany('App\Models\EstadoSiniestro')->withTimestamps();
+        return $this->belongsToMany('App\Models\EstadoSiniestro')->withPivot('dias_en_estado_siniestro')->withTimestamps();
     }
 
     function provincia() {

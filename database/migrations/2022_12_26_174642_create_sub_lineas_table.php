@@ -17,7 +17,7 @@ class CreateSubLineasTable extends Migration
             $table->id();
             $table->integer('num');
             $table->string('nombre');
-            $table->foreignId('linea_id')->constrained();
+            $table->integer('linea_id');
             $table->integer('user_id');
             $table->timestamps();
         });

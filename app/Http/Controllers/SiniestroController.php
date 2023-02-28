@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\CommonLaravel\ImageController;
 use App\Http\Controllers\Helpers\SiniestroHelper;
 use App\Models\Siniestro;
 use Illuminate\Http\Request;
@@ -57,8 +58,13 @@ class SiniestroController extends Controller
             'user_id'                       => $this->userId(),
         ]);
         SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id, true);
+        $this->sendAddModelNotification('Siniestro', $model->id);
         return response()->json(['model' => $this->fullModel('Siniestro', $model->id)], 201);
     }  
+
+    public function show($id) {
+        return response()->json(['model' => $this->fullModel('Siniestro', $id)], 200);
+    }
 
     public function update(Request $request, $id) {
         $model = Siniestro::find($id);
@@ -98,11 +104,14 @@ class SiniestroController extends Controller
         $model->poliza_id                     = $request->poliza_id;
         $model->centro_reparacion_id          = $request->centro_reparacion_id;
         $model->save();
+        $this->sendAddModelNotification('Siniestro', $model->id);
         return response()->json(['model' => $this->fullModel('Siniestro', $model->id)], 200);
     }
 
     public function destroy($id) {
         $model = Siniestro::find($id);
+        ImageController::deleteModelImages($model);
+        $this->sendDeleteModelNotification('Siniestro', $model->id);
         $model->delete();
         return response(null);
     }

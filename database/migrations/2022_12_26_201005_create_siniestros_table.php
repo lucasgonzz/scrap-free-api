@@ -21,6 +21,7 @@ class CreateSiniestrosTable extends Migration
             $table->integer('causa_siniestro_id')->nullable();
             $table->integer('estado_general_siniestro_id')->nullable();
             $table->integer('estado_siniestro_id')->nullable();
+            $table->integer('dias_en_estado_siniestro')->nullable();
             $table->integer('localidad_id')->nullable();
             $table->integer('provincia_id')->nullable();
             $table->integer('tipo_orden_de_servicio_id')->nullable();
@@ -53,7 +54,6 @@ class CreateSiniestrosTable extends Migration
             $table->integer('centro_reparacion_id')->nullable();
             // $table->foreignId('centro_reparacion_id')->nullable()->constrained();
             $table->text('descripcion_del_hecho')->nullable();
-            $table->string('referencia')->nullable();
             $table->integer('poliza_id')->nullable();
             // $table->foreignId('poliza_id')->nullable()->constrained();
             $table->integer('tipo_producto_de_seguro_id')->nullable();

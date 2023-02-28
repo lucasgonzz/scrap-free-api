@@ -17,14 +17,14 @@ class CreateBiensTable extends Migration
             $table->id();
             $table->integer('num');
             $table->string('nombre');
-            $table->foreignId('causa_bien_id')->nullable()->constrained('causa_biens');
-            $table->foreignId('estado_bien_id')->nullable()->constrained('estado_biens');
-            $table->foreignId('linea_id')->nullable()->constrained();
-            $table->foreignId('sub_linea_id')->nullable()->constrained();
-            $table->foreignId('tecnico_asegurado_id')->constrained('tecnicos')->nullable();
-            $table->foreignId('tecnico_scrap_free_id')->constrained('tecnicos')->nullable();
-            $table->foreignId('logistica_id')->nullable()->constrained();
-            $table->foreignId('siniestro_id')->nullable()->constrained();
+            $table->integer('causa_bien_id')->nullable();
+            $table->integer('estado_bien_id')->nullable();
+            $table->integer('linea_id')->nullable();
+            $table->integer('sub_linea_id')->nullable();
+            $table->integer('tecnico_asegurado_id')->nullable();
+            $table->integer('tecnico_scrap_free_id')->nullable();
+            $table->integer('logistica_id')->nullable();
+            $table->integer('siniestro_id')->nullable();
 
             $table->text('accesorios')->nullable();
             $table->boolean('tiene_base')->nullable();

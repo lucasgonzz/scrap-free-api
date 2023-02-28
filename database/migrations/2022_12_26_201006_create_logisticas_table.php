@@ -16,9 +16,9 @@ class CreateLogisticasTable extends Migration
         Schema::create('logisticas', function (Blueprint $table) {
             $table->id();
             $table->integer('num');
-            $table->foreignId('siniestro_id')->constrained('siniestros');
-            $table->foreignId('transportista_devolucion_id')->nullable()->constrained('transportistas');
-            $table->foreignId('transportista_retiro_id')->nullable()->constrained('transportistas');
+            $table->integer('siniestro_id');
+            $table->integer('transportista_devolucion_id')->nullable();
+            $table->integer('transportista_retiro_id')->nullable();
             $table->decimal('costo_flete_devolucion', 14,2)->nullable();
             $table->decimal('costo_flete_ida', 14,2)->nullable();
             $table->timestamp('fecha_cobro_flete_ida')->nullable();

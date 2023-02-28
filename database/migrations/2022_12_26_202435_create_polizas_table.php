@@ -16,11 +16,14 @@ class CreatePolizasTable extends Migration
         Schema::create('polizas', function (Blueprint $table) {
             $table->id();
             $table->integer('num')->nullable();
-            $table->foreignId('asegurado_id')->nullable()->constrained();
+            $table->integer('asegurado_id')->nullable();
             $table->string('numero_poliza')->nullable();
-            $table->foreignId('tipo_producto_de_seguro_id')->nullable()->constrained();
-            $table->foreignId('ramo_id')->nullable()->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->integer('tipo_producto_de_seguro_id')->nullable();
+            $table->integer('ramo_id')->nullable();
+            $table->string('referencia')->nullable();
+            $table->string('numero_asociado')->nullable();
+            $table->string('cuit')->nullable();
+            $table->integer('user_id')->co;
             $table->timestamps();
         });
     }

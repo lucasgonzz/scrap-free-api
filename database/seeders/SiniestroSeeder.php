@@ -19,47 +19,70 @@ class SiniestroSeeder extends Seeder
      */
     public function run()
     {
-        $siniestros = [
-            [
-                'aseguradora_id'                => 1,
-                'causa_siniestro_id'            => 1,
-                'estado_general_siniestro_id'   => null,
-                'estado_siniestro_id'           => null,
-                'localidad_id'                  => 1,
-                'provincia_id'                  => 1,
-                'tipo_orden_de_servicio_id'     => 1,
-                'gestor_scrap_free_id'          => 1,
-                'gestor_aseguradora_id'         => 1,
-                'centro_reparacion_id'          => 1,
-                'user_id'                       => 1,
-            ],
-            [
-                'aseguradora_id'                => 2,
-                'causa_siniestro_id'            => 2,
-                'estado_general_siniestro_id'   => null,
-                'estado_siniestro_id'           => null,
-                'localidad_id'                  => 2,
-                'provincia_id'                  => 1,
-                'tipo_orden_de_servicio_id'     => 2,
-                'gestor_scrap_free_id'          => 1,
-                'gestor_aseguradora_id'         => 1,
-                'centro_reparacion_id'          => 2,
-                'user_id'                       => 1,
-            ],
-            [
-                'aseguradora_id'                => 2,
-                'causa_siniestro_id'            => 3,
-                'estado_general_siniestro_id'   => null,
-                'estado_siniestro_id'           => null,
-                'localidad_id'                  => 2,
-                'provincia_id'                  => 1,
-                'tipo_orden_de_servicio_id'     => 2,
-                'gestor_scrap_free_id'          => 1,
-                'gestor_aseguradora_id'         => 1,
-                'centro_reparacion_id'          => 1,
-                'user_id'                       => 1,
-            ],
-        ];
+        if (env('APP_ENV') == 'local') {
+            $siniestros = [
+                [
+                    'aseguradora_id'                => 1,
+                    'causa_siniestro_id'            => 1,
+                    'estado_general_siniestro_id'   => null,
+                    'estado_siniestro_id'           => null,
+                    'localidad_id'                  => 1,
+                    'provincia_id'                  => 1,
+                    'tipo_orden_de_servicio_id'     => 1,
+                    'gestor_scrap_free_id'          => 1,
+                    'gestor_aseguradora_id'         => 1,
+                    'centro_reparacion_id'          => 1,
+                    'foto_deposito_deducible'       => env('APP_URL').'/storage/factura_compra.jpg',
+                    'user_id'                       => 1,
+                ],
+            ];
+
+        } else {
+            $siniestros = [
+                [
+                    'aseguradora_id'                => 1,
+                    'causa_siniestro_id'            => 1,
+                    'estado_general_siniestro_id'   => null,
+                    'estado_siniestro_id'           => null,
+                    'localidad_id'                  => 1,
+                    'provincia_id'                  => 1,
+                    'tipo_orden_de_servicio_id'     => 1,
+                    'gestor_scrap_free_id'          => 1,
+                    'gestor_aseguradora_id'         => 1,
+                    'centro_reparacion_id'          => 1,
+                    'foto_deposito_deducible'       => env('APP_URL').'/storage/factura_compra.jpg',
+                    'user_id'                       => 1,
+                ],
+                [
+                    'aseguradora_id'                => 2,
+                    'causa_siniestro_id'            => 2,
+                    'estado_general_siniestro_id'   => null,
+                    'estado_siniestro_id'           => null,
+                    'localidad_id'                  => 2,
+                    'provincia_id'                  => 1,
+                    'tipo_orden_de_servicio_id'     => 2,
+                    'gestor_scrap_free_id'          => 1,
+                    'gestor_aseguradora_id'         => 1,
+                    'centro_reparacion_id'          => 2,
+                    'foto_deposito_deducible'       => env('APP_URL').'/storage/factura_compra.jpg',
+                    'user_id'                       => 1,
+                ],
+                [
+                    'aseguradora_id'                => 2,
+                    'causa_siniestro_id'            => 3,
+                    'estado_general_siniestro_id'   => null,
+                    'estado_siniestro_id'           => null,
+                    'localidad_id'                  => 2,
+                    'provincia_id'                  => 1,
+                    'tipo_orden_de_servicio_id'     => 2,
+                    'gestor_scrap_free_id'          => 1,
+                    'gestor_aseguradora_id'         => 1,
+                    'centro_reparacion_id'          => 1,
+                    'foto_deposito_deducible'       => env('APP_URL').'/storage/factura_compra.jpg',
+                    'user_id'                       => 1,
+                ],
+            ];
+        }
 
         $bienes = [
             [
@@ -150,8 +173,8 @@ class SiniestroSeeder extends Seeder
             ],
         ];
 
-        // $estados_siniestro = EstadoSiniestro::where('id', 1)->get();
-        $estados_siniestro = EstadoSiniestro::all();
+        $estados_siniestro = EstadoSiniestro::orderBy('id', 'ASC')->get();
+
         $ct = new Controller();
         $hours = count($estados_siniestro) * count($siniestros);
         foreach ($estados_siniestro as $estado_siniestro) {
@@ -162,7 +185,13 @@ class SiniestroSeeder extends Seeder
                 $siniestro = Siniestro::create($siniestro);
                 $siniestro->created_at = Carbon::now()->subHours($hours);
                 $siniestro->save();
-                SiniestroHelper::attachEstadoSiniestro($siniestro, $estado_siniestro->id, true);
+
+                $total_dias = $estado_siniestro->id;
+                $total_dias++;
+                for ($estado_siniestro_id=1; $estado_siniestro_id <= $estado_siniestro->id; $estado_siniestro_id++) { 
+                    SiniestroHelper::attachEstadoSiniestro($siniestro, $estado_siniestro_id, true, Carbon::now()->subDays($total_dias - $estado_siniestro_id));
+                }
+
                 $hours--;
                 foreach ($bienes as $bien) {
                     $bien['num'] = $ct->num('biens');

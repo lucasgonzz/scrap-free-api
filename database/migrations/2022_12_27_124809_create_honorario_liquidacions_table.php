@@ -16,7 +16,7 @@ class CreateHonorarioLiquidacionsTable extends Migration
         Schema::create('honorario_liquidacions', function (Blueprint $table) {
             $table->id();
             $table->integer('num');
-            $table->foreignId('aseguradora_id')->nullable()->constrained();
+            $table->integer('aseguradora_id')->nullable();
             $table->timestamp('fecha_efectiva_honorarios_gestion')->nullable();
             $table->decimal('honorarios_gestion', 14,2)->nullable();
             $table->text('notas')->nullable();

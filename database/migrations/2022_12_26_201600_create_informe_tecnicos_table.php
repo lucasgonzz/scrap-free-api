@@ -15,10 +15,10 @@ class CreateInformeTecnicosTable extends Migration
     {
         Schema::create('informe_tecnicos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bien_id')->nullable()->constrained();
-            $table->foreignId('causa_probable_id')->nullable()->constrained();
-            $table->foreignId('siniestro_id')->nullable()->constrained();
-            $table->foreignId('tecnico_id')->nullable()->constrained();
+            $table->integer('bien_id')->nullable();
+            $table->integer('causa_probable_id')->nullable();
+            $table->integer('siniestro_id')->nullable();
+            $table->integer('tecnico_id')->nullable();
             $table->timestamps();
         });
     }

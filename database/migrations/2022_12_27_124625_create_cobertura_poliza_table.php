@@ -15,8 +15,8 @@ class CreateCoberturaPolizaTable extends Migration
     {
         Schema::create('cobertura_poliza', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cobertura_id')->constrained();
-            $table->foreignId('poliza_id')->constrained();
+            $table->integer('cobertura_id');
+            $table->integer('poliza_id');
             $table->decimal('deducible', 14,2)->nullable();
             $table->decimal('deducible_en_pesos', 14,2)->nullable();
             $table->decimal('monto_minimo', 14,2)->nullable();
