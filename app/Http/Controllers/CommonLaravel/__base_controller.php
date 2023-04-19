@@ -57,8 +57,8 @@ class MODEL_NAMEController extends Controller
 
     public function destroy($id) {
         $model = MODEL_NAME::find($id);
-        $model->delete();
         ImageController::deleteModelImages($model);
+        $model->delete();
         $this->sendDeleteModelNotification('MODEL_NAME', $model->id);
         return response(null);
     }

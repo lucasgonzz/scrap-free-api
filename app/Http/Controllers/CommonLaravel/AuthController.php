@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -31,6 +32,11 @@ class AuthController extends Controller
     public function logout(Request $request) {
         Auth::logout();
         return response(null, 200);
+    }
+
+    public function user() {
+        $user = UserHelper::getFullModel(false);
+        return response()->json(['user' => $user], 200);
     }
 
     public function loginLucas($request) {

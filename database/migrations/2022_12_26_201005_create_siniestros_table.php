@@ -33,6 +33,10 @@ class CreateSiniestrosTable extends Migration
             $table->string('denunciante')->nullable();
             $table->text('foto_deposito_deducible')->nullable();
             $table->text('domicilio_completo_google')->nullable();
+            $table->text('domicilio_completo_google_lat')->nullable();
+            $table->text('domicilio_completo_google_lng')->nullable();
+            $table->text('domicilio_completo_google_place_id')->nullable();
+            $table->text('descripcion_bien')->nullable();
             $table->text('entre_calles')->nullable();
             $table->timestamp('fecha_alta_scrap_free')->nullable();
             $table->timestamp('fecha_cierre_administrativo')->nullable();

@@ -34,6 +34,7 @@ class AddedModel extends Notification {
         return new BroadcastMessage([
             'model_name'    => $this->model_name,
             'model_id'      => $this->model_id,
+            'added_by'      => UserHelper::userId(false),
         ]);
     }
 }

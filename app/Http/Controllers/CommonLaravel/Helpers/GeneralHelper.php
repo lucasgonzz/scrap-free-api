@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\CommonLaravel\Helpers;
 
-use App\Article;
+use App\Models\Article;
 use App\Http\Controllers\CommonLaravel\Helpers\UserHelper;
 use App\Http\Controllers\Helpers\ArticleHelper;
 use Carbon\Carbon;
@@ -61,7 +61,7 @@ class GeneralHelper {
         }
     }
 
-    static function checkNewValuesForArticlesPrices($current_value, $new_value, $from_model_id = null, $model_id = null) {
+    static function checkNewValuesForArticlesPrices($instance, $current_value, $new_value, $from_model_id = null, $model_id = null) {
         if ($current_value != $new_value) {
             if (!is_null($from_model_id)) {
                 $articles = Article::where($from_model_id, $model_id)
@@ -72,6 +72,8 @@ class GeneralHelper {
             } else {
                 ArticleHelper::setArticlesFinalPrice();
             }
+            Log::info('entro a checkNewValuesForArticlesPrices');
+            $instance->sendUpdateModelsNotification('article', false);
         }
     }
 
@@ -89,14 +91,14 @@ class GeneralHelper {
     }
 
     static function getModelName($model_name) {
-        $model_name = 'App\Models\-'.ucfirst($model_name);
-        $model_name = str_replace('-', '', $model_name);
-        if (str_contains($model_name, '_')) {
+        $model_name = 'App\Models\!'.ucfirst($model_name);
+        $model_name = str_replace('!', '', $model_name);
+        while (str_contains($model_name, '_')) {
             $pos = strpos($model_name, '_');
             $sub_str = substr($model_name, $pos+1);
             $model_name = substr($model_name, 0, $pos).ucfirst($sub_str);
         }
-        if (str_contains($model_name, '-')) {
+        while (str_contains($model_name, '-')) {
             $pos = strpos($model_name, '-');
             $sub_str = substr($model_name, $pos+1);
             $model_name = substr($model_name, 0, $pos).ucfirst($sub_str);
@@ -122,6 +124,13 @@ class GeneralHelper {
             $models[] = Self::getModelName($model_name)::find($id);
         }
         return $models;
+    }
+
+    static function getRelation($model, $relation_name, $prop_name = 'name') {
+        if (!is_null($model->{$relation_name})) {
+            return $model->{$relation_name}->{$prop_name};
+        }
+        return null;
     }
 
 }

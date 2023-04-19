@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    function user() {
-        return response()->json(['user' => UserHelper::getFullModel(false)], 200);
-    }
 
     function update(Request $request, $id) {
         $model = Auth()->user();
@@ -20,6 +17,7 @@ class UserController extends Controller
         $model->company_name = $request->company_name;
         $model->email = $request->email;
         $model->save();
+        $model = UserHelper::getFullModel();
         return response()->json(['model' => $model], 200);
     }
 
@@ -33,5 +31,12 @@ class UserController extends Controller
         } else {
             return response()->json(['updated' => false], 200);
         }
+    }
+
+    function registerPayment($company_name) {
+        $user = User::where('company_name', $company_name)->first();
+        $user->payment_expired_at = $user->payment_expired_at->addMonth();
+        $user->save();
+        echo 'El proximo pago de '.$user->company_name.' vence el '.date_format($user->payment_expired_at, 'd/m/Y H:m:i');
     }
 }
