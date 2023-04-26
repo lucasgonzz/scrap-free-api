@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\CommonLaravel\Helpers\GeneralHelper;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,6 +29,6 @@ class User extends Authenticatable
     }
 
     function permissions() {
-        return $this->belongsToMany(Permission::class);
+        return $this->belongsToMany(GeneralHelper::getModelName(env('PERMISSION_CLASS_NAME', 'Permission')));
     }
 }

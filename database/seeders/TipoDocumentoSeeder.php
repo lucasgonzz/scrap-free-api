@@ -22,6 +22,16 @@ class TipoDocumentoSeeder extends Seeder
             ],
             [
                 'num'    => 2,
+                'nombre' => 'LE',
+                'user_id'   => 1,
+            ],
+            [
+                'num'    => 3,
+                'nombre' => 'LC',
+                'user_id'   => 1,
+            ],
+            [
+                'num'    => 4,
                 'nombre' => 'CUIT',
                 'user_id'   => 1,
             ],

@@ -13,20 +13,20 @@ use Intervention\Image\ImageManager;
 class ImageController extends Controller
 {
 
-    function savePreImage(Request $request) {
-        $file_headers = get_headers($request->image_url);
-        if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
-            return response()->json(['image_saved' => false], 200);
-        }
-        $name = time().rand(1, 100000).'.webp';
-        Storage::disk('public')->put($name, file_get_contents($request->image_url));
-        if (env('APP_ENV') == 'local') {
-            $name = env('APP_URL').'/storage/'.$name;
-        } else {
-            $name = env('APP_URL').'/public/storage/'.$name;
-        }
-        return response()->json(['image_saved' => true, 'image_url' => $name], 201);
-    }
+    // function savePreImage(Request $request) {
+    //     $file_headers = get_headers($request->image_url);
+    //     if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+    //         return response()->json(['image_saved' => false], 200);
+    //     }
+    //     $name = time().rand(1, 100000).'.webp';
+    //     Storage::disk('public')->put($name, file_get_contents($request->image_url));
+    //     if (env('APP_ENV') == 'local') {
+    //         $name = env('APP_URL').'/storage/'.$name;
+    //     } else {
+    //         $name = env('APP_URL').'/public/storage/'.$name;
+    //     }
+    //     return response()->json(['image_saved' => true, 'image_url' => $name], 201);
+    // }
 
     function crop(Request $request) {
         // $img = imagecreatetruecolor($request->width, $request->height);
@@ -51,22 +51,26 @@ class ImageController extends Controller
         }
 
         $model = $model_name::find($request->id);
+        $image = null;
         if ($prop_name == 'has_many') {
             $image = Image::create([
                 env('IMAGE_URL_PROP_NAME', 'image_url')     => $name,
-                'imageable_id'                              => $model->id,
+                'imageable_id'                              => !is_null($model) ? $model->id : null,
                 'imageable_type'                            => $request->model_name,
+                'temporal_id'                               => $this->getTemporalId($request),
             ]);
         } else {
-            $this->deleteImageProp($request->model_name, $request->id, $prop_name);
-            $model->{$prop_name} = $name;
-            $model->save();
+            if (!is_null($request->id)) {
+                $this->deleteImageProp($request->model_name, $request->id, $prop_name);
+                $model->{$prop_name} = $name;
+                $model->save();
+            } 
         }
         if (isset($request->image_url_to_delete)) {
             Self::deleteImage($request->image_url_to_delete);
         }
         
-        return response()->json(['model' => $this->fullModel($request->model_name, $request->id)], 200);
+        return response()->json(['model' => $this->fullModel($request->model_name, $request->id), 'image_url' => $name, 'image_model' => $image], 200);
     }
 
     function deleteImageProp($_model_name, $id, $prop_name = 'image_url') {
@@ -74,12 +78,9 @@ class ImageController extends Controller
         $model = $model_name::find($id);
         if (!is_null($model->{$prop_name})) {
             Self::deleteImage($model->{$prop_name});
-            // $storage_name = explode('/', $model->{$prop_name});
-            // $storage_name = $storage_name[count($storage_name)-1];
-            // Storage::disk('public')->delete($storage_name);
+            $model->{$prop_name} = null;
+            $model->save();
         }
-        $model->{$prop_name} = null;
-        $model->save();
         return response()->json(['model' => $this->fullModel($_model_name, $id)], 200);
     }
 

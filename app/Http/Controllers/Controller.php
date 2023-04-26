@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\CommonLaravel\Helpers\GeneralHelper;
-use App\Models\User;
+// use App\Http\Controllers\Helpers\GeneralHelper;
 use App\Notifications\AddedModel;
 use App\Notifications\DeletedModel;
+use App\Notifications\UpdateModels;
+use App\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Controller extends BaseController
 {
@@ -21,9 +24,6 @@ class Controller extends BaseController
             return $user_id;
         }
         $user = Auth()->user();
-        if (is_null($user)) {
-            return 1;
-        }
         if ($from_owner) {
             if (is_null($user->owner_id)) {
                 return $user->id;
@@ -37,14 +37,6 @@ class Controller extends BaseController
 
     function user() {
         return User::find($this->userId());
-    }
-
-    function sendAddModelNotification($model_name, $model_id) {
-        Auth()->user()->notify(new AddedModel($model_name, $model_id));
-    }
-
-    function sendDeleteModelNotification($model_name, $model_id) {
-        Auth()->user()->notify(new DeletedModel($model_name, $model_id));
     }
 
     function getModelBy($table, $prop_name, $prop_value, $from_user = false, $prop_to_return = null, $return_0 = false) {
@@ -63,9 +55,69 @@ class Controller extends BaseController
         return $model;
     }
 
-    function num($table, $user_id = null) {
+    function updateRelationsCreated($model_name, $model_id, $childrens) {
+        if (isset($childrens)) {
+            foreach ($childrens as $children) {
+                if (isset($children['is_imageable'])) {
+                    $relation_model = GeneralHelper::getModelName('Image')::where('imageable_id', null)
+                                                                            ->where('temporal_id', $children['temporal_id'])
+                                                                            ->first();
+                    if (!is_null($relation_model)) {
+                        Log::info('Se actualizo '.$children['model_name'].' con el temporal_id de '.$children['temporal_id'].' con '.$model_name.'_id de '.$model_id);
+                        $relation_model->imageable_id = $model_id;
+                        $relation_model->temporal_id = null;
+                        $relation_model->save();
+                    }
+
+                } else {
+                    $relation_model = GeneralHelper::getModelName($children['model_name'])::where($model_name.'_id', null)
+                                                                            ->where('temporal_id', $children['temporal_id'])
+                                                                            ->first();
+                    if (!is_null($relation_model)) {
+                        Log::info('Se actualizo '.$children['model_name'].' con el temporal_id de '.$children['temporal_id'].' con '.$model_name.'_id de '.$model_id);
+                        $relation_model->{$model_name.'_id'} = $model_id;
+                        $relation_model->temporal_id = null;
+                        $relation_model->save();
+                    }
+                }
+            }
+        }
+    }
+
+    function getTemporalId($request) {
+        if (is_null($request->model_id)) {
+            return time().rand(0, 9999);
+        }
+        return null;
+    }
+
+    function sendAddModelNotification($model_name, $model_id, $check_added_by = true, $for_user_id = null) {
+        if (is_null($for_user_id)) {
+            $for_user_id = $this->userId();
+        }
+        Auth()->user()->notify(new AddedModel($model_name, $model_id, $check_added_by, $for_user_id));
+    }
+
+    function sendDeleteModelNotification($model_name, $model_id, $check_added_by = true, $for_user_id = null) {
+        if (is_null($for_user_id)) {
+            $for_user_id = $this->userId();
+        }
+        Auth()->user()->notify(new DeletedModel($model_name, $model_id, $check_added_by, $for_user_id));
+    }
+
+    function sendUpdateModelsNotification($model_name, $check_added_by = true, $for_user_id = null) {
+        if (is_null($for_user_id)) {
+            $for_user_id = $this->userId();
+        }
+        Auth()->user()->notify(new UpdateModels($model_name, $check_added_by, $for_user_id));
+    }
+
+    function num($table, $user_id = null, $prop_to_check = 'user_id', $prop_value = null) {
+        if (is_null($prop_value)) {
+            $prop_value = $this->userId(true, $user_id);
+        }
         $last = DB::table($table)
-                    ->where('user_id', $this->userId(true, $user_id))
+                    ->where($prop_to_check, $prop_value)
                     ->orderBy('num', 'DESC')
                     ->first();
         if (is_null($last) || is_null($last->num)) {

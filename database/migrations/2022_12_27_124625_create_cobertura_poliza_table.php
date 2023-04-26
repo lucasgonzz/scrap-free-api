@@ -17,6 +17,7 @@ class CreateCoberturaPolizaTable extends Migration
             $table->id();
             $table->integer('cobertura_id');
             $table->integer('poliza_id');
+            $table->decimal('cobertura', 14,2)->nullable();
             $table->decimal('deducible', 14,2)->nullable();
             $table->decimal('deducible_en_pesos', 14,2)->nullable();
             $table->decimal('monto_minimo', 14,2)->nullable();

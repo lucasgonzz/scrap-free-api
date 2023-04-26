@@ -16,6 +16,7 @@ class CreateBiensTable extends Migration
         Schema::create('biens', function (Blueprint $table) {
             $table->id();
             $table->integer('num');
+            $table->string('temporal_id')->nullable();
             $table->string('nombre');
             $table->integer('causa_bien_id')->nullable();
             $table->integer('estado_bien_id')->nullable();

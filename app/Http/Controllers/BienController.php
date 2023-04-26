@@ -28,6 +28,7 @@ class BienController extends Controller
             'tecnico_scrap_free_id'                 => $request->tecnico_scrap_free_id,
             'logistica_id'                          => $request->logistica_id,
             'siniestro_id'                          => $request->model_id,
+            'temporal_id'                           => $this->getTemporalId($request),
             'accesorios'                            => $request->accesorios,
             'tiene_base'                            => $request->tiene_base,
             'tiene_cable'                           => $request->tiene_cable,

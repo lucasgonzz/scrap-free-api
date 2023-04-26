@@ -73,17 +73,4 @@ class SearchController extends Controller
         $model = $model_name::create($data);
         return response()->json(['model' => $this->fullModel($_model_name, $model->id)], 201);
     }
-
-    function searchFromModal(Request $request, $model_name) {
-        $model_name = GeneralHelper::getModelName($model_name);
-        Log::info('key: '.$request->prop_to_filter['key']);
-        Log::info('query_value: '.$request->query_value);
-        $models = $model_name::where('user_id', $this->userId())
-                                ->where($request->prop_to_filter['key'], 'like', '%'.$request->query_value.'%');
-        if (isset($request->depends_on_key)) {
-            $models = $models->where($request->depends_on_key, $request->depends_on_value);
-        }
-        $models = $models->get();
-        return response()->json(['models' => $models], 200);
-    } 
 }

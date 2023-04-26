@@ -10,7 +10,7 @@ class Poliza extends Model
     protected $guarded = [];
 
     function scopeWithAll($query) {
-        $query->with('asegurado', 'coberturas', 'tipo_producto_de_seguro', 'ramo');
+        $query->with('coberturas');
     }
 
     function asegurado() {

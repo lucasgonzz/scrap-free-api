@@ -61,6 +61,7 @@ class SiniestroController extends Controller
             'user_id'                           => $this->userId(),
         ]);
         SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id, true);
+        $this->updateRelationsCreated('siniestro', $model->id, $request->childrens);
         $this->sendAddModelNotification('Siniestro', $model->id);
         return response()->json(['model' => $this->fullModel('Siniestro', $model->id)], 201);
     }  

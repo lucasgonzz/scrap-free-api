@@ -17,27 +17,17 @@ class CoberturaSeeder extends Seeder
         $models = [
             [
                 'num'                       => 1,
-                'nombre'                    => 'Rayo',
+                'nombre'                    => 'LCD Plasma',
                 'user_id'                   => 1,
             ],
             [
                 'num'                       => 2,
-                'nombre'                    => 'Fluctuacion',
+                'nombre'                    => 'Electrodomesticos',
                 'user_id'                   => 1,
             ],
             [
                 'num'                       => 3,
-                'nombre'                    => 'Tormentas',
-                'user_id'                   => 1,
-            ],
-            [
-                'num'                       => 4,
-                'nombre'                    => 'Incendios',
-                'user_id'                   => 1,
-            ],
-            [
-                'num'                       => 5,
-                'nombre'                    => 'Terremotos',
+                'nombre'                    => 'Notebooks',
                 'user_id'                   => 1,
             ],
         ];

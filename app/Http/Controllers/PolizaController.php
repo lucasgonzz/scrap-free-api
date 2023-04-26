@@ -26,12 +26,13 @@ class PolizaController extends Controller
             'tipo_producto_de_seguro_id'    => $request->tipo_producto_de_seguro_id,
             'ramo_id'                       => $request->ramo_id,
             'referencia'                    => $request->referencia,
-            'cuit'                          => $request->cuit,
+            'tipo_documento_id'             => $request->tipo_documento_id,
+            'numero_documento'              => $request->numero_documento,
             'numero_asociado'               => $request->numero_asociado,
             'user_id'                       => $this->userId(),
         ]);
         // PolizaHelper::attachCoberturas($model, $request->coberturas);
-        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['deducible', 'deducible_en_pesos', 'monto_minimo', 'suma_asegurada']);
+        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);
         return response()->json(['model' => $this->fullModel('Poliza', $model->id)], 201);
     }  
 
@@ -42,7 +43,8 @@ class PolizaController extends Controller
         $model->tipo_producto_de_seguro_id      = $request->tipo_producto_de_seguro_id;
         $model->ramo_id                         = $request->ramo_id;
         $model->referencia                      = $request->referencia;
-        $model->cuit                            = $request->cuit;
+        $model->tipo_documento_id               = $request->tipo_documento_id;
+        $model->numero_documento                = $request->numero_documento;
         $model->numero_asociado                 = $request->numero_asociado;
         $model->save();
         GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['deducible', 'deducible_en_pesos', 'monto_minimo', 'suma_asegurada']);
