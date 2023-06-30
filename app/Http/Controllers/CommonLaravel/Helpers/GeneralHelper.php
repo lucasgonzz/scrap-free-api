@@ -80,10 +80,10 @@ class GeneralHelper {
     static function getPivotValue($model, $prop, $ignore_0 = false) {
         if ($ignore_0) {
             if (isset($model['pivot'][$prop]) && $model['pivot'][$prop] != 0) {
-                Log::info('retornando '.$model['pivot'][$prop].' para '.$prop);
+                // Log::info('retornando '.$model['pivot'][$prop].' para '.$prop);
                 return $model['pivot'][$prop];
             }
-            Log::info('no se retorno valor para '.$prop);
+            // Log::info('no se retorno valor para '.$prop);
         } else if (isset($model['pivot'][$prop])) {
             return $model['pivot'][$prop];
         }

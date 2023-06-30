@@ -24,7 +24,7 @@ class CreatePolizasTable extends Migration
             $table->string('numero_asociado')->nullable();
             $table->integer('tipo_documento_id')->nullable();
             $table->string('numero_documento')->nullable();
-            $table->integer('user_id')->co;
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

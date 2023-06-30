@@ -45,6 +45,8 @@ class CreateBiensTable extends Migration
             $table->text('foto_evidencia_scrap_free')->nullable();
             $table->text('foto_frente_asegurado')->nullable();
             $table->text('foto_frente_tecnico_scrap_free')->nullable();
+            $table->text('foto_etiqueta')->nullable();
+            $table->text('foto_captura_de_pantalla')->nullable();
             $table->text('informe_tecnico_asegurado')->nullable();
             $table->string('marca')->nullable();
             $table->string('modelo')->nullable();

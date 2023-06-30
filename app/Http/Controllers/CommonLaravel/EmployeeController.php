@@ -28,7 +28,9 @@ class EmployeeController extends Controller
         $model->name                = $request->name;
         $model->visible_password    = $request->visible_password;
         $model->password            = bcrypt($request->visible_password);
-        $model->doc_number          = $request->doc_number;
+        if ($model->doc_number == $request->doc_number || !$this->docNumerRegister($request->doc_number)) {
+            $model->doc_number          = $request->doc_number;
+        }
         $model->save();
 
         $model = User::where('id', $request->id)
@@ -44,11 +46,9 @@ class EmployeeController extends Controller
 
     function store(Request $request) {
         $user = auth()->user();
-        $model = User::where('doc_number', $request->doc_number)
-                        ->first();
 
 
-        if (is_null($model)) {
+        if ($this->docNumerRegister($request->doc_number)) {
             $model = User::create([
                 'name'              => ucfirst($request->name),
                 'doc_number'        => $request->doc_number,
@@ -62,10 +62,16 @@ class EmployeeController extends Controller
             $model = User::where('id', $model->id)
                                 ->with('permissions')
                                 ->first();
-            return response()->json(['repeated' => false, 'model' => $model], 201);
+            return response()->json(['model' => $model], 201);
         } else {
-            return response()->json(['repeated' => true], 200);
+            return response()->json(['model' => false], 200);
         }
+    }
+
+    function docNumerRegister($doc_number) {
+        $model = User::where('doc_number', $doc_number)
+                        ->first();
+        return !is_null($model);
     }
     
 }

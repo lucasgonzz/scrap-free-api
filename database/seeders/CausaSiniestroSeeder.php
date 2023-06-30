@@ -36,6 +36,16 @@ class CausaSiniestroSeeder extends Seeder
                 'user_id'   => 1,
             ],
             [
+                'num' => 4,
+                'nombre' => 'Evento no cubierto',
+                'user_id'   => 1,
+            ],
+            [
+                'num' => 4,
+                'nombre' => 'Desgaste y/o vicios propios',
+                'user_id'   => 1,
+            ],
+            [
                 'num' => 5,
                 'nombre' => 'Otros',
                 'user_id'   => 1,

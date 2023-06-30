@@ -15,3 +15,9 @@ Route::post('/password-reset/check-verification-code',
 Route::post('/password-reset/update-password',
 	'CommonLaravel\PasswordResetController@updatePassword'
 );
+
+
+// PDF
+Route::get('/pdf/{siniestro_id}/{name}',
+	'PdfController@pdf'
+);

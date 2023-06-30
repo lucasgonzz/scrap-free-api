@@ -12,4 +12,13 @@ class ImportHelper {
 		return null;
 	}
 
+	static function isIgnoredColumn($key, $columns) {
+		if (!isset($columns[$key])) {
+			Log::info('Se ignora '.$key);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

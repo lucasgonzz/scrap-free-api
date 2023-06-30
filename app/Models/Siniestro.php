@@ -12,29 +12,30 @@ class Siniestro extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'fecha_alta_scrap_free',    
+        'fecha_cierre_administrativo',  
+        'fecha_cierre_aseguradora', 
+        'fecha_cierre_scrap_free',  
+        'fecha_denuncia',   
+        'fecha_ocurrencia', 
+    ];  
+
+
+
     function scopeWithAll($query) {
-        $query->with('aseguradora', 'asegurado.polizas.coberturas', 'asegurado.aseguradoras', 'bienes', 'causa_siniestro', 'estado_general_siniestro', 'estado_siniestro', 'estado_siniestros', 'provincia', 'localidad', 'tipo_orden_de_servicio', 'gestor_scrap_free', 'gestor_aseguradora', 'logisticas.bienes', 'logisticas.transportista_devolucion', 'logisticas.transportista_retiro', 'centro_reparacion', 'poliza.coberturas');
+        $query->with('aseguradora', 'asegurado.polizas.coberturas', 'asegurado.aseguradoras', 'bienes', 'causa_siniestro', 'estado_general_siniestro', 'estado_siniestro', 'estado_siniestros', 'provincia', 'localidad', 'tipo_orden_de_servicio', 'gestor_scrap_free', 'gestor_aseguradora', 'logisticas.bienes', 'logisticas.transportista_devolucion', 'logisticas.transportista_retiro', 'centro_reparacion', 'poliza.coberturas', 'nota_importantes');
     }
 
     function getDiasEnEstadoSiniestroAttribute() {
         if (!is_null($this->estado_siniestro)) {
             if (count($this->estado_siniestros) == 1) {
-                // Log::info('created_at del estado '.$this->estado_siniestros[0]->nombre.': '.$this->estado_siniestros[0]->pivot->created_at);
                 return $this->estado_siniestros[0]->pivot->created_at->diffInDays(Carbon::now());
             } 
             return $this->estado_siniestros[count($this->estado_siniestros)-1]->pivot->created_at->diffInDays(Carbon::now());
         }
         return '-';
     }
-
-    // function getEstadoSiniestrosAttribute() {
-    //     if (!is_null($this->estado_siniestro)) {
-    //         Log::info('aca '.count($this->estado_siniestros));
-    //         if (count($this->estado_siniestros) >= 1) {
-    //             return $this->estado_siniestros[count($this->estado_siniestros)-1]->pivot->dias_en_estado_siniestro = $this->dias_en_estado_siniestro;
-    //         }
-    //     }
-    // }
 
     function aseguradora() {
         return $this->belongsTo('App\Models\Aseguradora');
@@ -46,6 +47,10 @@ class Siniestro extends Model
 
     function bienes() {
         return $this->hasMany('App\Models\Bien');
+    }
+
+    function nota_importantes() {
+        return $this->hasMany('App\Models\NotaImportante');
     }
 
     function causa_siniestro() {
