@@ -320,6 +320,7 @@ class SiniestroSeeder extends Seeder
             // Esta for es para que se creen mas de un siniestro por estado
             for ($i=0; $i < 2; $i++) { 
                 foreach ($siniestros as $siniestro) {
+                    $siniestro['gestor_scrap_free_id']          = rand(1,2);
                     $siniestro['dias_en_estado_siniestro']      = rand(1,7);
                     $siniestro['estado_general_siniestro_id']   = rand(1,3);
                     $siniestro['estado_siniestro_id']           = $estado_siniestro->id;

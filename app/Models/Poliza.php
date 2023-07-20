@@ -18,7 +18,7 @@ class Poliza extends Model
     }
 
     function coberturas() {
-        return $this->belongsToMany('App\Models\Cobertura')->withPivot('deducible', 'deducible_en_pesos', 'monto_minimo', 'suma_asegurada');
+        return $this->belongsToMany('App\Models\Cobertura')->withPivot('cobertura', 'deducible');
     }
 
     function tipo_producto_de_seguro() {

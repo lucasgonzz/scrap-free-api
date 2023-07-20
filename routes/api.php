@@ -33,6 +33,9 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::delete('delete-image-prop/{model_name}/{id}/{prop_name}', 'CommonLaravel\ImageController@deleteImageProp');
     Route::delete('delete-image-model/{model_name}/{model_id}/{image_id}', 'CommonLaravel\ImageController@deleteImageModel');
 
+    // Error
+    Route::post('error', 'CommonLaravel\ErrorController@store');
+
     // ----------------------------------------------------------------------------------------------------
 
     Route::resource('siniestro', 'SiniestroController');

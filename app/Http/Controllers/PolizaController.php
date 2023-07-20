@@ -47,7 +47,7 @@ class PolizaController extends Controller
         $model->numero_documento                = $request->numero_documento;
         $model->numero_asociado                 = $request->numero_asociado;
         $model->save();
-        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['deducible', 'deducible_en_pesos', 'monto_minimo', 'suma_asegurada']);
+        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);
         // PolizaHelper::attachCoberturas($model, $request->coberturas);
         return response()->json(['model' => $this->fullModel('Poliza', $model->id)], 200);
     }

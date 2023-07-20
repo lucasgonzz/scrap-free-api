@@ -153,7 +153,7 @@ class RemitoRetiroAseguradoPdf extends fpdf {
 		$this->Cell(180, 5, 'Recibe Equipo: Mauro Mambretti', $this->b, 1, 'L');
 
 		$this->y -= 40;
-        $this->Image(storage_path().'/app/public/firma-mauro.png', 15, $this->y, 50, 30);
+        $this->Image(storage_path().'/app/public/firma-mauro.png', 16, $this->y, 60, 30);
 		
 		// $this->y += 40;
 		$this->Line(15, $this->y + 41, 195, $this->y + 41);
@@ -161,10 +161,10 @@ class RemitoRetiroAseguradoPdf extends fpdf {
 
 	function printLines() {
 		// Izquierda
-		$this->Line(15, $this->start_y_table_header, 15, $this->y);
+		$this->Line(15, $this->start_y_table_header, 15, $this->y + 41);
 
 		// Derecha
-		$this->Line(195, $this->start_y_table_header, 195, $this->y);
+		$this->Line(195, $this->start_y_table_header, 195, $this->y + 41);
 	}
 
 	function _Footer() {

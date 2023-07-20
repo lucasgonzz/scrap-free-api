@@ -40,6 +40,7 @@ class SiniestroController extends Controller
             'domicilio_completo_google_lat'     => $request->domicilio_completo_google_lat,
             'domicilio_completo_google_lng'     => $request->domicilio_completo_google_lng,
             'descripcion_bien'                  => $request->descripcion_bien,
+            'descripcion_del_hecho'             => $request->descripcion_del_hecho,
             'entre_calles'                      => $request->entre_calles,
             'fecha_alta_scrap_free'             => $request->fecha_alta_scrap_free,
             'fecha_cierre_administrativo'       => $request->fecha_cierre_administrativo,
@@ -92,6 +93,7 @@ class SiniestroController extends Controller
         $model->domicilio_completo_google_lat   = $request->domicilio_completo_google_lat;
         $model->domicilio_completo_google_lng   = $request->domicilio_completo_google_lng;
         $model->descripcion_bien                = $request->descripcion_bien;
+        $model->descripcion_del_hecho           = $request->descripcion_del_hecho;
         $model->entre_calles                    = $request->entre_calles;
         $model->fecha_alta_scrap_free           = $request->fecha_alta_scrap_free;
         $model->fecha_cierre_administrativo     = $request->fecha_cierre_administrativo;

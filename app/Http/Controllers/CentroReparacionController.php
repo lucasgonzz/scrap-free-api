@@ -18,7 +18,7 @@ class CentroReparacionController extends Controller
 
     public function store(Request $request) {
         $model = CentroReparacion::create([
-            'num'                   => $this->num('CentroReparacion'),
+            'num'                   => $this->num('centro_reparacions'),
             'nombre'                  => $request->nombre,
             'user_id'               => $this->userId(),
         ]);

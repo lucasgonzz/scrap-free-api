@@ -111,6 +111,8 @@ class InformeLiquidadorPdf extends fpdf {
 
 		$this->x = 25;
 		$this->Cell(80, 5, 'Titular: '.$this->siniestro->asegurado->nombre, $this->b, 1, 'L');
+
+		$this->finish_y_info_siniestro = $this->y;
 	}
 
 	function infoEquipos() {
@@ -133,6 +135,10 @@ class InformeLiquidadorPdf extends fpdf {
 	}
 
 	function printInfoLines() {
+		if ($this->finish_y_info_siniestro > $this->y) {
+			$this->y = $this->finish_y_info_siniestro; 
+		} 
+
 		$this->y += 2;	
 
 		// Abajo

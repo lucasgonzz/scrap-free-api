@@ -16,7 +16,7 @@ class CreateNotaImportantesTable extends Migration
         Schema::create('nota_importantes', function (Blueprint $table) {
             $table->id();
             $table->text('nota');
-            $table->integer('siniestro_id');
+            $table->integer('siniestro_id')->nullable();
             $table->string('temporal_id')->nullable();
             $table->timestamps();
         });
