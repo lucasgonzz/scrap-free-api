@@ -19,7 +19,7 @@ class CreateEstadoSiniestrosTable extends Migration
             $table->string('nombre');
             $table->string('codigo')->nullable();
             $table->text('descripcion')->nullable();
-            $table->boolean('significa_que_siniestro_fue_cerrado')->default(0);
+            $table->boolean('por_defecto_en_estados_que_coinciden')->default(0);
             $table->boolean('por_defecto_en_estados_actualmente')->default(0);
             $table->integer('user_id');
             $table->timestamps();

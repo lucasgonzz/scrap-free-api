@@ -77,12 +77,12 @@ class EstadoSiniestroSeeder extends Seeder
             ],
             [
                 'nombre' =>'Cierre Administrativo (Cargar en NOVA)',
-                'significa_que_siniestro_fue_cerrado'  => 1,
+                'por_defecto_en_estados_que_coinciden'  => 1,
                 'por_defecto_en_estados_actualmente'    => 1,
             ],
             [
                 'nombre' =>'Cierre Administartivo (Enviar a Life Seguros)',
-                'significa_que_siniestro_fue_cerrado'  => 1,
+                'por_defecto_en_estados_que_coinciden'  => 1,
                 'por_defecto_en_estados_actualmente'    => 1,
             ],
             [
@@ -109,7 +109,7 @@ class EstadoSiniestroSeeder extends Seeder
                 'num'           => $codigo,
                 'codigo'        => $codigo,
                 'nombre'        => $estado['nombre'],
-                'significa_que_siniestro_fue_cerrado'   => isset($estado['significa_que_siniestro_fue_cerrado']) ? $estado['significa_que_siniestro_fue_cerrado'] : 0,
+                'por_defecto_en_estados_que_coinciden'   => isset($estado['por_defecto_en_estados_que_coinciden']) ? $estado['por_defecto_en_estados_que_coinciden'] : 0,
                 'por_defecto_en_estados_actualmente'   => isset($estado['por_defecto_en_estados_actualmente']) ? $estado['por_defecto_en_estados_actualmente'] : 0,
                 'user_id'       => 1,
                 'created_at'    => Carbon::now()->subDays(6)->addHours($i),
