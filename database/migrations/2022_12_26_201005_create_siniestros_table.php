@@ -61,6 +61,7 @@ class CreateSiniestrosTable extends Migration
             $table->integer('poliza_id')->nullable();
             // $table->foreignId('poliza_id')->nullable()->constrained();
             $table->integer('tipo_producto_de_seguro_id')->nullable();
+            $table->boolean('cerrado')->default(0);
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });

@@ -30,4 +30,11 @@ class SiniestroHelper {
 		} 
 	}
 
+	static function checkEstadoSiniestroCerrado($siniestro) {
+		if ($siniestro->estado_siniestro->significa_que_siniestro_fue_cerrado) {
+			$siniestro->cerrado = 1;
+			$siniestro->save();
+		}
+	}
+
 }

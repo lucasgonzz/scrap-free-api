@@ -4,17 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\CommonLaravel\ImageController;
 use App\Http\Controllers\Helpers\SiniestroHelper;
+use App\Http\Controllers\Helpers\SiniestroMetricasHelper;
 use App\Models\Siniestro;
 use Illuminate\Http\Request;
 
 class SiniestroController extends Controller
 {
+
+    function casosPorDia(Request $request) {
+        $results = SiniestroMetricasHelper::casosPorDia($request->from_date, $request->until_date, $request->estados_coinciden_id, $request->estados_actualmente_id);
+        return response()->json(['results' => $results], 200);
+    }
    
     public function index() {
         $models = Siniestro::where('user_id', $this->userId())
                             ->orderBy('created_at', 'DESC')
+                            // ->where('cerrado', 0)
                             ->withAll()
-                            ->paginate(25);
+                            ->paginate(100);
         return response()->json(['models' => $models], 200);
     }
 
@@ -62,6 +69,7 @@ class SiniestroController extends Controller
             'user_id'                           => $this->userId(),
         ]);
         SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id, true);
+        // SiniestroHelper::checkEstadoSiniestroCerrado($model);
         $this->updateRelationsCreated('siniestro', $model->id, $request->childrens);
         $this->sendAddModelNotification('Siniestro', $model->id);
         return response()->json(['model' => $this->fullModel('Siniestro', $model->id)], 201);
@@ -113,6 +121,7 @@ class SiniestroController extends Controller
         $model->poliza_id                       = $request->poliza_id;
         $model->centro_reparacion_id            = $request->centro_reparacion_id;
         $model->save();
+        // SiniestroHelper::checkEstadoSiniestroCerrado($model);
         $this->sendAddModelNotification('Siniestro', $model->id);
         return response()->json(['model' => $this->fullModel('Siniestro', $model->id)], 200);
     }

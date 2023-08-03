@@ -311,14 +311,16 @@ class SiniestroSeeder extends Seeder
             ],
         ];
 
-        $estados_siniestro = EstadoSiniestro::orderBy('id', 'ASC')->take(3)->get();
+        $estados_siniestro = EstadoSiniestro::orderBy('id', 'ASC')->get();
         // $estados_siniestro = EstadoSiniestro::orderBy('id', 'ASC')->get();
+        $dias = count($estados_siniestro);
 
         $ct = new Controller();
         $hours = count($estados_siniestro) * count($siniestros);
         foreach ($estados_siniestro as $estado_siniestro) {
+                
             // Esta for es para que se creen mas de un siniestro por estado
-            for ($i=0; $i < 2; $i++) { 
+            // for ($i=0; $i < 1; $i++) { 
                 foreach ($siniestros as $siniestro) {
                     $siniestro['gestor_scrap_free_id']          = rand(1,2);
                     $siniestro['dias_en_estado_siniestro']      = rand(1,7);
@@ -326,8 +328,9 @@ class SiniestroSeeder extends Seeder
                     $siniestro['estado_siniestro_id']           = $estado_siniestro->id;
                     $siniestro['num']                           = $ct->num('siniestros');
                     $created_siniestro = Siniestro::create($siniestro);
-                    $created_siniestro->created_at = Carbon::now()->subHours($hours);
+                    $created_siniestro->created_at = Carbon::today()->subDays($dias)->subHours($hours);
                     $created_siniestro->save();
+                    $dias--;
 
                     $this->setNotaImportantes($created_siniestro);
 
@@ -346,7 +349,7 @@ class SiniestroSeeder extends Seeder
                         Bien::create($bien);
                     }
                 }
-            }
+            // }
         }
     }
 

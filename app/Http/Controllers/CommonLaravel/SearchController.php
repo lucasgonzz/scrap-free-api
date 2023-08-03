@@ -56,6 +56,7 @@ class SearchController extends Controller
             $models = $models->where('status', 'active');
         }
         $models = $models->withAll()
+                        ->orderBy('created_at', 'DESC')
                         ->get();
         // if ($model_name_param == 'article') {
         //     $models = ArticleHelper::setPrices($models);

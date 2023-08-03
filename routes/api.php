@@ -39,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function() {
     // ----------------------------------------------------------------------------------------------------
 
     Route::resource('siniestro', 'SiniestroController');
+    Route::post('siniestro/casos-por-dia', 'SiniestroController@casosPorDia');
+
     Route::resource('asegurado', 'AseguradoController');
     Route::resource('aseguradora', 'AseguradoraController');
     Route::resource('causa-siniestro', 'CausaSiniestroController');
