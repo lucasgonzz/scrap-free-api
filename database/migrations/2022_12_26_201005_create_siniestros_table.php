@@ -17,6 +17,19 @@ class CreateSiniestrosTable extends Migration
             $table->id();
             $table->integer('num');
             $table->integer('asegurado_id')->nullable();
+
+            $table->string('asegurado')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('telefono_alternativo')->nullable();
+            $table->string('email')->nullable();
+            $table->string('referencia')->nullable();
+            $table->string('numero_poliza')->nullable();
+            $table->integer('tipo_producto_de_seguro_id')->nullable();
+            $table->string('numero_asociado')->nullable();
+            $table->integer('tipo_documento_id')->nullable();
+            $table->integer('ramo_id')->nullable();
+            $table->string('numero_documento')->nullable();
+
             $table->integer('aseguradora_id')->nullable();
             $table->integer('causa_siniestro_id')->nullable();
             $table->integer('estado_general_siniestro_id')->nullable();
@@ -60,7 +73,6 @@ class CreateSiniestrosTable extends Migration
             $table->text('descripcion_del_hecho')->nullable();
             $table->integer('poliza_id')->nullable();
             // $table->foreignId('poliza_id')->nullable()->constrained();
-            $table->integer('tipo_producto_de_seguro_id')->nullable();
             $table->boolean('cerrado')->default(0);
             $table->integer('user_id')->nullable();
             $table->timestamps();

@@ -24,7 +24,7 @@ class Siniestro extends Model
 
 
     function scopeWithAll($query) {
-        $query->with('aseguradora', 'asegurado.polizas.coberturas', 'asegurado.aseguradoras', 'bienes', 'causa_siniestro', 'estado_general_siniestro', 'estado_siniestro', 'estado_siniestros', 'provincia', 'localidad', 'tipo_orden_de_servicio', 'gestor_scrap_free', 'gestor_aseguradora', 'logisticas.bienes', 'logisticas.transportista_devolucion', 'logisticas.transportista_retiro', 'centro_reparacion', 'poliza.coberturas', 'nota_importantes');
+        $query->with('aseguradora', 'bienes', 'causa_siniestro', 'estado_general_siniestro', 'estado_siniestro', 'estado_siniestros', 'provincia', 'localidad', 'tipo_orden_de_servicio', 'gestor_scrap_free', 'gestor_aseguradora', 'logisticas.bienes', 'logisticas.transportista_devolucion', 'logisticas.transportista_retiro', 'centro_reparacion', 'poliza.coberturas', 'nota_importantes', 'coberturas');
     }
 
     function getDiasEnEstadoSiniestroAttribute() {
@@ -37,13 +37,17 @@ class Siniestro extends Model
         return '-';
     }
 
+    function coberturas() {
+        return $this->belongsToMany('App\Models\Cobertura')->withPivot('cobertura', 'deducible');
+    }
+
     function aseguradora() {
         return $this->belongsTo('App\Models\Aseguradora');
     }
 
-    function asegurado() {
-        return $this->belongsTo('App\Models\Asegurado');
-    }
+    // function asegurado() {
+    //     return $this->belongsTo('App\Models\Asegurado');
+    // }
 
     function bienes() {
         return $this->hasMany('App\Models\Bien');

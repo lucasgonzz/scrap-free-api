@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\CommonLaravel\Helpers\GeneralHelper;
 use App\Http\Controllers\CommonLaravel\ImageController;
 use App\Http\Controllers\Helpers\SiniestroHelper;
 use App\Http\Controllers\Helpers\SiniestroMetricasHelper;
@@ -30,6 +31,19 @@ class SiniestroController extends Controller
             'num'                               => $this->num('siniestros'),
             'aseguradora_id'                    => $request->aseguradora_id,
             'asegurado_id'                      => $request->asegurado_id,
+
+            'asegurado'                         => $request->asegurado,
+            'telefono'                          => $request->telefono,
+            'telefono_alternativo'              => $request->telefono_alternativo,
+            'email'                             => $request->email,
+            'referencia'                        => $request->referencia,
+            'numero_poliza'                     => $request->numero_poliza,
+            'tipo_producto_de_seguro_id'        => $request->tipo_producto_de_seguro_id,
+            'numero_asociado'                   => $request->numero_asociado,
+            'tipo_documento_id'                 => $request->tipo_documento_id,
+            'ramo_id'                           => $request->ramo_id,
+            'numero_documento'                  => $request->numero_documento,
+
             'causa_siniestro_id'                => $request->causa_siniestro_id,
             'estado_siniestro_id'               => $request->estado_siniestro_id,
             'estado_general_siniestro_id'       => $request->estado_general_siniestro_id,
@@ -69,6 +83,7 @@ class SiniestroController extends Controller
             'user_id'                           => $this->userId(),
         ]);
         SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id, true);
+        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);
         // SiniestroHelper::checkEstadoSiniestroCerrado($model);
         $this->updateRelationsCreated('siniestro', $model->id, $request->childrens);
         $this->sendAddModelNotification('Siniestro', $model->id);
@@ -84,6 +99,19 @@ class SiniestroController extends Controller
         SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id);
         $model->aseguradora_id                  = $request->aseguradora_id;
         $model->asegurado_id                    = $request->asegurado_id;
+
+        $model->asegurado                       = $request->asegurado;
+        $model->telefono                        = $request->telefono;
+        $model->telefono_alternativo            = $request->telefono_alternativo;
+        $model->email                           = $request->email;
+        $model->referencia                      = $request->referencia;
+        $model->numero_poliza                   = $request->numero_poliza;
+        $model->tipo_producto_de_seguro_id      = $request->tipo_producto_de_seguro_id;
+        $model->numero_asociado                 = $request->numero_asociado;
+        $model->tipo_documento_id               = $request->tipo_documento_id;
+        $model->ramo_id                         = $request->ramo_id;
+        $model->numero_documento                = $request->numero_documento;
+
         $model->causa_siniestro_id              = $request->causa_siniestro_id;
         $model->estado_siniestro_id             = $request->estado_siniestro_id;
         $model->estado_general_siniestro_id     = $request->estado_general_siniestro_id;
@@ -122,6 +150,7 @@ class SiniestroController extends Controller
         $model->centro_reparacion_id            = $request->centro_reparacion_id;
         $model->save();
         // SiniestroHelper::checkEstadoSiniestroCerrado($model);
+        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);
         $this->sendAddModelNotification('Siniestro', $model->id);
         return response()->json(['model' => $this->fullModel('Siniestro', $model->id)], 200);
     }

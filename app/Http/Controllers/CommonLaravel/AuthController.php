@@ -15,21 +15,29 @@ class AuthController extends Controller
     function login(Request $request) {
         $login = false;
         $user = null;
+        $user_last_activity = false;
         if ($this->loginLucas($request)) {
             $user = UserHelper::getFullModel($this->userId(false));
             $login = true;
         } else if (Auth::attempt(['doc_number' => $request->doc_number, 
                            'password' => $request->password], $request->remember)) {
-            $login = true;
+            
             $user = UserHelper::getFullModel(false);
+            if ($this->checkUserLastActivity($user)) {
+                $login = true;
+            } else {
+                $user_last_activity = true;
+            }
         } 
         return response()->json([
-            'login' => $login,
-            'user'  => $user,
+            'login'                 => $login,
+            'user'                  => $user,
+            'user_last_activity'    => $user_last_activity,
         ], 200);
     }
 
     public function logout(Request $request) {
+        $this->removeUserLastActivity();
         Auth::logout();
         return response(null, 200);
     }
@@ -57,6 +65,25 @@ class AuthController extends Controller
             }
         } 
         return false;
+    }
+
+    function checkUserLastActivity($user) {
+        if (class_exists('App\Http\Controllers\Helpers\AuthHelper')) {
+            $auth_helper = new \App\Http\Controllers\Helpers\AuthHelper();
+            if (method_exists($auth_helper, 'checkUserLastActivity')) {
+                return $auth_helper->checkUserLastActivity($user);
+            }
+        } 
+        return true;
+    }
+
+    function removeUserLastActivity() {
+        if (class_exists('App\Http\Controllers\Helpers\AuthHelper')) {
+            $auth_helper = new \App\Http\Controllers\Helpers\AuthHelper();
+            if (method_exists($auth_helper, 'removeUserLastActivity')) {
+                return $auth_helper->removeUserLastActivity(Auth()->user());
+            }
+        } 
     }
 
 }
