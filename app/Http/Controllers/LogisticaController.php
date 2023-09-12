@@ -21,6 +21,7 @@ class LogisticaController extends Controller
         $model = Logistica::create([
             'num'                                   => $this->num('logisticas'),
             'siniestro_id'                          => $request->model_id,
+            'temporal_id'                           => $this->getTemporalId($request),
             'transportista_retiro_id'               => $request->transportista_retiro_id,
             'costo_flete_devolucion'                => $request->costo_flete_devolucion,
             'costo_flete_ida'                       => $request->costo_flete_ida,
