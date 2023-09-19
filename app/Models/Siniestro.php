@@ -37,6 +37,10 @@ class Siniestro extends Model
         return '-';
     }
 
+    function ramo() {
+        return $this->belongsTo('App\Models\Ramo');
+    }
+
     function coberturas() {
         return $this->belongsToMany('App\Models\Cobertura')->withPivot('cobertura', 'deducible');
     }

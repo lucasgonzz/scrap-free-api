@@ -101,12 +101,12 @@ class InformeLiquidadorCelularesPdf extends fpdf {
 		$this->x = 25;
 		$this->Cell(80, 5, 'Aseguradora:'. $this->siniestro->aseguradora->nombre, $this->b, 1, 'L');
 
-		$this->x = 25;
+		$this->x = 25;	
 		$this->Cell(80, 5, 'Titular Celular: '.$this->siniestro->asegurado, $this->b, 1, 'L');
 	}
 
 	function infoEquipos() {
-		$this->y -= 10;
+		// $this->y -= 10;
 		foreach ($this->siniestro->bienes as $bien) {
 			$this->x = 105;
 			$this->Cell(80, 5, 'Equipo: '. $bien->nombre, $this->b, 1, 'L');
