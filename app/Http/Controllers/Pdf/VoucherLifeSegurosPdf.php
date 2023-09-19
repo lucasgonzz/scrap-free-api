@@ -69,7 +69,7 @@ class VoucherLifeSegurosPdf extends fpdf {
 		$this->Cell(85, 5, 'Domicilio: '.$this->siniestro->domicilio_completo_google, $this->b, 1, 'L');
 		
         $this->x = 20;
-		$this->Cell(85, 5, 'Póliza Nro.: '.$this->siniestro->poliza->numero_poliza, $this->b, 1, 'L');
+		$this->Cell(85, 5, 'Póliza Nro.: '.$this->siniestro->numero_poliza, $this->b, 1, 'L');
 		
         $this->x = 20;
 		$this->Cell(85, 5, 'Fecha de Stro.: '.date_format($this->siniestro->fecha_ocurrencia, 'd/m/Y'), $this->b, 1, 'L');

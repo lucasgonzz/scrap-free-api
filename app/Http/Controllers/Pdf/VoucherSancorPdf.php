@@ -72,7 +72,7 @@ class VoucherSancorPdf extends fpdf {
 
 		$this->SetFont('Arial', '', 9);
 
-		$text = 'i. SANCOR SEGUROS y EL ASEGURADO se encuentran vinculados por un contrato de seguro, identificado mediante Póliza N° '.$this->siniestro->poliza->numero_poliza.', Referencia N° '.$this->siniestro->poliza->referencia.', del ramo '.$this->siniestro->poliza->ramo->nombre.'.';
+		$text = 'i. SANCOR SEGUROS y EL ASEGURADO se encuentran vinculados por un contrato de seguro, identificado mediante Póliza N° '.$this->siniestro->numero_poliza.', Referencia N° '.$this->siniestro->referencia.', del ramo '.$this->siniestro->ramo->nombre.'.';
 		$this->x = 20;
 		$this->MultiCell(170, 5, $text, $this->b, 'J', 0);
 

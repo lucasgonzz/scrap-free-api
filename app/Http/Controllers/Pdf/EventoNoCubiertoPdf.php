@@ -58,7 +58,7 @@ class EventoNoCubiertoPdf extends fpdf {
 		$this->x = 15;
 		$this->y += 5;
 		$this->SetFont('Arial', 'B', 10);
-		$this->Cell(150, 5, 'Ref.: legajo '.$this->siniestro->asegurado.' - Fecha:'.date_format($this->siniestro->fecha_denuncia, 'd/m/Y').' - Pzad.: '.$this->siniestro->poliza->numero_poliza.' Cert.: 0.-', $this->b, 1, 'L');
+		$this->Cell(150, 5, 'Ref.: legajo '.$this->siniestro->asegurado.' - Fecha:'.date_format($this->siniestro->fecha_denuncia, 'd/m/Y').' - Pzad.: '.$this->siniestro->numero_poliza.' Cert.: 0.-', $this->b, 1, 'L');
 
 		$this->SetFont('Arial', '', 10);
 		$this->x = 15;
@@ -72,7 +72,7 @@ class EventoNoCubiertoPdf extends fpdf {
 
 		$this->y += 5;
 		$this->x = 15;
-		$text = 'Al respecto, debemos comunicarle que esta Aseguradora procede mediante el presente al rechazo del referido siniestro, en virtud de tratarse de un HECHO NO CUBIERTO por la Póliza de Seguro de Hogar Ref. '.$this->siniestro->poliza->referencia.', oportunamente contratado.';
+		$text = 'Al respecto, debemos comunicarle que esta Aseguradora procede mediante el presente al rechazo del referido siniestro, en virtud de tratarse de un HECHO NO CUBIERTO por la Póliza de Seguro de Hogar Ref. '.$this->siniestro->referencia.', oportunamente contratado.';
 
 		$this->MultiCell(180, 5, $text, $this->b, 'J', 0);
 

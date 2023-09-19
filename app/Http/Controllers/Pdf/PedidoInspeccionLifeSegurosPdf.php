@@ -31,10 +31,10 @@ class PedidoInspeccionLifeSegurosPdf extends fpdf {
 		$this->Cell(75, 15, 'Buenos Aires, ...... de ...... de '.date('Y'), $this->b, 1, 'R');
 
 		$this->x = 30;
-		$this->Cell(100, 15, 'Ref: '.$this->siniestro->poliza->referencia, $this->b, 1, 'L');
+		$this->Cell(100, 15, 'Ref: '.$this->siniestro->referencia, $this->b, 1, 'L');
 
 		$this->x = 30;
-		$this->Cell(100, 15, 'Póliza: '.$this->siniestro->poliza->numero_poliza, $this->b, 1, 'L');
+		$this->Cell(100, 15, 'Póliza: '.$this->siniestro->numero_poliza, $this->b, 1, 'L');
 
 		$this->x = 30;
 		$this->Cell(100, 15, 'Siniestro: '.$this->siniestro->numero_siniestro, $this->b, 1, 'L');

@@ -68,7 +68,7 @@ class SuspensionDePlazosSancorNeuquenPdf extends fpdf {
 
 		$this->x = 30;
 		$this->y += 5;
-		$text = 'Al respecto debemos comunicarle que por derechos que nos confieren las Condiciones Generales y Particulares de la Póliza '.$this->siniestro->poliza->numero_poliza.', Referencia '.$this->siniestro->poliza->referencia.', avalada por los artículos 46 y 55 s.s y c.c. de la ley de seguros N° 17.418 SUSPENDEMOS los términos para expresarnos acerca de su derecho hasta nos sea presentada en nuestras oficinas los Informes técnicos de los artefactos dañados, confeccionados por un Servicio Técnico con datos del asegurado, de c/u de los artefactos(modelo, N° de serie, antigüedad del mismo) y causas del Daño.';
+		$text = 'Al respecto debemos comunicarle que por derechos que nos confieren las Condiciones Generales y Particulares de la Póliza '.$this->siniestro->numero_poliza.', Referencia '.$this->siniestro->referencia.', avalada por los artículos 46 y 55 s.s y c.c. de la ley de seguros N° 17.418 SUSPENDEMOS los términos para expresarnos acerca de su derecho hasta nos sea presentada en nuestras oficinas los Informes técnicos de los artefactos dañados, confeccionados por un Servicio Técnico con datos del asegurado, de c/u de los artefactos(modelo, N° de serie, antigüedad del mismo) y causas del Daño.';
 		$this->MultiCell(150, 5, $text, $this->b, 'J', 0);
 
 		$this->x = 30;
