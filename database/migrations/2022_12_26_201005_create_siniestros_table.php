@@ -62,6 +62,7 @@ class CreateSiniestrosTable extends Migration
             // $table->text('log_auditoria')->nullable();
             $table->text('notas_domicilio')->nullable();
             $table->text('notas_importantes')->nullable();
+            $table->text('notas_transporte')->nullable();
             $table->integer('orden_servicio')->nullable();
             $table->text('recomendacion')->nullable();
             $table->decimal('reparacion_deducible', 14,2)->nullable();

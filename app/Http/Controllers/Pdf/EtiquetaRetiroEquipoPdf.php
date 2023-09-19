@@ -84,13 +84,13 @@ class EtiquetaRetiroEquipoPdf extends fpdf {
         $this->x = 20;
 		$this->Cell(30, 5, 'Remitente:  ', $this->b, 0, 'L');
         $this->SetFont('Arial', 'B', 12);
-		$this->Cell(30, 5, $this->siniestro->asegurado->nombre, $this->b, 1, 'L');
+		$this->Cell(30, 5, $this->siniestro->asegurado, $this->b, 1, 'L');
 
         $this->SetFont('Arial', '', 12);
         $this->x = 20;
 		$this->Cell(30, 5, 'TEL:  ', $this->b, 0, 'L');
         $this->SetFont('Arial', 'BUI', 12);
-		$this->Cell(30, 5, $this->siniestro->asegurado->telefono, $this->b, 1, 'L');
+		$this->Cell(30, 5, $this->siniestro->telefono, $this->b, 1, 'L');
 	}
 
 }

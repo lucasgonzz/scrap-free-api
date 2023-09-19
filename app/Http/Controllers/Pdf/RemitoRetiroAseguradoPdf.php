@@ -81,7 +81,7 @@ class RemitoRetiroAseguradoPdf extends fpdf {
 		$this->x = 15;
 		$this->Cell(50, 5, 'Titular: ', $this->b, 0, 'L');
 		$this->SetFont('Arial', '', 12);
-		$this->Cell(130, 5, $this->siniestro->asegurado->nombre, $this->b, 1, 'L');
+		$this->Cell(130, 5, $this->siniestro->asegurado, $this->b, 1, 'L');
 		
 		$this->x = 15;
 		$equipos = '';

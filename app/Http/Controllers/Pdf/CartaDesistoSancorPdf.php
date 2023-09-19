@@ -43,7 +43,7 @@ class CartaDesistoSancorPdf extends fpdf {
 
 	function body() {
 		$this->x = 20;
-		$text = 'El que suscribe, '.$this->siniestro->asegurado->nombre.', DNI N° '.$this->siniestro->asegurado->numero_documento.', me presento en este acto para formular expresamente el DESISTIMIENTO DEL RECLAMO INDEMNIZATORIO ante la Compañía Sancor Cooperativa de Seguros Limitada, con motivo del evento ocurrido en fecha '.date_format($this->siniestro->fecha_ocurrencia, 'd/m/Y').', por el siguiente evento: '.$this->siniestro->descripcion_del_hecho.', que se encuentra ubicado en '.$this->siniestro->domicilio_completo_google.', denunciado sobre la póliza del ramo '.$this->siniestro->poliza->ramo->nombre.' N° '.$this->siniestro->numero_poliza.', Referencia N° '.$this->siniestro->poliza->referencia.', sobre el particular manifiesto:';
+		$text = 'El que suscribe, '.$this->siniestro->asegurado.', DNI N° '.$this->siniestro->numero_documento.', me presento en este acto para formular expresamente el DESISTIMIENTO DEL RECLAMO INDEMNIZATORIO ante la Compañía Sancor Cooperativa de Seguros Limitada, con motivo del evento ocurrido en fecha '.date_format($this->siniestro->fecha_ocurrencia, 'd/m/Y').', por el siguiente evento: '.$this->siniestro->descripcion_del_hecho.', que se encuentra ubicado en '.$this->siniestro->domicilio_completo_google.', denunciado sobre la póliza del ramo '.$this->siniestro->poliza->ramo->nombre.' N° '.$this->siniestro->numero_poliza.', Referencia N° '.$this->siniestro->poliza->referencia.', sobre el particular manifiesto:';
 
 		$this->SetFont('Arial', '', 10);
 		$this->MultiCell(170, 7, $text, $this->b, 'J', 0);

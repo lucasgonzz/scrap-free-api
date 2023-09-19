@@ -66,7 +66,7 @@ class ConformidadPagoIndemnizatorioLifePdf extends fpdf {
 		$this->Cell(100, 5, 'Stro Nro: '.$this->siniestro->numero_siniestro, $this->b, 1, 'L');
 
         $this->x = 20;
-		$this->Cell(100, 5, 'Asegurado: '.$this->siniestro->asegurado->nombre, $this->b, 1, 'L');
+		$this->Cell(100, 5, 'Asegurado: '.$this->siniestro->asegurado, $this->b, 1, 'L');
 
         $this->x = 20;
 		$this->Cell(100, 5, 'Domicilio: '.$this->siniestro->domicilio_completo_google, $this->b, 1, 'L');
@@ -104,7 +104,7 @@ class ConformidadPagoIndemnizatorioLifePdf extends fpdf {
 		$this->y += 3;
         $this->SetFont('Arial', 'B', 11);
         $this->x = 20;
-		$this->Cell(170, 7, 'Titular de la cta. y DNI: '.$this->siniestro->asegurado->nombre.' - '.$this->siniestro->asegurado->numero_documento, $this->b, 1, 'L');
+		$this->Cell(170, 7, 'Titular de la cta. y DNI: '.$this->siniestro->asegurado.' - '.$this->siniestro->numero_documento, $this->b, 1, 'L');
 
         $this->x = 20;
 		$this->Cell(170, 7, 'Banco y Sucursal: ', $this->b, 1, 'L');

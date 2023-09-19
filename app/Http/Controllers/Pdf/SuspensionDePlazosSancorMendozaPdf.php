@@ -42,7 +42,7 @@ class SuspensionDePlazosSancorMendozaPdf extends fpdf {
 		$this->y -=  20;
 		$this->x = 105;
 		$this->SetFont('Arial', '', 10);
-		$this->Cell(75, 10, $this->siniestro->asegurado->nombre, $this->b, 1, 'L');
+		$this->Cell(75, 10, $this->siniestro->asegurado, $this->b, 1, 'L');
 		$this->x = 105;
 		$this->Cell(75, 10, 'Tucumán 5980, S2008QLL Rosario, Santa Fe', $this->b, 1, 'L');
 		$this->x = 105;

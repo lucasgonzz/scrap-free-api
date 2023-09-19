@@ -17,7 +17,7 @@ class CreateEstadoSiniestrosTable extends Migration
             $table->id();
             $table->integer('num');
             $table->string('nombre');
-            $table->string('codigo')->nullable();
+            $table->decimal('codigo', 12,2)->nullable();
             $table->text('descripcion')->nullable();
             $table->boolean('por_defecto_en_estados_que_coinciden')->default(0);
             $table->boolean('por_defecto_en_estados_actualmente')->default(0);

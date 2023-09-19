@@ -60,11 +60,11 @@ class RemitoTransportistaDevolucionPdf extends fpdf {
 
         $this->SetFont('Arial', 'B', 23);
         $this->x = 15;
-		$this->Cell(190, 10, 'Destinatario: '.$this->siniestro->asegurado->nombre, $this->b, 1, 'L');
+		$this->Cell(190, 10, 'Destinatario: '.$this->siniestro->asegurado, $this->b, 1, 'L');
         $this->x = 15;
-		$this->Cell(190, 10, 'Dom: '.$this->siniestro->asegurado->direccion, $this->b, 1, 'L');
+		$this->Cell(190, 10, 'Dom: '.$this->siniestro->domicilio_completo_google, $this->b, 1, 'L');
         $this->x = 15;
-		$this->Cell(190, 10, 'Tel: '.$this->siniestro->asegurado->telefono, $this->b, 1, 'L');
+		$this->Cell(190, 10, 'Tel: '.$this->siniestro->telefono, $this->b, 1, 'L');
 	}
 
 	function recibiConforme() {
@@ -130,13 +130,13 @@ class RemitoTransportistaDevolucionPdf extends fpdf {
         $this->x = 15;
 		$this->Cell(30, 5, 'Remitente:  ', $this->b, 0, 'L');
         $this->SetFont('Arial', 'B', 12);
-		$this->Cell(30, 5, $this->siniestro->asegurado->nombre, $this->b, 1, 'L');
+		$this->Cell(30, 5, $this->siniestro->asegurado, $this->b, 1, 'L');
 
         $this->SetFont('Arial', '', 12);
         $this->x = 15;
 		$this->Cell(30, 5, 'TEL:  ', $this->b, 0, 'L');
         $this->SetFont('Arial', 'BUI', 12);
-		$this->Cell(30, 5, $this->siniestro->asegurado->telefono, $this->b, 1, 'L');
+		$this->Cell(30, 5, $this->siniestro->telefono, $this->b, 1, 'L');
 	}
 
 }

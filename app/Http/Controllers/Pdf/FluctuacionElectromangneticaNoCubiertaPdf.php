@@ -43,7 +43,7 @@ class FluctuacionElectromangneticaNoCubiertaPdf extends fpdf {
 		
 		$this->SetFont('Arial', 'B', 10);
 		$this->x = 15;
-		$this->Cell(75, 5, $this->siniestro->asegurado->nombre, $this->b, 1, 'L');
+		$this->Cell(75, 5, $this->siniestro->asegurado, $this->b, 1, 'L');
 		
 		$this->x = 15;
 		$this->Cell(75, 5, 'Tucumán 5980, S2008QLL Rosario, Santa Fe, Argentina', $this->b, 1, 'L');
@@ -58,7 +58,7 @@ class FluctuacionElectromangneticaNoCubiertaPdf extends fpdf {
 		$this->x = 15;
 		$this->y += 5;
 		$this->SetFont('Arial', 'B', 10);
-		$this->Cell(150, 5, 'Ref.: legajo '.$this->siniestro->asegurado->nombre.' - Fecha:'.date_format($this->siniestro->fecha_denuncia, 'd/m/Y').' - Pzad.: '.$this->siniestro->poliza->numero_poliza.' Cert.: 0.-', $this->b, 1, 'L');
+		$this->Cell(150, 5, 'Ref.: legajo '.$this->siniestro->asegurado.' - Fecha:'.date_format($this->siniestro->fecha_denuncia, 'd/m/Y').' - Pzad.: '.$this->siniestro->poliza->numero_poliza.' Cert.: 0.-', $this->b, 1, 'L');
 
 		$this->SetFont('Arial', '', 10);
 		$this->x = 15;

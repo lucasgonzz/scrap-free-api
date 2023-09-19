@@ -10,7 +10,7 @@ class EstadoSiniestroController extends Controller
    
     public function index() {
         $models = EstadoSiniestro::where('user_id', $this->userId())
-                            ->orderBy('created_at', 'ASC')
+                            ->orderBy('codigo', 'ASC')
                             ->withAll()
                             ->get();
         return response()->json(['models' => $models], 200);

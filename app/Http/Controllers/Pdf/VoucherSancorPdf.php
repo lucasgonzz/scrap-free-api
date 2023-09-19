@@ -60,7 +60,7 @@ class VoucherSancorPdf extends fpdf {
 		$this->x = 40;
 		$this->MultiCell(150, 4, $text, $this->b, 'J', 0);
 
-		$text = $this->siniestro->asegurado->nombre.', DNI '.$this->siniestro->asegurado->numero_documento.', con domicilio en '.$this->siniestro->domicilio_completo_google.', en adelante “EL ASEGURADO”, por la otra parte;';
+		$text = $this->siniestro->asegurado.', DNI '.$this->siniestro->numero_documento.', con domicilio en '.$this->siniestro->domicilio_completo_google.', en adelante “EL ASEGURADO”, por la otra parte;';
 		$this->x = 40;
 		$this->MultiCell(150, 5, $text, $this->b, 'J', 0);
 	}

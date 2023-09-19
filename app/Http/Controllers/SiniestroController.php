@@ -72,6 +72,8 @@ class SiniestroController extends Controller
             'liquidacion_deducible'             => $request->liquidacion_deducible,
             'liquidacion_siniestro'             => $request->liquidacion_siniestro,
             'notas_domicilio'                   => $request->notas_domicilio,
+            'notas_importantes'                 => $request->notas_importantes,
+            'notas_transporte'                  => $request->notas_transporte,
             'orden_servicio'                    => $request->orden_servicio,
             'recomendacion'                     => $request->recomendacion,
             'reparacion_deducible'              => $request->reparacion_deducible,
@@ -140,6 +142,8 @@ class SiniestroController extends Controller
         $model->liquidacion_deducible           = $request->liquidacion_deducible;
         $model->liquidacion_siniestro           = $request->liquidacion_siniestro;
         $model->notas_domicilio                 = $request->notas_domicilio;
+        $model->notas_importantes               = $request->notas_importantes;
+        $model->notas_transporte                = $request->notas_transporte;
         $model->orden_servicio                  = $request->orden_servicio;
         $model->recomendacion                   = $request->recomendacion;
         $model->reparacion_deducible            = $request->reparacion_deducible;

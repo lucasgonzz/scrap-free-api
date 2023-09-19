@@ -40,7 +40,7 @@ class PedidoInspeccionLifeSegurosPdf extends fpdf {
 		$this->Cell(100, 15, 'Siniestro: '.$this->siniestro->numero_siniestro, $this->b, 1, 'L');
 
 		$this->x = 30;
-		$this->Cell(100, 15, 'DNI: '.$this->siniestro->asegurado->numero_documento, $this->b, 1, 'L');
+		$this->Cell(100, 15, 'DNI: '.$this->siniestro->numero_documento, $this->b, 1, 'L');
 
 		$this->x = 30;
 		$this->Cell(100, 15, 'De nuestra consideración:', $this->b, 1, 'L');

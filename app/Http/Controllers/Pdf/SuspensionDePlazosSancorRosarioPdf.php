@@ -42,7 +42,7 @@ class SuspensionDePlazosSancorRosarioPdf extends fpdf {
 		$this->Cell(75, 5, 'Señor/a.', $this->b, 1, 'L');
 		
 		$this->x = 30;
-		$this->Cell(75, 5, $this->siniestro->asegurado->nombre, $this->b, 1, 'L');
+		$this->Cell(75, 5, $this->siniestro->asegurado, $this->b, 1, 'L');
 		
 		$this->x = 30;
 		$this->Cell(75, 5, 'Tucumán 5980, S2008QLL Rosario, Santa Fe, Argentina', $this->b, 1, 'L');

@@ -110,7 +110,7 @@ class InformeLiquidadorPdf extends fpdf {
 		$this->Cell(80, 5, 'Orden Serv: '.$this->siniestro->tipo_orden_de_servicio->nombre, $this->b, 1, 'L');
 
 		$this->x = 25;
-		$this->Cell(80, 5, 'Titular: '.$this->siniestro->asegurado->nombre, $this->b, 1, 'L');
+		$this->Cell(80, 5, 'Titular: '.$this->siniestro->asegurado, $this->b, 1, 'L');
 
 		$this->finish_y_info_siniestro = $this->y;
 	}
@@ -203,12 +203,14 @@ class InformeLiquidadorPdf extends fpdf {
 
 	function notaImportantes() {
 		$this->y = $this->start_y_recomendacion;
+		$this->x = 25;
+		$this->MultiCell(80, 5, $this->siniestro->notas_importantes, 1, 'L', 0);
 
-		foreach ($this->siniestro->nota_importantes as $nota_importante) {
-			$this->x = 25;
-			$fecha = date_format($nota_importante->created_at, 'd/m');
-			$this->MultiCell(80, 5, $fecha.' '.$nota_importante->nota, 1, 'L', 0);
-		}
+		// foreach ($this->siniestro->nota_importantes as $nota_importante) {
+		// 	$this->x = 25;
+		// 	$fecha = date_format($nota_importante->created_at, 'd/m');
+		// 	$this->MultiCell(80, 5, $fecha.' '.$nota_importante->nota, 1, 'L', 0);
+		// }
 	}
 
 	function recomendaciones() {

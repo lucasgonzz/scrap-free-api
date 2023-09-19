@@ -102,7 +102,7 @@ class InformeLiquidadorCelularesPdf extends fpdf {
 		$this->Cell(80, 5, 'Aseguradora:'. $this->siniestro->aseguradora->nombre, $this->b, 1, 'L');
 
 		$this->x = 25;
-		$this->Cell(80, 5, 'Titular Celular: '.$this->siniestro->asegurado->nombre, $this->b, 1, 'L');
+		$this->Cell(80, 5, 'Titular Celular: '.$this->siniestro->asegurado, $this->b, 1, 'L');
 	}
 
 	function infoEquipos() {
@@ -181,11 +181,13 @@ class InformeLiquidadorCelularesPdf extends fpdf {
 	function notaImportantes() {
 		$this->y = $this->start_y_recomendacion;
 
-		foreach ($this->siniestro->nota_importantes as $nota_importante) {
-			$this->x = 25;
-			$fecha = date_format($nota_importante->created_at, 'd/m');
-			$this->MultiCell(80, 5, $fecha.' '.$nota_importante->nota, 1, 'L', 0);
-		}
+		$this->x = 25;
+		$this->MultiCell(80, 5, $this->siniestro->notas_importantes, 1, 'L', 0);
+		// foreach ($this->siniestro->nota_importantes as $nota_importante) {
+		// 	$this->x = 25;
+		// 	$fecha = date_format($nota_importante->created_at, 'd/m');
+		// 	$this->MultiCell(80, 5, $fecha.' '.$nota_importante->nota, 1, 'L', 0);
+		// }
 	}
 
 	function recomendaciones() {
