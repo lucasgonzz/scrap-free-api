@@ -10,8 +10,13 @@ class Bien extends Model
     protected $guarded = [];
 
     function scopeWithAll($q) {
+        $q->with('images');
         // $q->with('causa_bien', 'estado_bien', 'linea', 'sub_linea', 'tecnico_asegurado', 'tecnico_scrap_free', 'logistica', 'siniestro');
     } 
+
+    function images() {
+        return $this->morphMany('App\Models\Image', 'imageable');
+    }
 
     function causa_bien() {
         return $this->hasOne('App\Models\CausaBien');

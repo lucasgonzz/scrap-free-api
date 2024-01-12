@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Helpers;
 
+use App\Http\Controllers\BienController;
 use App\Models\Siniestro;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -28,6 +29,42 @@ class SiniestroHelper {
 			}
 			Log::info('-------------------------------------');
 		} 
+	}
+
+	static function attachBienes($siniestro, $bienes) {
+		foreach ($bienes as $bien) {
+			if (!isset($bien['id'])) {	
+				Self::createBien($siniestro, $bien);
+			} else {
+				Self::updateBien($siniestro, $bien);
+			}
+		}
+	}
+
+	static function createBien($siniestro, $bien) {
+		// Log::info('createBien');
+		// Log::info($bien);
+        $request = Self::getBienRequest($siniestro, $bien);
+		$ct = new BienController();
+		$ct->store($request);
+	}
+
+	static function updateBien($siniestro, $bien) {
+        $request = Self::getBienRequest($siniestro, $bien);
+		$ct = new BienController();
+		$ct->update($request, $bien['id']);
+	}
+
+	static function getBienRequest($siniestro, $bien) {
+		$request = new \Illuminate\Http\Request();
+		foreach ($bien as $key => $value) {
+			$request->{$key} = $value;
+		}
+		$request->model_id = $siniestro->id;
+		if (isset($bien['childrens'])) {
+			$request->childrens = $bien['childrens'];
+		}
+		return $request;
 	}
 
 	static function checkEstadoSiniestroCerrado($siniestro) {

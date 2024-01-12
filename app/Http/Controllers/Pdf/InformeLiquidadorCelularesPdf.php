@@ -275,7 +275,7 @@ class InformeLiquidadorCelularesPdf extends fpdf {
         $this->y += 2;
         $this->start_y_dano_domicilio = $this->y;
 		foreach ($this->siniestro->bienes as $bien) {
-        	if (env('APP_ENV') == 'local' || !is_null($bien->foto_frente_asegurado)) {
+        	if (env('APP_ENV') == 'local' || !is_null($bien->foto_captura_de_pantalla)) {
 	        	$this->Image($this->imageUrl($bien, 'foto_captura_de_pantalla'), 25, $this->y, 25, 25);
 	        	$this->y += 30;
         	}
@@ -285,7 +285,7 @@ class InformeLiquidadorCelularesPdf extends fpdf {
 	function facturaCompra() {
 		$this->y = $this->start_y_dano_domicilio;        
 		foreach ($this->siniestro->bienes as $bien) {
-        	if (env('APP_ENV') == 'local' || !is_null($bien->foto_frente_asegurado)) {
+        	if (env('APP_ENV') == 'local' || !is_null($bien->foto_factura_compra_asegurado)) {
 	        	$this->Image($this->imageUrl($bien, 'foto_factura_compra_asegurado'), 105, $this->y, 25, 25);
 	        	$this->y += 30;
         	}

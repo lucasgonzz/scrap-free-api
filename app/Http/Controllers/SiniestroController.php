@@ -82,9 +82,11 @@ class SiniestroController extends Controller
             'numero_siniestro'                  => $request->numero_siniestro,
             'poliza_id'                         => $request->poliza_id,
             'centro_reparacion_id'              => $request->centro_reparacion_id,
+            'cantidad_bienes'                   => $request->cantidad_bienes,
             'user_id'                           => $this->userId(),
         ]);
         SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id, true);
+        SiniestroHelper::attachBienes($model, $request->bienes);
         GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);
         // SiniestroHelper::checkEstadoSiniestroCerrado($model);
         $this->updateRelationsCreated('siniestro', $model->id, $request->childrens);
@@ -99,6 +101,7 @@ class SiniestroController extends Controller
     public function update(Request $request, $id) {
         $model = Siniestro::find($id);
         SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id);
+        SiniestroHelper::attachBienes($model, $request->bienes);
         $model->aseguradora_id                  = $request->aseguradora_id;
         $model->asegurado_id                    = $request->asegurado_id;
 
@@ -152,6 +155,8 @@ class SiniestroController extends Controller
         $model->numero_siniestro                = $request->numero_siniestro;
         $model->poliza_id                       = $request->poliza_id;
         $model->centro_reparacion_id            = $request->centro_reparacion_id;
+        $model->cantidad_bienes                 = $request->cantidad_bienes;
+
         $model->save();
         // SiniestroHelper::checkEstadoSiniestroCerrado($model);
         GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);

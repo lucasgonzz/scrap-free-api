@@ -62,6 +62,7 @@ class Controller extends BaseController
         if (isset($childrens)) {
             foreach ($childrens as $children) {
                 if (isset($children['is_imageable'])) {
+                    Log::info('Entro en el children');
                     $relation_model = GeneralHelper::getModelName('Image')::where('imageable_id', null)
                                                                             ->where('temporal_id', $children['temporal_id'])
                                                                             ->first();

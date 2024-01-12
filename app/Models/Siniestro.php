@@ -24,7 +24,7 @@ class Siniestro extends Model
 
 
     function scopeWithAll($query) {
-        $query->with('aseguradora', 'bienes', 'causa_siniestro', 'estado_general_siniestro', 'estado_siniestro', 'estado_siniestros', 'provincia', 'localidad', 'tipo_orden_de_servicio', 'gestor_scrap_free', 'gestor_aseguradora', 'logisticas.bienes', 'logisticas.transportista_devolucion', 'logisticas.transportista_retiro', 'centro_reparacion', 'poliza.coberturas', 'nota_importantes', 'coberturas');
+        $query->with('aseguradora', 'bienes.images', 'causa_siniestro', 'estado_general_siniestro', 'estado_siniestro', 'estado_siniestros', 'provincia', 'localidad', 'tipo_orden_de_servicio', 'gestor_scrap_free', 'gestor_aseguradora', 'logisticas.bienes', 'logisticas.transportista_devolucion', 'logisticas.transportista_retiro', 'centro_reparacion', 'poliza.coberturas', 'nota_importantes', 'coberturas');
     }
 
     function getDiasEnEstadoSiniestroAttribute() {

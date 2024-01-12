@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bien;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class BienController extends Controller
 {
@@ -28,7 +29,7 @@ class BienController extends Controller
             'tecnico_scrap_free_id'                 => $request->tecnico_scrap_free_id,
             'logistica_id'                          => $request->logistica_id,
             'siniestro_id'                          => $request->model_id,
-            'temporal_id'                           => $this->getTemporalId($request),
+            // 'temporal_id'                           => $this->getTemporalId($request),
             'accesorios'                            => $request->accesorios,
             'tiene_base'                            => $request->tiene_base,
             'tiene_cable'                           => $request->tiene_cable,
@@ -63,6 +64,9 @@ class BienController extends Controller
             'valor_reposicion_a_nuevo'              => $request->valor_reposicion_a_nuevo,
             'user_id'                               => $this->userId(),
         ]);
+        Log::info('BienController childrens');
+        Log::info($request->childrens);
+        $this->updateRelationsCreated('bien', $model->id, $request->childrens);
         return response()->json(['model' => $this->fullModel('Bien', $model->id)], 201);
     }  
 
