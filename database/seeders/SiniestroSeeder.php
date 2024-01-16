@@ -43,6 +43,7 @@ class SiniestroSeeder extends Seeder
                     'user_id'                       => 1,
                     'descripcion_del_hecho'         => 'Descolgue el tv para pintar y se me cae de costado, cuando lo enciendo sólo se escuchaba el sonido',
                     'recomendacion'                 => 'Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto',
+                    'cantidad_bienes'               => 2,
                 ],
             ];
 

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Tecnico;
+use App\Models\TecnicoAsegurado;
+use App\Models\TecnicoScrapFree;
 use Illuminate\Database\Seeder;
 
 class TecnicoSeeder extends Seeder
@@ -17,12 +19,13 @@ class TecnicoSeeder extends Seeder
         $models = [
             [
                 'num'       => 1,
-                'nombre'    => 'Bulo',
+                'nombre'    => 'Tecnico para elegir',
                 'user_id'   => 1,
             ],
         ];
         foreach ($models as $model) {
-            Tecnico::create($model);
+            TecnicoAsegurado::create($model);
+            TecnicoScrapFree::create($model);
         }
     }
 }

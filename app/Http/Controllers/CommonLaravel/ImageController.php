@@ -17,10 +17,13 @@ class ImageController extends Controller
         $manager = new ImageManager();
         $croppedImage = $manager->make($request->image_url);              
         $croppedImage->crop($request->width, $request->height, $request->left, $request->top);
+        
+        $croppedImage->encode('jpg', 50); // Ajusta la calidad según tus necesidades
+        
         if ($request->model_name == 'user') {
             $name = time().rand(1, 100000).'.png';
         } else {
-            $name = time().rand(1, 100000).'.jpeg';
+            $name = time().rand(1, 100000).'.jpg';
         }
         $croppedImage->save(storage_path().'/app/public/'.$name);
 

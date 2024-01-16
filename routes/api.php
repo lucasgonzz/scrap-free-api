@@ -58,7 +58,8 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::resource('estado-bien', 'EstadoBienController');
     Route::resource('linea', 'LineaController');
     Route::resource('sub-linea', 'SubLineaController');
-    Route::resource('tecnico', 'TecnicoController');
+    Route::resource('tecnico-asegurado', 'TecnicoAseguradoController');
+    Route::resource('tecnico-scrap-free', 'TecnicoScrapFreeController');
     Route::resource('logistica', 'LogisticaController');
     Route::resource('cobertura', 'CoberturaController');
     Route::resource('poliza', 'PolizaController');
