@@ -112,19 +112,7 @@ class RemitoRetiroAseguradoPdf extends fpdf {
 
 			$this->SetFont('Arial', '', 10);
 			$this->x = 25;
-			$this->Cell(180, 5, 'Control: '.PdfHelper::getBoolean($bien, 'tiene_control'), $this->b, 1, 'L');
-
-			$this->x = 25;
-			$this->Cell(180, 5, 'Base: '.PdfHelper::getBoolean($bien, 'tiene_base'), $this->b, 1, 'L');
-
-			$this->x = 25;
-			$this->Cell(180, 5, 'Cable: '.PdfHelper::getBoolean($bien, 'tiene_cable'), $this->b, 1, 'L');
-
-			$this->x = 25;
-			$this->Cell(180, 5, 'Cargador: '.PdfHelper::getBoolean($bien, 'tiene_cargador'), $this->b, 1, 'L');
-
-			$this->x = 25;
-			$this->Cell(180, 5, 'Accesorios: '.$bien->accesorios, $this->b, 1, 'L');
+			$this->Cell(180, 5, 'Marca: '.$bien->marca, $this->b, 1, 'L');
 		}
 		$this->y += 3;
 		$this->Line(15, $this->y, 195, $this->y);

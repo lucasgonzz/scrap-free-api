@@ -228,9 +228,11 @@ class InformeLiquidadorCelularesPdf extends fpdf {
         $this->y += 2;
         $this->start_y_dano_domicilio = $this->y;
 		foreach ($this->siniestro->bienes as $bien) {
-        	if (env('APP_ENV') == 'local' || !is_null($bien->foto_frente_asegurado)) {
-	        	$this->Image($this->imageUrl($bien, 'foto_frente_asegurado'), 25, $this->y, 25, 25);
-	        	$this->y += 30;
+        	if (env('APP_ENV') == 'local' || count($bien->images) >= 1) {
+	        	foreach ($bien->images as $image) {
+		        	$this->Image(PdfHelper::imageUrl($image), 25, $this->y, 25, 25);
+		        	$this->y += 30;
+	        	}
         	}
 		}
 	}
@@ -238,9 +240,11 @@ class InformeLiquidadorCelularesPdf extends fpdf {
 	function cajaEquipo() {
 		$this->y = $this->start_y_dano_domicilio;        
 		foreach ($this->siniestro->bienes as $bien) {
-        	if (env('APP_ENV') == 'local' || !is_null($bien->foto_frente_asegurado)) {
-	        	$this->Image($this->imageUrl($bien, 'foto_etiqueta'), 105, $this->y, 25, 25);
-	        	$this->y += 30;
+        	if (env('APP_ENV') == 'local' || count($bien->images) >= 1) {
+	        	foreach ($bien->images as $image) {
+		        	$this->Image(PdfHelper::imageUrl($image), 25, $this->y, 25, 25);
+		        	$this->y += 30;
+	        	}
         	}
 		}
 	}
@@ -275,9 +279,11 @@ class InformeLiquidadorCelularesPdf extends fpdf {
         $this->y += 2;
         $this->start_y_dano_domicilio = $this->y;
 		foreach ($this->siniestro->bienes as $bien) {
-        	if (env('APP_ENV') == 'local' || !is_null($bien->foto_captura_de_pantalla)) {
-	        	$this->Image($this->imageUrl($bien, 'foto_captura_de_pantalla'), 25, $this->y, 25, 25);
-	        	$this->y += 30;
+        	if (env('APP_ENV') == 'local' || count($bien->images) >= 1) {
+	        	foreach ($bien->images as $image) {
+		        	$this->Image(PdfHelper::imageUrl($image), 25, $this->y, 25, 25);
+		        	$this->y += 30;
+	        	}
         	}
 		}
 	}
@@ -285,9 +291,11 @@ class InformeLiquidadorCelularesPdf extends fpdf {
 	function facturaCompra() {
 		$this->y = $this->start_y_dano_domicilio;        
 		foreach ($this->siniestro->bienes as $bien) {
-        	if (env('APP_ENV') == 'local' || !is_null($bien->foto_factura_compra_asegurado)) {
-	        	$this->Image($this->imageUrl($bien, 'foto_factura_compra_asegurado'), 105, $this->y, 25, 25);
-	        	$this->y += 30;
+        	if (env('APP_ENV') == 'local' || count($bien->images) >= 1) {
+        		foreach ($bien->images as $image) {
+		        	$this->Image(PdfHelper::imageUrl($image), 25, $this->y, 25, 25);
+		        	$this->y += 30;
+	        	}
         	}
 		}
 	}

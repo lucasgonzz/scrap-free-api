@@ -16,6 +16,10 @@ class GestorAseguradoraController extends Controller
         return response()->json(['models' => $models], 200);
     }
 
+    function show($id) {
+        return response()->json(['model' => $this->fullModel('GestorAseguradora', $id)], 200);
+    }
+
     public function store(Request $request) {
         $model = GestorAseguradora::create([
             'num'                   => $this->num('gestor_aseguradoras'),
@@ -26,6 +30,7 @@ class GestorAseguradoraController extends Controller
             'unidad_negocio_id'     => $request->unidad_negocio_id,
             'user_id'               => $this->userId(),
         ]);
+        $this->sendAddModelNotification('Gestor-Aseguradora', $model->id, false);
         return response()->json(['model' => $this->fullModel('GestorAseguradora', $model->id)], 201);
     }  
 
@@ -37,6 +42,7 @@ class GestorAseguradoraController extends Controller
         $model->email                 = $request->email;
         $model->unidad_negocio_id     = $request->unidad_negocio_id;
         $model->save();
+        $this->sendAddModelNotification('Gestor-Aseguradora', $model->id, false);
         return response()->json(['model' => $this->fullModel('GestorAseguradora', $model->id)], 200);
     }
 

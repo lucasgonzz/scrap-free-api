@@ -18,6 +18,7 @@ class CreateEstadoSiniestroSiniestroTable extends Migration
             $table->integer('estado_siniestro_id')->nullable();
             $table->integer('siniestro_id')->nullable();
             $table->integer('dias_en_estado_siniestro')->nullable();
+            $table->integer('employee_id')->nullable();
             $table->timestamps();
         });
     }

@@ -14,8 +14,16 @@ class SiniestroHelper {
 			$created_at = Carbon::now();
 		}
 		if ($from_store || $model->estado_siniestro_id != $estado_siniestro_id) {
+			Log::info('user:');
+			Log::info(is_null(Auth()->user()));
+			if (!is_null(Auth()->user())) {
+				$employee_id = Auth()->user()->id;
+			} else {
+				$employee_id = rand(1,3);
+			}
 			$model->estado_siniestros()->attach($estado_siniestro_id, [
 				'created_at'	=> $created_at,
+				'employee_id'	=> $employee_id,
 			]);
 			$model = Siniestro::find($model->id);
 			$count = count($model->estado_siniestros);

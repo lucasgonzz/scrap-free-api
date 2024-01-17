@@ -65,6 +65,37 @@ class PdfHelper {
 		}
 	}
 
+	static function imageUrl($image) {
+		if (env('APP_ENV') == 'local') {
+			if (str_contains($image->image_url, 'tele2')) {
+				return 'https://cdn.pixabay.com/photo/2015/02/07/20/58/tv-627876_1280.jpg';
+			}
+			if (str_contains($image->image_url, 'tele')) {
+				return 'https://cdn.pixabay.com/photo/2015/02/07/20/58/tv-627876_1280.jpg';
+				return 'https://img.freepik.com/vector-gratis/fondo-plantilla-logo_1390-55.jpg';
+			}
+
+			if (str_contains($image->image_url, 'heladera2')) {
+				return 'https://cdn.pixabay.com/photo/2015/02/07/20/58/tv-627876_1280.jpg';
+				return 'https://acdn.mitiendanube.com/stores/001/373/205/products/heladera-ciclica-neba-a360-360lts-con-freezer-blanca1-1a2a635fc479382ccc16879598827309-1024-1024.png';
+			}
+			if (str_contains($image->image_url, 'heladera')) {
+				return 'https://cdn.pixabay.com/photo/2015/02/07/20/58/tv-627876_1280.jpg';
+				return 'https://static.cotodigital3.com.ar/sitios/fotos/full/00235600/00235659.jpg?3.0.165';
+			}
+
+			if (str_contains($image->image_url, 'licuadora2')) {
+				return 'https://cdn.pixabay.com/photo/2015/02/07/20/58/tv-627876_1280.jpg';
+				return 'https://http2.mlstatic.com/D_NQ_NP_926061-MLU73028445004_112023-O.webp';
+			}
+			if (str_contains($image->image_url, 'licuadora')) {
+				return 'https://cdn.pixabay.com/photo/2015/02/07/20/58/tv-627876_1280.jpg';
+				return 'https://atma.com.ar/media/catalog/product/cache/c8f6a96bef9e9f64cd4973587df2520f/l/i/li8445ap.jpg';
+			}
+		}
+		return $image->image_url;
+	}
+
 	static function getBoolean($object, $prop) {
 		if ($object->{$prop}) {
 			return 'Si';
@@ -82,7 +113,7 @@ class PdfHelper {
 				$x = 20;
 			} else if ($x != 156) {
 				$x += 52;
-				$instace->y -= 30;
+				$instace->y -= 10;
 			} else {
 				$x = 20;
 			}
@@ -92,19 +123,7 @@ class PdfHelper {
         	
         	$instace->SetFont('Arial', '', 9);
 	        $instace->x = $x;
-			$instace->Cell(52, 5, 'Control: '.PdfHelper::getBoolean($bien, 'tiene_control'), $instace->b, 1, 'L');
-
-	        $instace->x = $x;
-			$instace->Cell(52, 5, 'Base: '.PdfHelper::getBoolean($bien, 'tiene_base'), $instace->b, 1, 'L');
-
-	        $instace->x = $x;
-			$instace->Cell(52, 5, 'Cable: '.PdfHelper::getBoolean($bien, 'tiene_cable'), $instace->b, 1, 'L');
-
-	        $instace->x = $x;
-			$instace->Cell(52, 5, 'Cargador: '.PdfHelper::getBoolean($bien, 'tiene_cargador'), $instace->b, 1, 'L');
-
-	        $instace->x = $x;
-			$instace->Cell(52, 5, 'Accesorios: '.PdfHelper::getBoolean($bien, 'accesorios'), $instace->b, 1, 'L');
+			$instace->Cell(52, 5, 'Marca: '.$bien->marca, $instace->b, 1, 'L');
 		}
 	}
 

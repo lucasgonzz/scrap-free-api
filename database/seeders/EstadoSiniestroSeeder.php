@@ -18,6 +18,7 @@ class EstadoSiniestroSeeder extends Seeder
         $estados = [
             [
                 'nombre' =>'Contactar Asegurado',
+                'enviar_mensaje_function' => 'contactar_asegurado',
             ],
             [
                 'nombre' =>'Colectar Informacion para Auditoria',
@@ -109,6 +110,7 @@ class EstadoSiniestroSeeder extends Seeder
                 'num'           => $codigo,
                 'codigo'        => $codigo,
                 'nombre'        => $estado['nombre'],
+                'enviar_mensaje_function'   => isset($estado['enviar_mensaje_function']) ? $estado['enviar_mensaje_function'] : 0,
                 'por_defecto_en_estados_que_coinciden'   => isset($estado['por_defecto_en_estados_que_coinciden']) ? $estado['por_defecto_en_estados_que_coinciden'] : 0,
                 'por_defecto_en_estados_actualmente'   => isset($estado['por_defecto_en_estados_actualmente']) ? $estado['por_defecto_en_estados_actualmente'] : 0,
                 'user_id'       => 1,

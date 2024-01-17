@@ -20,23 +20,31 @@ class GestorScrapFreeController extends Controller
         $model = GestorScrapFree::create([
             'num'                   => $this->num('gestor_scrap_frees'),
             'nombre'                => $request->nombre,
+            'nombre_formal'         => $request->nombre_formal,
             'celular'               => $request->celular,
             'telefono'              => $request->telefono,
             'email'                 => $request->email,
             'unidad_negocio_id'     => $request->unidad_negocio_id,
             'user_id'               => $this->userId(),
         ]);
+        $this->sendAddModelNotification('Gestor-Scrap-Free', $model->id, false);
         return response()->json(['model' => $this->fullModel('GestorScrapFree', $model->id)], 201);
     }  
+
+    function show($id) {
+        return response()->json(['model' => $this->fullModel('GestorScrapFree', $id)], 200);
+    }
 
     public function update(Request $request, $id) {
         $model = GestorScrapFree::find($id);
         $model->nombre                = $request->nombre;
+        $model->nombre_formal         = $request->nombre_formal;
         $model->celular               = $request->celular;
         $model->telefono              = $request->telefono;
         $model->email                 = $request->email;
         $model->unidad_negocio_id     = $request->unidad_negocio_id;
         $model->save();
+        $this->sendAddModelNotification('Gestor-Scrap-Free', $model->id, false);
         return response()->json(['model' => $this->fullModel('GestorScrapFree', $model->id)], 200);
     }
 

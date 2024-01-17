@@ -74,7 +74,7 @@ class Siniestro extends Model
     }
 
     function estado_siniestros() {
-        return $this->belongsToMany('App\Models\EstadoSiniestro')->withPivot('dias_en_estado_siniestro')->withTimestamps();
+        return $this->belongsToMany('App\Models\EstadoSiniestro')->withPivot('dias_en_estado_siniestro', 'employee_id')->withTimestamps();
     }
 
     function provincia() {

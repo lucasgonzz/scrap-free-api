@@ -17,6 +17,7 @@ class CreateGestorScrapFreesTable extends Migration
             $table->id();
             $table->integer('num');
             $table->string('nombre')->nullable();
+            $table->string('nombre_formal')->nullable();
             $table->string('celular')->nullable();
             $table->string('telefono')->nullable();
             $table->string('email')->nullable();

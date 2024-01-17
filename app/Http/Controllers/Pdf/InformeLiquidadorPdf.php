@@ -250,10 +250,12 @@ class InformeLiquidadorPdf extends fpdf {
 	function fotosAsegurado() {
         $this->y += 2;
 		foreach ($this->siniestro->bienes as $bien) {
-        	if (env('APP_ENV') == 'local' || !is_null($bien->foto_frente_asegurado)) {
+        	if (env('APP_ENV') == 'local' || count($bien->images) >= 1) {
 	        	$this->x = 25;	
-	        	$this->Image($this->imageUrl($bien, 'foto_frente_asegurado'), 25, $this->y, 25, 25);
-	        	$this->y += 30;
+	        	foreach ($bien->images as $image) {
+		        	$this->Image(PdfHelper::imageUrl($image), 25, $this->y, 25, 25);
+		        	$this->y += 30;
+	        	}
         	}
 		}
 	}
@@ -284,19 +286,13 @@ class InformeLiquidadorPdf extends fpdf {
 	function evidenciaTecnica() {
         $this->y += 2;
 		foreach ($this->siniestro->bienes as $bien) {
-        	if (env('APP_ENV') == 'local' || !is_null($bien->foto_evidencia_scrap_free)) {
-	        	$this->Image($this->imageUrl($bien, 'foto_evidencia_scrap_free'), 25, $this->y, 25, 25);
-	        	$this->y += 30;
+        	if (env('APP_ENV') == 'local' || count($bien->images) >= 1) {
+	        	foreach ($bien->images as $image) {
+		        	$this->Image(PdfHelper::imageUrl($image), 25, $this->y, 25, 25);
+		        	$this->y += 30;
+	        	}
         	}
 		}
-	}
-
-
-	function imageUrl($bien, $prop) {
-		if (env('APP_ENV') == 'local') {
-			return 'https://multipoint.com.ar/Image/0/750_750-Nuevo_proyecto_-_2021-10-28T141946.141.jpg';
-		}
-		return $bien->{$prop};
 	}
 
 }

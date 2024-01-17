@@ -18,12 +18,14 @@ class GestorScrapFreeSeeder extends Seeder
             [
                 'num'                   => 1,
                 'nombre'                => 'El mejor de scrap free',
+                'nombre_formal'         => 'Francisco',
                 'unidad_negocio_id'     => 1, 
                 'user_id'               => 1,
             ],
             [
                 'num'                   => 2,
                 'nombre'                => 'El segundo mejor',
+                'nombre_formal'         => 'Mauro Mambretti',
                 'unidad_negocio_id'     => 1, 
                 'user_id'               => 1,
             ],
