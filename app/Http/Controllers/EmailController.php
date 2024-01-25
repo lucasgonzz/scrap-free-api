@@ -28,7 +28,6 @@ class EmailController extends Controller
             'encryption' => 'ssl',
             'from'       => array('address' => $credencial->email, 'name' => $this->siniestro->gestor_scrap_free->nombre_formal),
             'username'   => $credencial->email,
-            // 'password'   => 'ypbk qayo phdb dfbo',
             'password'   => $credencial->password,
             'sendmail'   => '/usr/sbin/sendmail -bs',
             'pretend'    => false,
