@@ -48,7 +48,7 @@ class EmployeeController extends Controller
         $user = auth()->user();
 
 
-        if ($this->docNumerRegister($request->doc_number)) {
+        // if ($this->docNumerRegister($request->doc_number)) {
             $model = User::create([
                 'name'              => ucfirst($request->name),
                 'doc_number'        => $request->doc_number,
@@ -63,9 +63,9 @@ class EmployeeController extends Controller
                                 ->with('permissions')
                                 ->first();
             return response()->json(['model' => $model], 201);
-        } else {
-            return response()->json(['model' => false], 200);
-        }
+        // } else {
+        //     return response()->json(['model' => false], 200);
+        // }
     }
 
     function docNumerRegister($doc_number) {

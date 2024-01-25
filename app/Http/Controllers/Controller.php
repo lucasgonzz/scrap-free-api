@@ -13,6 +13,9 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Artisan;
 
 class Controller extends BaseController
 {
@@ -56,6 +59,21 @@ class Controller extends BaseController
             return 0;
         }
         return $model;
+    }
+
+    function setEnvironmentValue($environmentName, $configKey, $newValue) {
+        file_put_contents(App::environmentFilePath(), str_replace(
+            $environmentName . '=' . Config::get($configKey),
+            $environmentName . '=' . $newValue,
+            file_get_contents(App::environmentFilePath())
+        ));
+
+        Config::set($configKey, $newValue);
+
+        // Reload the cached config       
+        if (file_exists(App::getCachedConfigPath())) {
+            Artisan::call("config:cache");
+        }
     }
 
     function updateRelationsCreated($model_name, $model_id, $childrens) {

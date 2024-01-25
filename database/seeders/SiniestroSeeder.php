@@ -26,6 +26,7 @@ class SiniestroSeeder extends Seeder
         if (env('APP_ENV') == 'local') {
             $siniestros = [
                 [
+                    'asegurado'                     => 'Jorge Miguel',
                     'aseguradora_id'                => 1,
                     'asegurado_id'                  => 1,
                     'fecha_ocurrencia'              => Carbon::today()->subDays(4),
@@ -34,6 +35,7 @@ class SiniestroSeeder extends Seeder
                     'estado_general_siniestro_id'   => null,
                     'estado_siniestro_id'           => null,
                     'telefono'                      => '3412649528',
+                    'email'                         => 'lucasgonzalez210200@gmail.com',
                     'localidad_id'                  => 1,
                     'provincia_id'                  => 1,
                     'tipo_orden_de_servicio_id'     => 1,
@@ -44,6 +46,7 @@ class SiniestroSeeder extends Seeder
                     'numero_siniestro'              => '#ICF1 09-46299',
                     'poliza_id'                     => 1,
                     'user_id'                       => 1,
+                    'notas_importantes'                 => 'Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible.',
                     'descripcion_del_hecho'         => 'Descolgue el tv para pintar y se me cae de costado, cuando lo enciendo sólo se escuchaba el sonido',
                     'recomendacion'                 => 'Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto',
                     'cantidad_bienes'               => 2,
@@ -54,6 +57,7 @@ class SiniestroSeeder extends Seeder
             $siniestros = [
                 [
                     'aseguradora_id'                => 1,
+                    'asegurado'                     => 'Jorge Miguel',
                     'causa_siniestro_id'            => 1,
                     'estado_general_siniestro_id'   => null,
                     'estado_siniestro_id'           => null,
@@ -69,6 +73,7 @@ class SiniestroSeeder extends Seeder
                 ],
                 [
                     'aseguradora_id'                => 2,
+                    'asegurado'                     => 'Jorge Miguel',
                     'causa_siniestro_id'            => 2,
                     'estado_general_siniestro_id'   => null,
                     'estado_siniestro_id'           => null,

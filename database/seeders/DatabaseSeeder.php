@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PolizaSeeder::class);
         $this->call(SiniestroSeeder::class);
         $this->call(ColorSiniestroSeeder::class);
+        $this->call(EmailCredentialSeeder::class);
 
         
         // $this->call(PermissionSeeder::class);

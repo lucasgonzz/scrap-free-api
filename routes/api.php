@@ -39,7 +39,14 @@ Route::middleware('auth:sanctum')->group(function() {
 
     // ----------------------------------------------------------------------------------------------------
 
+    // Email
+
+    Route::post('send-email/{estado_siniestro}/{siniestro_id}', 'EmailController@sendEmail');
+
     Route::resource('siniestro', 'SiniestroController');
+    Route::put('siniestro/set-whatsapp-enviado/{siniestro_id}', 'SiniestroController@setWhatsAppEnviado');
+    Route::put('siniestro/set-email-enviado/{siniestro_id}', 'SiniestroController@setEmailEnviado');
+
     Route::post('siniestro/casos-por-dia', 'SiniestroController@casosPorDia');
 
     Route::resource('asegurado', 'AseguradoController');

@@ -19,6 +19,8 @@ class CreateEstadoSiniestroSiniestroTable extends Migration
             $table->integer('siniestro_id')->nullable();
             $table->integer('dias_en_estado_siniestro')->nullable();
             $table->integer('employee_id')->nullable();
+            $table->boolean('whatsapp_send')->default(0);
+            $table->boolean('email_send')->default(0);
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Helpers\SiniestroHelper;
 use App\Http\Controllers\Helpers\SiniestroMetricasHelper;
 use App\Models\Siniestro;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SiniestroController extends Controller
 {
@@ -27,6 +28,8 @@ class SiniestroController extends Controller
     }
 
     public function store(Request $request) {
+        Log::info('siniestro store $request:');
+        Log::info($request);
         $model = Siniestro::create([
             'num'                               => $this->num('siniestros'),
             'aseguradora_id'                    => $request->aseguradora_id,
@@ -87,10 +90,12 @@ class SiniestroController extends Controller
         ]);
         SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id, true);
         SiniestroHelper::attachBienes($model, $request->bienes);
-        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);
+        if (property_exists($request, 'coberturas')) {
+            GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);
+        } 
         // SiniestroHelper::checkEstadoSiniestroCerrado($model);
         $this->updateRelationsCreated('siniestro', $model->id, $request->childrens);
-        $this->sendAddModelNotification('Siniestro', $model->id);
+        $this->sendAddModelNotification('Siniestro', $model->id, false);
         return response()->json(['model' => $this->fullModel('Siniestro', $model->id)], 201);
     }  
 
@@ -102,6 +107,8 @@ class SiniestroController extends Controller
         $model = Siniestro::find($id);
         SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id);
         SiniestroHelper::attachBienes($model, $request->bienes);
+        Log::info('siniestro update $request:');
+        Log::info($request);
         $model->aseguradora_id                  = $request->aseguradora_id;
         $model->asegurado_id                    = $request->asegurado_id;
 
@@ -159,8 +166,10 @@ class SiniestroController extends Controller
 
         $model->save();
         // SiniestroHelper::checkEstadoSiniestroCerrado($model);
-        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);
-        $this->sendAddModelNotification('Siniestro', $model->id);
+        if (property_exists($request, 'coberturas')) {
+            GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);
+        } 
+        $this->sendAddModelNotification('Siniestro', $model->id, false);
         return response()->json(['model' => $this->fullModel('Siniestro', $model->id)], 200);
     }
 
@@ -170,5 +179,13 @@ class SiniestroController extends Controller
         $this->sendDeleteModelNotification('Siniestro', $model->id);
         $model->delete();
         return response(null);
+    }
+
+    function setWhatsAppEnviado(Request $request, $siniestro_id) {
+        SiniestroHelper::set_whatsapp_enviado_en_estado_siniestro_actual($siniestro_id);
+    }
+
+    function setEmailEnviado(Request $request, $siniestro_id) {
+        SiniestroHelper::set_email_enviado_en_estado_siniestro_actual($siniestro_id);
     }
 }

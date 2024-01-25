@@ -82,4 +82,18 @@ class SiniestroHelper {
 		}
 	}
 
+	static function set_whatsapp_enviado_en_estado_siniestro_actual($siniestro_id) {
+        $siniestro = Siniestro::find($siniestro_id);
+        $siniestro->estado_siniestros()->updateExistingPivot($siniestro->estado_siniestro_id, [
+        	'whatsapp_send' => 1
+        ]);
+	}
+
+	static function set_email_enviado_en_estado_siniestro_actual($siniestro_id) {
+        $siniestro = Siniestro::find($siniestro_id);
+        $siniestro->estado_siniestros()->updateExistingPivot($siniestro->estado_siniestro_id, [
+        	'email_send' => 1
+        ]);
+	}
+
 }
