@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('verification_code')->nullable();
             $table->string('visible_password', 128)->nullable();
             $table->string('prev_password')->nullable();
+            $table->timestamp('last_activity')->nullable();
             $table->integer('owner_id')->nullable();
             $table->text('image_url')->nullable();
             $table->rememberToken();

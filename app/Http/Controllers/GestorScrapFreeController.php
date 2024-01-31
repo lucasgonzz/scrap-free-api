@@ -21,6 +21,7 @@ class GestorScrapFreeController extends Controller
             'num'                   => $this->num('gestor_scrap_frees'),
             'nombre'                => $request->nombre,
             'nombre_formal'         => $request->nombre_formal,
+            'svg'                   => $request->svg,
             'celular'               => $request->celular,
             'telefono'              => $request->telefono,
             'email'                 => $request->email,
@@ -40,6 +41,7 @@ class GestorScrapFreeController extends Controller
         $model->nombre                = $request->nombre;
         $model->nombre_formal         = $request->nombre_formal;
         $model->celular               = $request->celular;
+        $model->svg                   = $request->svg;
         $model->telefono              = $request->telefono;
         $model->email                 = $request->email;
         $model->unidad_negocio_id     = $request->unidad_negocio_id;

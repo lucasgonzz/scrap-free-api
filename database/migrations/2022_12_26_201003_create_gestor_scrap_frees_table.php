@@ -21,6 +21,7 @@ class CreateGestorScrapFreesTable extends Migration
             $table->string('celular')->nullable();
             $table->string('telefono')->nullable();
             $table->string('email')->nullable();
+            $table->string('svg')->nullable();
             $table->integer('unidad_negocio_id')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();
