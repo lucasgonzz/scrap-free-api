@@ -49,4 +49,8 @@ class Bien extends Model
     function siniestro() {
         return $this->belongsTo('App\Models\Siniestro');
     }
+
+    function coberturas() {
+        return $this->belongsToMany('App\Models\Cobertura')->withPivot('suma_asegurada', 'deducible');
+    }
 }

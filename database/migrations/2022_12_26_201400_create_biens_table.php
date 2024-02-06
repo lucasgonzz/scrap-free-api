@@ -61,6 +61,8 @@ class CreateBiensTable extends Migration
             $table->decimal('liquidacion_deducible', 12,2)->nullable();
             $table->decimal('liquidacion_paga_asegurado', 12,2)->nullable();
             $table->decimal('valor_reposicion_a_nuevo', 12,2)->nullable();
+            $table->decimal('valor_reparacion', 12,2)->nullable();
+            $table->boolean('usar_el_valor_de_reparacion')->nullable();
             $table->integer('user_id');
             $table->timestamps();
         });

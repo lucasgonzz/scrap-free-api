@@ -58,14 +58,18 @@ class SiniestroHelper {
 	}
 
 	static function updateBien($siniestro, $bien) {
-        $request = Self::getBienRequest($siniestro, $bien);
+        // $request = Self::getBienRequest($siniestro, $bien);
+        $request = Self::getBienRequest($siniestro, $bien, true);
 		$ct = new BienController();
 		$ct->update($request, $bien['id']);
 	}
 
-	static function getBienRequest($siniestro, $bien) {
+	static function getBienRequest($siniestro, $bien, $array_reverse = false) {
 		$request = new \Illuminate\Http\Request();
 		foreach ($bien as $key => $value) {
+			if ($key == 'coberturas' && $array_reverse) {
+				$value = array_reverse($value);
+			} 
 			$request->{$key} = $value;
 		}
 		$request->model_id = $siniestro->id;

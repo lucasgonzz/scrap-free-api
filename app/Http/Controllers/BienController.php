@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\CommonLaravel\Helpers\GeneralHelper;
 use App\Models\Bien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -62,15 +63,20 @@ class BienController extends Controller
             'liquidacion_deducible'                 => $request->liquidacion_deducible,
             'liquidacion_paga_asegurado'            => $request->liquidacion_paga_asegurado,  
             'valor_reposicion_a_nuevo'              => $request->valor_reposicion_a_nuevo,
+            'valor_reparacion'                      => $request->valor_reparacion,
+            'usar_el_valor_de_reparacion'           => $request->usar_el_valor_de_reparacion,
             'user_id'                               => $this->userId(),
         ]);
-        Log::info('BienController childrens');
-        Log::info($request->childrens);
         $this->updateRelationsCreated('bien', $model->id, $request->childrens);
+
+        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['suma_asegurada', 'deducible']);
+
         return response()->json(['model' => $this->fullModel('Bien', $model->id)], 201);
     }  
 
     public function update(Request $request, $id) {
+        Log::info('bien update request:');
+        Log::info($request);
         $model = Bien::find($id);
         $model->nombre                                = $request->nombre;
         $model->estado_bien_id                        = $request->estado_bien_id;
@@ -111,7 +117,12 @@ class BienController extends Controller
         $model->liquidacion_deducible                 = $request->liquidacion_deducible;
         $model->liquidacion_paga_asegurado            = $request->liquidacion_paga_asegurado;  
         $model->valor_reposicion_a_nuevo              = $request->valor_reposicion_a_nuevo;
+        $model->valor_reparacion                      = $request->valor_reparacion;
+        $model->usar_el_valor_de_reparacion           = $request->usar_el_valor_de_reparacion;
         $model->save();
+
+        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['suma_asegurada', 'deducible']);
+        
         return response()->json(['model' => $this->fullModel('Bien', $model->id)], 200);
     }
 

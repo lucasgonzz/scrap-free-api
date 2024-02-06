@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateBienCoberturaTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('bien_cobertura', function (Blueprint $table) {
+            $table->id();
+            $table->integer('bien_id');
+            $table->integer('cobertura_id');
+            $table->decimal('suma_asegurada', 14,2)->nullable();
+            $table->decimal('deducible', 14,2)->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('bien_cobertura');
+    }
+}
