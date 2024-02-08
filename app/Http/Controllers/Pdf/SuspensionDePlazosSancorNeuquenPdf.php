@@ -16,7 +16,7 @@ class SuspensionDePlazosSancorNeuquenPdf extends fpdf {
 		$this->siniestro = $siniestro;
 
 		$this->AddPage();
-        $this->Output();
+        $this->Output('I', str_replace('#', '-', $this->siniestro->numero_siniestro).' CD Suspension de Plazos.pdf');
         exit;
 	}
 
@@ -33,7 +33,8 @@ class SuspensionDePlazosSancorNeuquenPdf extends fpdf {
 		$this->Cell(75, 5, 'Certificada plegada sin sobre c/av. de retorno', $this->b, 1, 'L');
 
 		$this->x = 130;
-		$this->Cell(80, 5, 'Nequén, __ de ____ de '.date('Y'), $this->b, 1, 'L');
+		$this->Cell(50, 5, '____ de ____ de '.date('Y'), $this->b, 1, 'R');
+		// $this->Cell(80, 5, 'Nequén, __ de ____ de '.date('Y'), $this->b, 1, 'L');
 
 		$this->x = 30;
 		$this->Cell(100, 5, 'Señor/a.', $this->b, 1, 'L');
@@ -42,7 +43,8 @@ class SuspensionDePlazosSancorNeuquenPdf extends fpdf {
 		$this->Cell(100, 5, $this->siniestro->asegurado, $this->b, 1, 'L');
 		
 		$this->x = 30;
-		$this->Cell(100, 5, 'Tucumán 5980, S2008QLL Rosario, Santa Fe, Argentina', $this->b, 1, 'L');
+		$this->Cell(100, 5, $this->siniestro->domicilio_completo_google, $this->b, 1, 'L');
+		// $this->Cell(100, 5, 'Tucumán 5980, S2008QLL Rosario, Santa Fe, Argentina', $this->b, 1, 'L');
 		
 		$this->x = 30;
 		$this->Cell(100, 5, '2000 - Rosario', $this->b, 1, 'L');

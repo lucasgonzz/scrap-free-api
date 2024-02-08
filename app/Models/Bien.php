@@ -9,10 +9,18 @@ class Bien extends Model
 {
     protected $guarded = [];
 
+    protected $dates = [
+        'fecha_compra',
+    ];
+
     function scopeWithAll($q) {
         $q->with('images');
         // $q->with('causa_bien', 'estado_bien', 'linea', 'sub_linea', 'tecnico_asegurado', 'tecnico_scrap_free', 'logistica', 'siniestro');
     } 
+
+    function coberturas_aplicadas() {
+        return $this->belongsToMany(Cobertura::class, 'bien_cobertura_aplicada', 'bien_id', 'cobertura_id')->withPivot('remanente_a_cubrir', 'deducible', 'deducible_aplicado', 'fondos', 'deducible_aplicado', 'deducible_aplicado' );
+    }
 
     function images() {
         return $this->morphMany('App\Models\Image', 'imageable');

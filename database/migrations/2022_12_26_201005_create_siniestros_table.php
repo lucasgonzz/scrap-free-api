@@ -57,6 +57,14 @@ class CreateSiniestrosTable extends Migration
             $table->timestamp('fecha_cierre_scrap_free')->nullable();
             $table->timestamp('fecha_denuncia')->nullable();
             $table->timestamp('fecha_ocurrencia')->nullable();
+
+            $table->timestamp('fecha_informe_tecnico')->nullable();
+            $table->string('tecnico')->nullable();
+            $table->text('comentarios_tecnico')->nullable();
+            $table->text('posible_causa')->nullable();
+
+            
+
             $table->decimal('liquidacion_deducible', 14,2)->nullable();
             $table->decimal('liquidacion_siniestro', 14,2)->nullable();
             // $table->text('log_auditoria')->nullable();

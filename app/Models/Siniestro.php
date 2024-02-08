@@ -37,6 +37,10 @@ class Siniestro extends Model
         return '-';
     }
 
+    function liquidacion_administrativa() {
+        return $this->hasOne(LiquidacionAdministrativa::class);
+    }
+
     function ramo() {
         return $this->belongsTo('App\Models\Ramo');
     }

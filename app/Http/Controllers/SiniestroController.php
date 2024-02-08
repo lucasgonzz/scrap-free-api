@@ -86,6 +86,13 @@ class SiniestroController extends Controller
             'poliza_id'                         => $request->poliza_id,
             'centro_reparacion_id'              => $request->centro_reparacion_id,
             'cantidad_bienes'                   => $request->cantidad_bienes,
+
+            'fecha_informe_tecnico'             => $request->fecha_informe_tecnico,
+            'tecnico'                           => $request->tecnico,
+            'comentarios_tecnico'               => $request->comentarios_tecnico,
+            'posible_causa'                     => $request->posible_causa,
+            'recomendacion'                     => $request->recomendacion,
+            
             'user_id'                           => $this->userId(),
         ]);
         SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id, true);
@@ -163,6 +170,11 @@ class SiniestroController extends Controller
         $model->poliza_id                       = $request->poliza_id;
         $model->centro_reparacion_id            = $request->centro_reparacion_id;
         $model->cantidad_bienes                 = $request->cantidad_bienes;
+
+        $model->fecha_informe_tecnico           = $request->fecha_informe_tecnico;
+        $model->tecnico                         = $request->tecnico;
+        $model->comentarios_tecnico             = $request->comentarios_tecnico;
+        $model->posible_causa                   = $request->posible_causa;
 
         $model->save();
         // SiniestroHelper::checkEstadoSiniestroCerrado($model);

@@ -17,7 +17,7 @@ class CoberturaSeeder extends Seeder
         $models = [
             [
                 'num'                       => 1,
-                'nombre'                    => 'LCD Plasma',
+                'nombre'                    => 'LCD Plasma con un nombre bien largo cosa de que ocupe mucho espacio',
                 'user_id'                   => 1,
             ],
             [

@@ -21,7 +21,7 @@ class ConformidadPagoIndemnizatorioSancorPdf extends fpdf {
 
 		$this->body();
 
-        $this->Output();
+        $this->Output('I', str_replace('#', '-', $this->siniestro->numero_siniestro).' Conformidad Pago indemnizatorio Sancor.pdf');
         exit;
 	}
 

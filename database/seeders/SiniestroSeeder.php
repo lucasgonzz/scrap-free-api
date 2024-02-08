@@ -45,6 +45,7 @@ class SiniestroSeeder extends Seeder
                     'foto_deposito_deducible'       => env('APP_URL').'/storage/factura_compra.jpg',
                     'numero_siniestro'              => '#ICF1 09-46299',
                     'poliza_id'                     => 1,
+                    'ramo_id'                       => 1,
                     'user_id'                       => 1,
                     'notas_importantes'                 => 'Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible.',
                     'descripcion_del_hecho'         => 'Descolgue el tv para pintar y se me cae de costado, cuando lo enciendo sólo se escuchaba el sonido',
@@ -123,6 +124,7 @@ class SiniestroSeeder extends Seeder
                 'fecha_compra'                          => '2014-01-08',
                 // 'fecha_compra'                          => Carbon::now()->subMonths(14),
                 'valor_reposicion_a_nuevo'              => 1226399,
+                'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
                 // 'valor_reparacion'                      => 50,
 
                 // Hay que revisar si este es foto o cometario 
@@ -140,6 +142,80 @@ class SiniestroSeeder extends Seeder
                 'liquidacion_paga_asegurado'            => null,
                 'user_id'                               => 1,
             ],
+            [
+                'nombre'                                => 'Televisor',       
+                'causa_bien_id'                         => 1,
+                'estado_bien_id'                        => 1,
+                'linea_id'                              => 1,
+                'sub_linea_id'                          => 1,
+                'tecnico_asegurado_id'                  => 1,
+                'tecnico_scrap_free_id'                 => 1,
+                'logistica_id'                          => null,
+                'accesorios'                            => 'Tiene una bolsita',
+                'tiene_base'                            => 1,
+                'tiene_cable'                           => 1,
+                'tiene_cargador'                        => 0,
+                'tiene_control'                         => 1,
+                'comentarios_tecnico'                   => 'No tengo nada que decir sobre este televisor',
+                'descripcion'                           => 'Es un tele bastante lindo y comodo de usar',
+                'fecha_compra'                          => '2014-01-08',
+                // 'fecha_compra'                          => Carbon::now()->subMonths(14),
+                'valor_reposicion_a_nuevo'              => 1226399,
+                'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
+                // 'valor_reparacion'                      => 50,
+
+                // Hay que revisar si este es foto o cometario 
+                'informe_tecnico_asegurado'             => 'El tecnico del asegurado dice que esta quemado',
+                'marca'                                 => 'Samsung',
+                'modelo'                                => 'MA33-4',
+                'numero_serie'                          => '22234212',
+                'notas'                                 => null,
+                'pagado_tecnico'                        => null,
+                'posible_causa_asegurado'               => null,
+                'precisa_embalaje'                      => null,
+                'presupuesto_monto_asegurado'           => null,
+                'liquidacion_bien'                      => null,
+                'liquidacion_deducible'                 => null,
+                'liquidacion_paga_asegurado'            => null,
+                'user_id'                               => 1,
+            ],
+            // [
+            //     'nombre'                                => 'Televisor',       
+            //     'causa_bien_id'                         => 1,
+            //     'estado_bien_id'                        => 1,
+            //     'linea_id'                              => 1,
+            //     'sub_linea_id'                          => 1,
+            //     'tecnico_asegurado_id'                  => 1,
+            //     'tecnico_scrap_free_id'                 => 1,
+            //     'logistica_id'                          => null,
+            //     'accesorios'                            => 'Tiene una bolsita',
+            //     'tiene_base'                            => 1,
+            //     'tiene_cable'                           => 1,
+            //     'tiene_cargador'                        => 0,
+            //     'tiene_control'                         => 1,
+            //     'comentarios_tecnico'                   => 'No tengo nada que decir sobre este televisor',
+            //     'descripcion'                           => 'Es un tele bastante lindo y comodo de usar',
+            //     'fecha_compra'                          => '2014-01-08',
+            //     // 'fecha_compra'                          => Carbon::now()->subMonths(14),
+            //     'valor_reposicion_a_nuevo'              => 1226399,
+            //     'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
+            //     // 'valor_reparacion'                      => 50,
+
+            //     // Hay que revisar si este es foto o cometario 
+            //     'informe_tecnico_asegurado'             => 'El tecnico del asegurado dice que esta quemado',
+            //     'marca'                                 => 'Samsung',
+            //     'modelo'                                => 'MA33-4',
+            //     'numero_serie'                          => '22234212',
+            //     'notas'                                 => null,
+            //     'pagado_tecnico'                        => null,
+            //     'posible_causa_asegurado'               => null,
+            //     'precisa_embalaje'                      => null,
+            //     'presupuesto_monto_asegurado'           => null,
+            //     'liquidacion_bien'                      => null,
+            //     'liquidacion_deducible'                 => null,
+            //     'liquidacion_paga_asegurado'            => null,
+            //     'user_id'                               => 1,
+            // ],
             // [
             //     'nombre'                                => 'Heladera',       
             //     'causa_bien_id'                         => 2,
@@ -313,20 +389,20 @@ class SiniestroSeeder extends Seeder
     function bienImages($bien, $created_bien) {
         if ($bien['nombre'] == 'Televisor con muchas cosas') {
             $images = [
-                env('APP_URL').'/tele.jpg',
-                env('APP_URL').'/tele2.jpg',
+                env('APP_URL').'/storage/tele.jpeg',
+                env('APP_URL').'/storage/tele2.jpg',
             ];
         }
         if ($bien['nombre'] == 'Heladera con muchas cosas') {
             $images = [
-                env('APP_URL').'/heladera.jpg',
-                env('APP_URL').'/heladera2.jpg',
+                env('APP_URL').'/storage/heladera.jpg',
+                env('APP_URL').'/storage/heladera2.jpg',
             ];
         }
         if ($bien['nombre'] == 'Licuadora electrica con muchas cosas') {
             $images = [
-                env('APP_URL').'/licuadora.jpg',
-                env('APP_URL').'/licuadora2.webp',
+                env('APP_URL').'/storage/licuadora.jpg',
+                env('APP_URL').'/storage/licuadora2.webp',
             ];
         }
         foreach ($images as $image) {

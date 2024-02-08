@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Pdf; 
 
+use App\Http\Controllers\CommonLaravel\Helpers\Numbers;
 use fpdf;
 require(__DIR__.'/../CommonLaravel/fpdf/fpdf.php');
 
@@ -19,7 +20,7 @@ class ConformidadPagoIndemnizatorioSancor3rosPdf extends fpdf {
 
 		$this->body();
 
-        $this->Output();
+        $this->Output('I', str_replace('#', '-', $this->siniestro->numero_siniestro).' Conformidad Pago indemnizatorio Sancor 3ros.pdf');
         exit;
 	}
 
@@ -56,7 +57,7 @@ class ConformidadPagoIndemnizatorioSancor3rosPdf extends fpdf {
 
 	function body() {
 		$this->y +=3;
-		$text = $this->siniestro->asegurado.', DNI '.$this->siniestro->numero_documento.', por medio de la presente, en mi carácter de asegurado, en virtud del contrato de seguro Hogar Individual, individualizado bajo la póliza N° '.$this->siniestro->numero_poliza.', referencia N° '.$this->siniestro->referencia.', ACEPTO percibir el monto indemnizatorio determinado por Sancor Cooperativa de Seguros Limitada, fijado en la suma de '.$this->siniestro->liquidacion_siniestro.', en concepto de único pago indemnizatorio, total y definitivo, cancelatorio de todas las obligaciones emergentes del contrato de seguro antes individualizado, en relación con el siniestro denunciado el día '.date_format($this->siniestro->fecha_denuncia, 'd/m/Y').' como ocurrido el día '.date_format($this->siniestro->fecha_ocurrencia, 'd/m/Y').', producto de otras causas, ocurrido en '.$this->siniestro->domicilio_completo_google.'.';
+		$text = $this->siniestro->asegurado.', DNI '.$this->siniestro->numero_documento.', por medio de la presente, en mi carácter de asegurado, en virtud del contrato de seguro Hogar Individual, individualizado bajo la póliza N° '.$this->siniestro->numero_poliza.', referencia N° '.$this->siniestro->referencia.', ACEPTO percibir el monto indemnizatorio determinado por Sancor Cooperativa de Seguros Limitada, fijado en la suma de $'.Numbers::price($this->siniestro->liquidacion_siniestro).', en concepto de único pago indemnizatorio, total y definitivo, cancelatorio de todas las obligaciones emergentes del contrato de seguro antes individualizado, en relación con el siniestro denunciado el día '.date_format($this->siniestro->fecha_denuncia, 'd/m/Y').' como ocurrido el día '.date_format($this->siniestro->fecha_ocurrencia, 'd/m/Y').', producto de otras causas, ocurrido en '.$this->siniestro->domicilio_completo_google.'.';
 		$this->x = 15;
 		$this->MultiCell(180, 5, $text, $this->b, 'J', 0);
 

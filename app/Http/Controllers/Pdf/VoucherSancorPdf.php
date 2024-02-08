@@ -23,7 +23,7 @@ class VoucherSancorPdf extends fpdf {
 
 		$this->firma();
 
-        $this->Output();
+        $this->Output('I', str_replace('#', '-', $this->siniestro->numero_siniestro).' Voucher Sancor.pdf');
         exit;
 	}
 
@@ -56,11 +56,11 @@ class VoucherSancorPdf extends fpdf {
 		$this->Cell(170, 5, 'ENTRE:', $this->b, 1, 'L');
 
 		$this->SetFont('Arial', '', 9);
-		$text = 'SANCOR COOPERATIVA DE SEGUROS LIMITADA, con domicilio en Ruta Nacional N° 34, Km 257, de la ciudad de Sunchales, provincia de Santa Fe, en adelante denominada “SANCOR SEGUROS”, por una parte; y';
+		$text = 'SANCOR COOPERATIVA DE SEGUROS LIMITADA, con domicilio en Ruta Nacional N° 34, Km 257, de la ciudad de Sunchales, provincia de Santa Fe, en adelante denominada "SANCOR SEGUROS", por una parte; y';
 		$this->x = 40;
 		$this->MultiCell(150, 4, $text, $this->b, 'J', 0);
 
-		$text = $this->siniestro->asegurado.', DNI '.$this->siniestro->numero_documento.', con domicilio en '.$this->siniestro->domicilio_completo_google.', en adelante “EL ASEGURADO”, por la otra parte;';
+		$text = $this->siniestro->asegurado.', DNI '.$this->siniestro->numero_documento.', con domicilio en '.$this->siniestro->domicilio_completo_google.', en adelante "EL ASEGURADO", por la otra parte;';
 		$this->x = 40;
 		$this->MultiCell(150, 5, $text, $this->b, 'J', 0);
 	}
