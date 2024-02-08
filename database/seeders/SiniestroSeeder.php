@@ -51,6 +51,8 @@ class SiniestroSeeder extends Seeder
                     'descripcion_del_hecho'         => 'Descolgue el tv para pintar y se me cae de costado, cuando lo enciendo sólo se escuchaba el sonido',
                     'recomendacion'                 => 'Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto',
                     'cantidad_bienes'               => 2,
+                    'comentarios_tecnico'           => 'Nuestros técnicos inspeccionaron el equipo y nos informan que tiene dañado el compresor, la causa del daño es producto de una fluctuación electromagnética.',
+                    'posible_causa'                 => 'Fluctuación electromagnética y otro monton de cosas super complejas de explicar',
                 ],
             ];
 

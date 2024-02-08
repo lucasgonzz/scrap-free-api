@@ -80,7 +80,7 @@ class PdfHelper {
 				return 'https://acdn.mitiendanube.com/stores/001/373/205/products/heladera-ciclica-neba-a360-360lts-con-freezer-blanca1-1a2a635fc479382ccc16879598827309-1024-1024.png';
 			}
 			if (str_contains($image->image_url, 'heladera')) {
-				return 'https://cdn.pixabay.com/photo/2015/02/07/20/58/tv-627876_1280.jpg';
+				return 'https://lh3.googleusercontent.com/JIccT9FzH1ZC7DPqsXrmAEOACp8vMhZcu_xUppLHd90cT-FWlZiaqvfY3sEVCGg=w600';
 				return 'https://static.cotodigital3.com.ar/sitios/fotos/full/00235600/00235659.jpg?3.0.165';
 			}
 

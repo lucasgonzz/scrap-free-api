@@ -31,7 +31,11 @@ class InformeLiquidadorPdf extends fpdf {
 
 		$this->printTableFotosAsegurado();
 
-		$this->printTableEvidenciaTecnica();
+		// $this->printTableEvidenciaTecnica();
+
+		$this->y = 250;
+
+		$this->Line(20, $this->y, 190, $this->y);
 
 		PdfHelper::InformeLiquidadorFooter($this);
 	}
@@ -106,8 +110,8 @@ class InformeLiquidadorPdf extends fpdf {
 		$this->x = 25;
 		$this->Cell(80, 5, 'Siniestro:'. $this->siniestro->numero_siniestro, $this->b, 1, 'L');
 
-		$this->x = 25;
-		$this->Cell(80, 5, 'Orden Serv: '.$this->siniestro->tipo_orden_de_servicio->nombre, $this->b, 1, 'L');
+		// $this->x = 25;
+		// $this->Cell(80, 5, 'Orden Serv: '.$this->siniestro->tipo_orden_de_servicio->nombre, $this->b, 1, 'L');
 
 		$this->x = 25;
 		$this->Cell(80, 5, 'Titular: '.$this->siniestro->asegurado, $this->b, 1, 'L');
@@ -164,12 +168,20 @@ class InformeLiquidadorPdf extends fpdf {
 
 		$this->x = 25;
 		$this->MultiCell(160, 5, 'Lugar de ocurrencia: '.$this->siniestro->domicilio_completo_google, 0, 'J', 0);
+		$this->y += 2;
 		
 		$this->x = 25;
-		$this->Cell(80, 5, 'Detalle: ', $this->b, 1, 'L');
-		
+
+		$text = 'Detalle: '.$this->siniestro->comentarios_tecnico;
+		$this->MultiCell(160, 5, $text, 0, 'J', 0);
+		$this->y += 2;
+
+
 		$this->x = 25;
-		$this->Cell(80, 5, 'Posible causa: ', $this->b, 1, 'L');
+
+		$text = 'Posible causa: '.$this->siniestro->posible_causa;
+		$this->MultiCell(160, 5, $text, 0, 'J', 0);
+		$this->y += 2;
 
 		$this->Line(25, $this->y, 185, $this->y);
 		$this->Line(25, $start_y, 25, $this->y);
@@ -236,28 +248,67 @@ class InformeLiquidadorPdf extends fpdf {
 
 		$this->fotosAsegurado();
 
-		PdfHelper::printLines($this, $start_y);
+		// PdfHelper::printLines($this, $start_y);
 	}
 
 	function tableHeaderFotosAsegurado() {
-		$this->x = 25;
+		$this->x = 20;
 		$this->y += 5;
 		$this->SetFont('Arial', 'B', 12);
 		$this->SetTextColor(255,255,255);
-		$this->Cell(160, 7, 'Fotos Asegurado/a', $this->b, 1, 'L', 1);
+		$this->Cell(165, 7, 'Fotos Asegurado/a', $this->b, 1, 'L', 1);
 	}
 
 	function fotosAsegurado() {
         $this->y += 2;
+    	$index = 1;
+    	$alto_imagen = 0;
 		foreach ($this->siniestro->bienes as $bien) {
         	if (env('APP_ENV') == 'local' || count($bien->images) >= 1) {
-	        	$this->x = 25;	
+	        	$this->x = 20;	
+
 	        	foreach ($bien->images as $image) {
-		        	$this->Image(PdfHelper::imageUrl($image), 25, $this->y, 25, 25);
-		        	$this->y += 30;
+
+	        		if ($index % 2 != 0) {
+	        			$x = 20;
+	        			if ($index > 1) {
+	        				// dd($index);
+	        				$this->y += $alto_imagen;
+	        				$this->y += 5;
+	        			}
+	        		} else {
+	        			$x = 105;
+	        		}
+
+	        		$rutaImagen = PdfHelper::imageUrl($image);
+
+					$dimensiones = getimagesize($rutaImagen);
+					$ancho = $dimensiones[0];
+					$alto = $dimensiones[1];
+
+					// Calcular la proporción de la imagen
+					$proporcion = $ancho / $alto;
+
+					// Definir el tamaño máximo que quieres que tenga la imagen en el PDF
+					$tamanoMaximo = 80; // Por ejemplo, 100 unidades en el PDF
+
+					// Calcular las nuevas dimensiones manteniendo la proporción
+					$nuevoAncho = $tamanoMaximo;
+					$nuevoAlto = $tamanoMaximo / $proporcion;
+
+					// Imprimir la imagen en el PDF con las nuevas dimensiones
+
+		        	$this->Image($rutaImagen, $x, $this->y, $nuevoAncho, $nuevoAlto);
+		        	// $this->y += 30;
+
+		        	if ($nuevoAlto > $alto_imagen) {
+		        		$alto_imagen = $nuevoAlto;
+		        	}
+		        	$index++;
 	        	}
         	}
 		}
+		// $this->y = $alto_imagen;
 	}
 
 

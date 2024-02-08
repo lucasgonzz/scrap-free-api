@@ -66,6 +66,7 @@ class ImageController extends Controller
             Self::deleteImage($model->{$prop_name});
             $model->{$prop_name} = null;
             $model->save();
+            Log::info('Se elimino '.$prop_name);
         }
         return response()->json(['model' => $this->fullModel($_model_name, $id)], 200);
     }
