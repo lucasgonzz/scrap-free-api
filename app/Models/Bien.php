@@ -19,7 +19,7 @@ class Bien extends Model
     } 
 
     function coberturas_aplicadas() {
-        return $this->belongsToMany(Cobertura::class, 'bien_cobertura_aplicada', 'bien_id', 'cobertura_id')->withPivot('remanente_a_cubrir', 'deducible', 'deducible_aplicado', 'fondos', 'deducible_aplicado', 'deducible_aplicado' );
+        return $this->belongsToMany(Cobertura::class, 'bien_cobertura_aplicada', 'bien_id', 'cobertura_id')->withPivot('remanente_a_cubrir_reparacion', 'remanente_a_cubrir_a_nuevo', 'deducible', 'deducible_aplicado', 'fondos_reparacion', 'fondos_a_nuevo', 'deducible_aplicado');
     }
 
     function images() {

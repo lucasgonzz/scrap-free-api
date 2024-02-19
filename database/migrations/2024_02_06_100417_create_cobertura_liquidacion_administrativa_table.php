@@ -21,6 +21,8 @@ class CreateCoberturaLiquidacionAdministrativaTable extends Migration
             $table->decimal('perdidas', 18,2)->nullable();
             $table->decimal('deducible', 18,2)->nullable();
             $table->decimal('indemnizacion', 18,2)->nullable();
+            // $table->decimal('indemnizacion_reparacion', 18,2)->nullable();
+            // $table->decimal('indemnizacion_a_nuevo', 18,2)->nullable();
             $table->timestamps();
         });
     }

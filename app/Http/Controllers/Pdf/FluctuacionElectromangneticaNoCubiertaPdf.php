@@ -16,7 +16,7 @@ class FluctuacionElectromangneticaNoCubiertaPdf extends fpdf {
 		$this->siniestro = $siniestro;
 
 		$this->AddPage();
-        $this->Output();
+        $this->Output('I', str_replace('#', '-', $this->siniestro->numero_siniestro).' Fluctuacion Electromagnetica.pdf');
         exit;
 	}
 

@@ -16,7 +16,7 @@ class EventoNoCubiertoPdf extends fpdf {
 		$this->siniestro = $siniestro;
 
 		$this->AddPage();
-        $this->Output();
+        $this->Output('I', str_replace('#', '-', $this->siniestro->numero_siniestro).' Evento no cubierto.pdf');
         exit;
 	}
 

@@ -16,7 +16,7 @@ class DesgasteYOViciosPropiosPdf extends fpdf {
 		$this->siniestro = $siniestro;
 
 		$this->AddPage();
-        $this->Output();
+        $this->Output('I', str_replace('#', '-', $this->siniestro->numero_siniestro).' Desgaste y-o vicios propios.pdf');
         exit;
 	}
 
@@ -58,7 +58,7 @@ class DesgasteYOViciosPropiosPdf extends fpdf {
 		$this->x = 15;
 		$this->y += 5;
 		$this->SetFont('Arial', 'B', 10);
-		$this->Cell(150, 5, 'Ref.: legajo '.$this->siniestro->asegurado.' – Fecha:'.date_format($this->siniestro->fecha_denuncia, 'd/m/Y').' – Pzad.: '.$this->siniestro->numero_poliza.' Cert.: 0.-', $this->b, 1, 'L');
+		$this->Cell(150, 5, 'Ref.: legajo '.$this->siniestro->asegurado.' - Fecha:'.date_format($this->siniestro->fecha_denuncia, 'd/m/Y').' - Pzad.: '.$this->siniestro->numero_poliza.' Cert.: 0.-', $this->b, 1, 'L');
 
 		$this->SetFont('Arial', '', 10);
 		$this->x = 15;

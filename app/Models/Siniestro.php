@@ -19,6 +19,7 @@ class Siniestro extends Model
         'fecha_cierre_scrap_free',  
         'fecha_denuncia',   
         'fecha_ocurrencia', 
+        'fecha_informe_tecnico',
     ];  
 
 

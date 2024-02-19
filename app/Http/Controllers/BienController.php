@@ -64,7 +64,7 @@ class BienController extends Controller
             'liquidacion_paga_asegurado'            => $request->liquidacion_paga_asegurado,  
             'valor_reposicion_a_nuevo'              => $request->valor_reposicion_a_nuevo,
             'valor_reparacion'                      => $request->valor_reparacion,
-            'usar_el_valor_de_reparacion'           => $request->usar_el_valor_de_reparacion,
+            'usar_el_valor_de_indemnizacion'        => $request->usar_el_valor_de_indemnizacion,
             'foto_estudio_mercado'                  => $request->foto_estudio_mercado,
             'user_id'                               => $this->userId(),
         ]);
@@ -120,7 +120,7 @@ class BienController extends Controller
         $model->valor_reposicion_a_nuevo              = $request->valor_reposicion_a_nuevo;
         $model->valor_reparacion                      = $request->valor_reparacion;
         $model->foto_estudio_mercado                  = $request->foto_estudio_mercado;
-        $model->usar_el_valor_de_reparacion           = $request->usar_el_valor_de_reparacion;
+        $model->usar_el_valor_de_indemnizacion        = $request->usar_el_valor_de_indemnizacion;
         $model->save();
 
         GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['suma_asegurada', 'deducible']);

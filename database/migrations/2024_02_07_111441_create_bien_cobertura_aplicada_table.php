@@ -18,10 +18,12 @@ class CreateBienCoberturaAplicadaTable extends Migration
             $table->integer('bien_id');
             $table->integer('cobertura_id');
 
-            $table->decimal('remanente_a_cubrir', 18,2)->nullable(); 
+            $table->decimal('remanente_a_cubrir_reparacion', 18,2)->nullable(); 
+            $table->decimal('remanente_a_cubrir_a_nuevo', 18,2)->nullable(); 
             $table->decimal('deducible', 18,2)->nullable();
+            $table->decimal('fondos_reparacion', 18,2)->nullable();
+            $table->decimal('fondos_a_nuevo', 18,2)->nullable();
             $table->decimal('deducible_aplicado', 18,2)->nullable();
-            $table->decimal('fondos', 18,2)->nullable();
             $table->timestamps();
         });
     }

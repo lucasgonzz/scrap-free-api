@@ -18,7 +18,7 @@ class InformeLiquidadorPdf extends fpdf {
 
 		$this->AddPage();
 		$this->print();
-        $this->Output();
+        $this->Output('I', str_replace('#', '-', $this->siniestro->numero_siniestro).' Informe Liquidador.pdf');
         exit;
 	}
 
@@ -102,7 +102,7 @@ class InformeLiquidadorPdf extends fpdf {
 
 		$this->y += 2;
 		$this->x = 25;
-		$this->Cell(80, 5, 'Fecha Reporte:', $this->b, 1, 'L');
+		$this->Cell(80, 5, 'Fecha Reporte: '. $this->siniestro->fecha_informe_tecnico->format('d/m/Y'), $this->b, 1, 'L');
 
 		$this->x = 25;
 		$this->Cell(80, 5, 'Aseguradora:'. $this->siniestro->aseguradora->nombre, $this->b, 1, 'L');
@@ -120,7 +120,8 @@ class InformeLiquidadorPdf extends fpdf {
 	}
 
 	function infoEquipos() {
-		$this->y -= 25;
+		// $this->y -= 25;
+		$this->y -= 20;
 		foreach ($this->siniestro->bienes as $bien) {
 			$this->x = 105;
 			$this->Cell(80, 5, 'Equipo: '. $bien->nombre, $this->b, 1, 'L');
@@ -134,7 +135,7 @@ class InformeLiquidadorPdf extends fpdf {
 			} else {
 				$border = 'B';
 			}
-			$this->Cell(80, 5, 'IMEI: '.$bien->numero_serie, $border, 1, 'L');
+			$this->Cell(80, 5, 'Numero de serie: '.$bien->numero_serie, $border, 1, 'L');
 		}
 	}
 
@@ -155,33 +156,40 @@ class InformeLiquidadorPdf extends fpdf {
 		$this->Line(105, $this->finish_y_table_header, 105, $this->y);
 	}
 
+	function print_data($title, $text, $width, $text_color = false) {
+
+		if (!$text_color) {
+			$this->SetTextColor(0,0,0);
+		} 
+
+		$this->x = 25;
+		$this->y += 2;
+
+		$this->SetFont('Arial', 'B', 12);
+		$this->Cell($width, 5, $title, $this->b, 0, 'L', 0);
+
+		if ($text_color) {
+			$this->SetTextColor(93,143,243);
+		} 
+
+		$this->SetFont('Arial', '', 12);
+
+		$this->MultiCell(160 - $width, 5, $text, 0, 'J', 0);
+		$this->y += 2;
+	}
+
 	function descripcionDelHecho() {
 		// $this->y += 5;
-		$this->x = 25;
 
 		$start_y = $this->y;
-		$this->y += 2;
-		$text = 'Descripción del hecho: '.$this->siniestro->descripcion_del_hecho;
 
-		$this->MultiCell(160, 5, $text, 0, 'J', 0);
-		$this->y += 2;
+		$this->print_data('Descripción del hecho: ', $this->siniestro->descripcion_del_hecho, 50, true);
 
-		$this->x = 25;
-		$this->MultiCell(160, 5, 'Lugar de ocurrencia: '.$this->siniestro->domicilio_completo_google, 0, 'J', 0);
-		$this->y += 2;
-		
-		$this->x = 25;
+		$this->print_data('Lugar de ocurrencia: ', $this->siniestro->domicilio_completo_google, 50);
 
-		$text = 'Detalle: '.$this->siniestro->comentarios_tecnico;
-		$this->MultiCell(160, 5, $text, 0, 'J', 0);
-		$this->y += 2;
+		$this->print_data('Detalle: ', $this->siniestro->comentarios_tecnico, 18);
 
-
-		$this->x = 25;
-
-		$text = 'Posible causa: '.$this->siniestro->posible_causa;
-		$this->MultiCell(160, 5, $text, 0, 'J', 0);
-		$this->y += 2;
+		$this->print_data('Posible causa: ', $this->siniestro->posible_causa, 32);
 
 		$this->Line(25, $this->y, 185, $this->y);
 		$this->Line(25, $start_y, 25, $this->y);
@@ -196,41 +204,41 @@ class InformeLiquidadorPdf extends fpdf {
 	// -------------------------------------------
 
 	function printTableLogAuditoria() {
-
-		$this->tableHeaderLogAuditoria();
+		$this->notaImportantes();
 
 		$this->recomendaciones();
-
-		$this->notaImportantes();
-	}
-
-	function tableHeaderLogAuditoria() {
-		$this->x = 25;
-		$this->y += 5;
-		$this->SetFont('Arial', 'B', 12);
-		$this->SetTextColor(255,255,255);
-		$this->Cell(80, 7, 'Log Auditoría', $this->b, 0, 'L', 1);
-		$this->Cell(80, 7, 'Conclusión Final / Recomendación', $this->b, 1, 'L', 1);
 	}
 
 	function notaImportantes() {
-		$this->y = $this->start_y_recomendacion;
+		$this->y += 5;
 		$this->x = 25;
-		$this->MultiCell(80, 5, $this->siniestro->notas_importantes, 1, 'L', 0);
+		
+		$this->SetFont('Arial', 'B', 12);
+		$this->SetTextColor(255,255,255);
+		$this->Cell(160, 7, 'Log Auditoría', $this->b, 0, 'L', 1);
+		
+		$this->y += 7;
+		$this->x = 25;
 
-		// foreach ($this->siniestro->nota_importantes as $nota_importante) {
-		// 	$this->x = 25;
-		// 	$fecha = date_format($nota_importante->created_at, 'd/m');
-		// 	$this->MultiCell(80, 5, $fecha.' '.$nota_importante->nota, 1, 'L', 0);
-		// }
+		$this->SetFont('Arial', '', 12);
+		$this->SetTextColor(0,0,0);
+		$this->MultiCell(160, 5, $this->siniestro->notas_importantes, 1, 'L', 0);
 	}
 
 	function recomendaciones() {
+		$this->y += 5;
+		$this->x = 25;
+
+		$this->SetFont('Arial', 'B', 12);
+		$this->SetTextColor(255,255,255);
+		$this->Cell(160, 7, 'Conclusión Final / Recomendación', $this->b, 0, 'L', 1);
+		
+		$this->y += 7;
+		$this->x = 25;
+
 		$this->SetTextColor(0,0,0);
 		$this->SetFont('Arial', '', 12);	
-		$this->x = 105;
-		$this->start_y_recomendacion = $this->y;
-		$this->MultiCell(80, 5, $this->siniestro->recomendacion, 1, 'L', 0);
+		$this->MultiCell(160, 5, $this->siniestro->recomendacion, 1, 'L', 0);
 	}
 
 

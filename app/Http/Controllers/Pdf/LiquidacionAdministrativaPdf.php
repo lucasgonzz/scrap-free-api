@@ -70,22 +70,53 @@ class LiquidacionAdministrativaPdf extends fpdf {
 	}
 
 	function bienes_imagenes_estudio_mercado() {
-		if ($this->y < 231) {
-			$this->y = 231;
-		}
+		// if ($this->siniestro->cantidad_bienes > 2 && $this->y < 231) {
+		// dd($this->y);
+		// if ($this->y < 231) {
+		// 	$this->y = 231;
+		// }
+
 		$this->y += 20;
 		$start_x = 10;
-		foreach ($this->liquidacion_administrativa->bienes as $bien) {
 
+		$index = 1;
+
+		$img_width = 230;
+
+
+		foreach ($this->liquidacion_administrativa->bienes as $bien) {
 			if (env('APP_ENV') == 'local') {
-        		$this->Image('https://img.freepik.com/vector-gratis/fondo-plantilla-logo_1390-55.jpg', $start_x, $this->y, 150, 150);
-        		$start_x += 160;
+				// $image = 'https://cdn.pixabay.com/photo/2015/07/17/22/42/startup-849804_1280.jpg';
+				$image = null;
+				// $image = 'https://img.freepik.com/vector-gratis/fondo-plantilla-logo_1390-55.jpg';
+
 			} else {
-				if (!is_null($bien->foto_estudio_mercado)) {
-	        		$this->Image($bien->foto_estudio_mercado, $start_x, $this->y, 150, 150);
-				}
+	        	$image = $bien->foto_estudio_mercado;
 			}
-        	// $index++;
+
+			if (!is_null($image)) {
+				$dimensiones = getimagesize($image);
+
+				$ancho_original = $dimensiones[0];
+				$alto_original = $dimensiones[1];
+
+				$nuevo_ancho = 250; 
+
+				// Calcular el alto proporcional
+				$nuevo_alto = ($nuevo_ancho * $alto_original) / $ancho_original;
+				
+        		$this->Image($bien->foto_estudio_mercado, $start_x, $this->y, $nuevo_ancho, $nuevo_alto);
+			}
+
+			if ($index == 1) {
+				$this->y += $img_width;
+			}
+			if ($index == 2) {
+				// $this->y += 300;
+				$start_x += $img_width;
+			}
+        
+        	$index++;
 		}
 
 	}
@@ -110,6 +141,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 			
 		$this->SetFillColor(150,150,150);
 		$this->SetFont('Arial', 'b', 12);
+		
 
 		$this->x = $this->start_x;
 		$this->Cell($this->valor_w, $this->height, 'Valor', 1, 0, 'C', 1);
@@ -137,7 +169,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 
 		$start_x =  $this->start_x + $this->valor_w + $this->text_w + 10; 
 		$this->x = $start_x;
-		$this->y -= 10;
+		$this->y -= 13;
 		$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->valor_reposicion_a_nuevo), 1, 0, 'C');
 		$this->Cell(50, $this->height, 'Valor a Nuevo', 1, 0, 'L');
 
@@ -150,21 +182,35 @@ class LiquidacionAdministrativaPdf extends fpdf {
 
 		$this->x = $start_x;
 		$this->y += $this->height;
-		$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->valor_reparacion), 1, 0, 'C');
+		$reparacion = 0;
+		if ($this->usar_reparacion($bien)) {
+			$reparacion = $bien->valor_reparacion;
+		}
+		$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($reparacion), 1, 0, 'C');
 		$this->Cell(50, $this->height, 'Valor Reparacion', 1, 0, 'L');
 
 		$this->ratio_reparacion($bien, $start_x);
 
 	}
 
+	function usar_reparacion($bien) {
+		return !$bien->usar_el_valor_de_indemnizacion && !is_null($bien->valor_reparacion);
+	}
+
 	function ratio_reparacion($bien, $start_x) {
-		if (!is_null($bien->valor_reparacion) && $bien->usar_el_valor_de_reparacion == 1) {
+		if ($this->usar_reparacion($bien)) {
 			$this->y += $this->height + $this->height;
 			$this->x = $start_x;
 
 
-			$this->Cell(50, $this->height, 'Ratio Rep / Liquidacion', 1, 0, 'L');
-			$this->Cell($this->valor_w, $this->height, number_format($bien->valor_reparacion / $bien->pivot->indemnizacion, 2) .'%', 1, 0, 'C');
+			$this->Cell(50, $this->height, 'Ratio Rep / Liquidacion', 0, 0, 'L');
+			$this->Cell($this->valor_w, $this->height, $bien->pivot->ratio .'%', 0, 0, 'C');
+
+			$this->y += $this->height;
+			$this->x = $start_x;
+
+			$this->Cell(50, $this->height, 'Ahorro Sancor', 0, 0, 'L');
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price((float)$bien->pivot->indemnizacion_a_nuevo - (float)$bien->valor_reparacion), 0, 0, 'C');
 
 			$this->y -= $this->height + $this->height;
 
@@ -175,15 +221,15 @@ class LiquidacionAdministrativaPdf extends fpdf {
 
 		$index = 1;
 		$this->x = $this->start_x;
-		$this->y += $this->height;
+		// $this->y += $this->height;
 
-		$this->Cell($this->text_w, $this->height, 'Coberturas', 0, 0, 'L');
+		// $this->Cell($this->text_w, $this->height, 'Coberturas', 0, 0, 'L');
 		foreach ($bien->coberturas_aplicadas as $cobertura_aplicada) {
 
 			if ($index > 1) {
 				$this->x = $this->start_x;
 				$this->y += $this->height + $this->height;
-				$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->remanente_a_cubrir), 1, 0, 'C');
+				$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->remanente_a_cubrir_a_nuevo), 1, 0, 'C');
 				$this->Cell($this->text_w, $this->height, 'Remanente a cubrir', 1, 0, 'L');
 			}
 
@@ -205,7 +251,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 			$this->SetFillColor(40,173,19);
 			$this->x = $this->start_x;
 			$this->y += $this->height;
-			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->fondos), 1, 0, 'C', 1);
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->fondos_a_nuevo), 1, 0, 'C', 1);
 			$this->Cell($this->text_w, $this->height, 'Cobertura '.$index, 1, 0, 'L');
 
 			$index++;
@@ -215,15 +261,41 @@ class LiquidacionAdministrativaPdf extends fpdf {
 	function indemnizacion($bien) {
 
 		$this->x = $this->start_x;
-		$this->y += $this->height;
+		$this->y += $this->height + $this->height;
 
 		$this->SetFont('Arial', 'b', 12);
+		$this->SetTextColor(93,143,243);
+		
+		$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->deducible_aplicado_a_nuevo), 1, 0, 'C');
+		$this->Cell($this->text_w, $this->height, 'Deducible', 1, 0, 'L');
+
+		$this->y += $this->height;
+		$this->x = $this->start_x;
+
 		$this->SetTextColor(202,46,46);
-		
-		$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->indemnizacion), 1, 0, 'C');
+		$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->indemnizacion_a_nuevo), 1, 0, 'C');
 		$this->Cell($this->text_w, $this->height, 'Indemnizacion asegurado', 1, 0, 'L');
+
+
+		$x_derecha = $this->start_x + $this->valor_w + $this->text_w + 10;
+
+		$this->x = $x_derecha;
+		$this->y -= $this->height;
+
+		if ($this->usar_reparacion($bien)) {
+			$this->SetTextColor(93,143,243);
+			$this->Cell($this->text_w - 40, $this->height, 'Deducible', 1, 0, 'L');
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->deducible_aplicado_a_reparacion), 1, 0, 'C');
+
+			$this->y += $this->height;
+			$this->x = $x_derecha;
+
+			$this->SetTextColor(202,46,46);
+			$this->Cell($this->text_w - 40, $this->height, 'Reparacion', 1, 0, 'L');
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->indemnizacion_reparacion), 1, 0, 'C');
+		}
 		
-		$this->y += $this->height + $this->height;
+		$this->y += $this->height + $this->height + $this->height;
 	}
 
 

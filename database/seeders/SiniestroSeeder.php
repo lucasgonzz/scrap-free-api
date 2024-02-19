@@ -43,16 +43,16 @@ class SiniestroSeeder extends Seeder
                     'gestor_aseguradora_id'         => 1,
                     'centro_reparacion_id'          => 1,
                     'foto_deposito_deducible'       => env('APP_URL').'/storage/factura_compra.jpg',
-                    'numero_siniestro'              => '#ICF1 09-46299',
                     'poliza_id'                     => 1,
                     'ramo_id'                       => 1,
                     'user_id'                       => 1,
-                    'notas_importantes'                 => 'Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible.',
+                    'notas_importantes'                 => 'Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible. Descripcion del hecho con notas importantes y muchas mas palabras como para rellenar el espacio y ver cuanto ocupa llevandolo al maximo posible.',
                     'descripcion_del_hecho'         => 'Descolgue el tv para pintar y se me cae de costado, cuando lo enciendo sólo se escuchaba el sonido',
-                    'recomendacion'                 => 'Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto',
-                    'cantidad_bienes'               => 2,
+                    'recomendacion'                 => 'Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto. Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto. Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto. Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto. Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto. Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto. Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto. Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto. Estas son algunas recomendaciones que hacemos sobre este siniestro para que puedan hacer algo al respecto.',
+                    'cantidad_bienes'               => 3,
                     'comentarios_tecnico'           => 'Nuestros técnicos inspeccionaron el equipo y nos informan que tiene dañado el compresor, la causa del daño es producto de una fluctuación electromagnética.',
                     'posible_causa'                 => 'Fluctuación electromagnética y otro monton de cosas super complejas de explicar',
+                    'fecha_informe_tecnico'         => Carbon::now()->subDays(3),
                 ],
             ];
 
@@ -123,11 +123,11 @@ class SiniestroSeeder extends Seeder
                 'tiene_control'                         => 1,
                 'comentarios_tecnico'                   => 'No tengo nada que decir sobre este televisor',
                 'descripcion'                           => 'Es un tele bastante lindo y comodo de usar',
-                'fecha_compra'                          => '2014-01-08',
+                'fecha_compra'                          => '2023-01-08',
                 // 'fecha_compra'                          => Carbon::now()->subMonths(14),
-                'valor_reposicion_a_nuevo'              => 1226399,
+                'valor_reposicion_a_nuevo'              => 554999,
                 'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
-                // 'valor_reparacion'                      => 50,
+                'valor_reparacion'                      => 260800,
 
                 // Hay que revisar si este es foto o cometario 
                 'informe_tecnico_asegurado'             => 'El tecnico del asegurado dice que esta quemado',
@@ -145,7 +145,7 @@ class SiniestroSeeder extends Seeder
                 'user_id'                               => 1,
             ],
             [
-                'nombre'                                => 'Televisor',       
+                'nombre'                                => 'Heladera',       
                 'causa_bien_id'                         => 1,
                 'estado_bien_id'                        => 1,
                 'linea_id'                              => 1,
@@ -181,43 +181,43 @@ class SiniestroSeeder extends Seeder
                 'liquidacion_paga_asegurado'            => null,
                 'user_id'                               => 1,
             ],
-            // [
-            //     'nombre'                                => 'Televisor',       
-            //     'causa_bien_id'                         => 1,
-            //     'estado_bien_id'                        => 1,
-            //     'linea_id'                              => 1,
-            //     'sub_linea_id'                          => 1,
-            //     'tecnico_asegurado_id'                  => 1,
-            //     'tecnico_scrap_free_id'                 => 1,
-            //     'logistica_id'                          => null,
-            //     'accesorios'                            => 'Tiene una bolsita',
-            //     'tiene_base'                            => 1,
-            //     'tiene_cable'                           => 1,
-            //     'tiene_cargador'                        => 0,
-            //     'tiene_control'                         => 1,
-            //     'comentarios_tecnico'                   => 'No tengo nada que decir sobre este televisor',
-            //     'descripcion'                           => 'Es un tele bastante lindo y comodo de usar',
-            //     'fecha_compra'                          => '2014-01-08',
-            //     // 'fecha_compra'                          => Carbon::now()->subMonths(14),
-            //     'valor_reposicion_a_nuevo'              => 1226399,
-            //     'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
-            //     // 'valor_reparacion'                      => 50,
+            [
+                'nombre'                                => 'Licuadora electrica',       
+                'causa_bien_id'                         => 1,
+                'estado_bien_id'                        => 1,
+                'linea_id'                              => 1,
+                'sub_linea_id'                          => 1,
+                'tecnico_asegurado_id'                  => 1,
+                'tecnico_scrap_free_id'                 => 1,
+                'logistica_id'                          => null,
+                'accesorios'                            => 'Tiene una bolsita',
+                'tiene_base'                            => 1,
+                'tiene_cable'                           => 1,
+                'tiene_cargador'                        => 0,
+                'tiene_control'                         => 1,
+                'comentarios_tecnico'                   => 'No tengo nada que decir sobre este televisor',
+                'descripcion'                           => 'Es un tele bastante lindo y comodo de usar',
+                'fecha_compra'                          => '2014-01-08',
+                // 'fecha_compra'                          => Carbon::now()->subMonths(14),
+                'valor_reposicion_a_nuevo'              => 1226399,
+                'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
+                // 'valor_reparacion'                      => 50,
 
-            //     // Hay que revisar si este es foto o cometario 
-            //     'informe_tecnico_asegurado'             => 'El tecnico del asegurado dice que esta quemado',
-            //     'marca'                                 => 'Samsung',
-            //     'modelo'                                => 'MA33-4',
-            //     'numero_serie'                          => '22234212',
-            //     'notas'                                 => null,
-            //     'pagado_tecnico'                        => null,
-            //     'posible_causa_asegurado'               => null,
-            //     'precisa_embalaje'                      => null,
-            //     'presupuesto_monto_asegurado'           => null,
-            //     'liquidacion_bien'                      => null,
-            //     'liquidacion_deducible'                 => null,
-            //     'liquidacion_paga_asegurado'            => null,
-            //     'user_id'                               => 1,
-            // ],
+                // Hay que revisar si este es foto o cometario 
+                'informe_tecnico_asegurado'             => 'El tecnico del asegurado dice que esta quemado',
+                'marca'                                 => 'Samsung',
+                'modelo'                                => 'MA33-4',
+                'numero_serie'                          => '22234212',
+                'notas'                                 => null,
+                'pagado_tecnico'                        => null,
+                'posible_causa_asegurado'               => null,
+                'precisa_embalaje'                      => null,
+                'presupuesto_monto_asegurado'           => null,
+                'liquidacion_bien'                      => null,
+                'liquidacion_deducible'                 => null,
+                'liquidacion_paga_asegurado'            => null,
+                'user_id'                               => 1,
+            ],
             // [
             //     'nombre'                                => 'Heladera',       
             //     'causa_bien_id'                         => 2,
@@ -299,8 +299,9 @@ class SiniestroSeeder extends Seeder
         foreach ($estados_siniestro as $estado_siniestro) {
                 
             // Esta for es para que se creen mas de un siniestro por estado
-            // for ($i=0; $i < 1; $i++) { 
+            for ($i=0; $i < 1; $i++) { 
                 foreach ($siniestros as $siniestro) {
+                    $siniestro['numero_siniestro']              = '#'.rand(100000, 10000000);
                     $siniestro['gestor_scrap_free_id']          = rand(1,3);
                     $siniestro['dias_en_estado_siniestro']      = rand(1,7);
                     $siniestro['estado_general_siniestro_id']   = rand(1,3);
@@ -329,7 +330,7 @@ class SiniestroSeeder extends Seeder
                         $this->bienCoberturas($bien, $created_bien);
                     }
                 }
-            // }
+            }
         }
     }
 
@@ -338,12 +339,12 @@ class SiniestroSeeder extends Seeder
             $coberturas = [
                 [
                     'id'                => 1,
-                    'suma_asegurada'    => 300000,
-                    'deducible'         => 10,
+                    'suma_asegurada'    => 741318,
+                    'deducible'         => null,
                 ],
                 [
                     'id'                => 2,
-                    'suma_asegurada'    => 5460000,
+                    'suma_asegurada'    => 7413184,
                     'deducible'         => null,
                 ],
             ];

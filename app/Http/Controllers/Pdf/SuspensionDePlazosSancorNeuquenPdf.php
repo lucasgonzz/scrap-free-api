@@ -55,7 +55,7 @@ class SuspensionDePlazosSancorNeuquenPdf extends fpdf {
 		$this->x = 30;
 		$this->y += 10;
 		$this->SetFont('Arial', 'B', 10);
-		$this->Cell(150, 10, 'Ref.: legajo '.$this->siniestro->numero_siniestro.' – '.date_format($this->siniestro->fecha_ocurrencia, 'd/m/Y').' – Ref: .-', $this->b, 1, 'R');
+		$this->Cell(150, 10, 'Ref.: legajo '.$this->siniestro->numero_siniestro.' - '.date_format($this->siniestro->fecha_ocurrencia, 'd/m/Y').' - Ref: .-', $this->b, 1, 'R');
 
 		$this->SetFont('Arial', '', 10);
 		$this->x = 30;
