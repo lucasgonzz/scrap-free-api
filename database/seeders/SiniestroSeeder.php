@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\SiniestroHelper;
 use App\Models\Bien;
 use App\Models\EstadoSiniestro;
+use App\Models\FotoEstudioMercado;
 use App\Models\Image;
 use App\Models\NotaImportante;
 use App\Models\Siniestro;
@@ -321,12 +322,19 @@ class SiniestroSeeder extends Seeder
                     }
 
                     $hours--;
-                    foreach ($bienes as $bien) {
+
+                    if ($created_siniestro->id == 1) {
+                        $_bienes = array_slice($bienes, 0, 1);
+                    } else {
+                        $_bienes = $bienes;
+                    }
+
+                    foreach ($_bienes as $bien) {
                         $bien['num'] = $ct->num('biens');
                         $bien['siniestro_id'] = $created_siniestro->id;
                         $bien['nombre'] .= ' con muchas cosas';
                         $created_bien = Bien::create($bien);
-                        $this->bienImages($bien, $created_bien);
+                        $this->bienImages($bien, $created_bien, $created_siniestro);
                         $this->bienCoberturas($bien, $created_bien);
                     }
                 }
@@ -389,10 +397,11 @@ class SiniestroSeeder extends Seeder
         }
     }
 
-    function bienImages($bien, $created_bien) {
+    function bienImages($bien, $created_bien, $created_siniestro) {
         if ($bien['nombre'] == 'Televisor con muchas cosas') {
             $images = [
                 env('APP_URL').'/storage/tele.jpeg',
+                env('APP_URL').'/storage/tele2.jpg',
                 env('APP_URL').'/storage/tele2.jpg',
             ];
         }
@@ -400,20 +409,31 @@ class SiniestroSeeder extends Seeder
             $images = [
                 env('APP_URL').'/storage/heladera.jpg',
                 env('APP_URL').'/storage/heladera2.jpg',
+                env('APP_URL').'/storage/heladera2.jpg',
             ];
         }
         if ($bien['nombre'] == 'Licuadora electrica con muchas cosas') {
             $images = [
                 env('APP_URL').'/storage/licuadora.jpg',
                 env('APP_URL').'/storage/licuadora2.webp',
+                env('APP_URL').'/storage/licuadora2.webp',
             ];
         }
+        if ($created_siniestro->id == 2) {
+            $images = array_slice($images, 0, 1);
+        }
+
         foreach ($images as $image) {
             Image::create([
                 'imageable_id'      => $created_bien->id,
                 'imageable_type'    => 'bien',
                 'image_url'         => $image,
             ]);
+
+            // FotoEstudioMercado::create([
+            //     'image_url'         => $image,
+            //     'bien_id'           => $created_bien->id,
+            // ]);
         }
     }
 

@@ -25,15 +25,36 @@ class Siniestro extends Model
 
 
     function scopeWithAll($query) {
-        $query->with('aseguradora', 'bienes.images', 'bienes.coberturas', 'causa_siniestro', 'estado_general_siniestro', 'estado_siniestro', 'estado_siniestros', 'provincia', 'localidad', 'tipo_orden_de_servicio', 'gestor_scrap_free', 'gestor_aseguradora', 'logisticas.bienes', 'logisticas.transportista_devolucion', 'logisticas.transportista_retiro', 'centro_reparacion', 'poliza.coberturas', 'nota_importantes', 'coberturas');
+        $query->with('aseguradora', 'bienes.images', 'bienes.foto_estudio_mercado', 'bienes.coberturas', 'causa_siniestro', 'estado_general_siniestro', 'estado_siniestro', 'estado_siniestros', 'provincia', 'localidad', 'tipo_orden_de_servicio', 'gestor_scrap_free', 'gestor_aseguradora', 'logisticas.bienes', 'logisticas.transportista_devolucion', 'logisticas.transportista_retiro', 'centro_reparacion', 'poliza.coberturas', 'nota_importantes', 'coberturas');
     }
+
+    // function getDiasEnEstadoSiniestroAttribute() {
+    //     if (!is_null($this->estado_siniestro)) {
+    //         if (count($this->estado_siniestros) == 1) {
+    //             return $this->estado_siniestros[0]->pivot->created_at->diffInDays(Carbon::now());
+    //         } 
+    //         return $this->estado_siniestros[count($this->estado_siniestros)-1]->pivot->created_at->diffInDays(Carbon::now());
+            
+    //     }
+    //     return '-';
+    // }
 
     function getDiasEnEstadoSiniestroAttribute() {
         if (!is_null($this->estado_siniestro)) {
             if (count($this->estado_siniestros) == 1) {
-                return $this->estado_siniestros[0]->pivot->created_at->diffInDays(Carbon::now());
-            } 
-            return $this->estado_siniestros[count($this->estado_siniestros)-1]->pivot->created_at->diffInDays(Carbon::now());
+                $fecha_inicio = $this->estado_siniestros[0]->pivot->created_at;
+            } else {
+                $fecha_inicio = $this->estado_siniestros[count($this->estado_siniestros)-1]->pivot->created_at;
+            }
+            $fecha_fin = Carbon::now();
+
+            // $diferencia_en_dias = $fecha_inicio->diffInDaysFiltered(function (Carbon $date) use ($fecha_fin) {
+            //     return $date->lessThanOrEqualTo($fecha_fin);
+            // });
+
+            $diferencia_en_dias = $fecha_inicio->startOfDay()->diffInDays($fecha_fin->startOfDay());
+
+            return $diferencia_en_dias;
         }
         return '-';
     }

@@ -21,3 +21,5 @@ Route::post('/password-reset/update-password',
 Route::get('/pdf/{siniestro_id}/{name}',
 	'PdfController@pdf'
 );
+
+Route::get('helpers/{method}', 'HelperController@callMethod');

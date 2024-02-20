@@ -40,6 +40,23 @@ class SiniestroHelper {
 	}
 
 	static function attachBienes($siniestro, $bienes) {
+		if (count($bienes) < count($siniestro->bienes)) {
+			Log::info('entro para eliminar bienes');
+			foreach ($siniestro->bienes as $bien_siniestro) {
+				$bien_encontrado = null;
+
+				foreach ($bienes as $bien) {
+					if ($bien_siniestro->id == $bien['id']) {
+						$bien_encontrado = $bien;
+					}
+				}
+
+				if (is_null($bien_encontrado)) {
+					$bien_siniestro->delete();
+				}
+			}
+
+		}
 		foreach ($bienes as $bien) {
 			if (!isset($bien['id'])) {	
 				Self::createBien($siniestro, $bien);

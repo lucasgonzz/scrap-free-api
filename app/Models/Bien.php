@@ -14,7 +14,7 @@ class Bien extends Model
     ];
 
     function scopeWithAll($q) {
-        $q->with('images');
+        $q->with('images', 'foto_estudio_mercado');
         // $q->with('causa_bien', 'estado_bien', 'linea', 'sub_linea', 'tecnico_asegurado', 'tecnico_scrap_free', 'logistica', 'siniestro');
     } 
 
@@ -24,6 +24,10 @@ class Bien extends Model
 
     function images() {
         return $this->morphMany('App\Models\Image', 'imageable');
+    }
+
+    function foto_estudio_mercado() {
+        return $this->hasMany(FotoEstudioMercado::class);
     }
 
     function causa_bien() {

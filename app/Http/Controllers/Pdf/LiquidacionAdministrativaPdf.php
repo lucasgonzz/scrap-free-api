@@ -11,13 +11,15 @@ require(__DIR__.'/../CommonLaravel/fpdf/fpdf.php');
 class LiquidacionAdministrativaPdf extends fpdf {
 
 	function __construct($siniestro) {
-		parent::__construct('L', 'mm', [520, 500]);
+		$this->siniestro = $siniestro;
+		$this->liquidacion_administrativa = $siniestro->liquidacion_administrativa;
+		$this->set_cantidad_de_fotos();
+
+		parent::__construct('L', 'mm', [520, $this->getPdfHeight()]);
 		$this->SetAutoPageBreak(true, 1);
 		$this->b = 0;
 		$this->line_height = 7;
 		
-		$this->siniestro = $siniestro;
-		$this->liquidacion_administrativa = $siniestro->liquidacion_administrativa;
 
 		$this->SetFillColor(150,150,150);
 
@@ -32,19 +34,27 @@ class LiquidacionAdministrativaPdf extends fpdf {
 
 		$this->body();
 
-		// Aca se hace el recuadro formal para el gestor
-		$liquidacion_administrativa_helper_pdf = new LiquidacionAdministrativaHelperPdf($this, $siniestro);
-		$liquidacion_administrativa_helper_pdf->print();
-
         $this->Output('I', str_replace('#', '-', $this->siniestro->numero_siniestro).' Liquidacion Administrativa.pdf');
         exit;
 	}
 
+	function getPdfHeight() {
+		if ($this->cantidad_fotos < 3 || $this->siniestro->cantidad_bienes >= 3) {
+			return 500;
+		}
+		return 300;
+	}
+
 
 	function body() {
+		// Aca se hace el recuadro formal para el gestor
+		$liquidacion_administrativa_helper_pdf = new LiquidacionAdministrativaHelperPdf($this, $this->siniestro);
+		$liquidacion_administrativa_helper_pdf->print();
+
 		$this->amortizaciones();
 
 		$this->bienes();
+
 
 		$this->bienes_imagenes_estudio_mercado();
 	}
@@ -69,6 +79,16 @@ class LiquidacionAdministrativaPdf extends fpdf {
 		}
 	}
 
+	function set_cantidad_de_fotos() {
+		$this->cantidad_fotos = 0;
+		foreach ($this->liquidacion_administrativa->bienes as $bien) {
+			foreach ($bien->foto_estudio_mercado as $foto) {
+				$this->cantidad_fotos++;
+			}
+		}
+		return $this->cantidad_fotos;
+	}
+
 	function bienes_imagenes_estudio_mercado() {
 		// if ($this->siniestro->cantidad_bienes > 2 && $this->y < 231) {
 		// dd($this->y);
@@ -76,47 +96,65 @@ class LiquidacionAdministrativaPdf extends fpdf {
 		// 	$this->y = 231;
 		// }
 
-		$this->y += 20;
+		if ($this->liquidacion_gestor_finish_y > $this->y) {
+			$this->y = $this->liquidacion_gestor_finish_y;
+		} 
+
 		$start_x = 10;
+		
+		if ($this->cantidad_fotos > 2) {
+
+			$this->AddPage('L', [520, 500]);
+
+			$this->y = 10;
+
+		} else {
+			$this->y += 20;
+		}
 
 		$index = 1;
 
-		$img_width = 230;
-
 
 		foreach ($this->liquidacion_administrativa->bienes as $bien) {
-			if (env('APP_ENV') == 'local') {
-				// $image = 'https://cdn.pixabay.com/photo/2015/07/17/22/42/startup-849804_1280.jpg';
+			foreach ($bien->foto_estudio_mercado as $foto) {
 				$image = null;
-				// $image = 'https://img.freepik.com/vector-gratis/fondo-plantilla-logo_1390-55.jpg';
+				if (env('APP_ENV') == 'local') {
+					// $image = 'https://cdn.pixabay.com/photo/2015/07/17/22/42/startup-849804_1280.jpg';
+					// $image = null;
+					$image = 'https://api.scrapfree.com.ar/public/storage/1708364064930.jpg';
 
-			} else {
-	        	$image = $bien->foto_estudio_mercado;
+				} else {
+		        	$image = $foto->image_url;
+				}
+
+				if (!is_null($image)) {
+					$dimensiones = getimagesize($image);
+
+					$ancho_original = $dimensiones[0];
+					$alto_original = $dimensiones[1];
+
+					$nuevo_ancho = 230; 
+
+					// Calcular el alto proporcional
+					$nuevo_alto = ($nuevo_ancho * $alto_original) / $ancho_original;
+					
+	        		$this->Image($image, $start_x, $this->y, $nuevo_ancho, $nuevo_alto);
+					
+	        		if ($index == 6 || $index == 12 || $index == 18) {
+	        			$this->AddPage();
+	        			$this->y = 10;
+	        			$start_x = 10;
+	        		} else if ($index % 2 == 0) {
+						$start_x -= $nuevo_ancho + 10;
+						$this->y += $nuevo_alto + 20;
+					} else {
+						$start_x += $nuevo_ancho + 10;
+					}
+        			$index++;
+				}
 			}
 
-			if (!is_null($image)) {
-				$dimensiones = getimagesize($image);
-
-				$ancho_original = $dimensiones[0];
-				$alto_original = $dimensiones[1];
-
-				$nuevo_ancho = 250; 
-
-				// Calcular el alto proporcional
-				$nuevo_alto = ($nuevo_ancho * $alto_original) / $ancho_original;
-				
-        		$this->Image($bien->foto_estudio_mercado, $start_x, $this->y, $nuevo_ancho, $nuevo_alto);
-			}
-
-			if ($index == 1) {
-				$this->y += $img_width;
-			}
-			if ($index == 2) {
-				// $this->y += 300;
-				$start_x += $img_width;
-			}
         
-        	$index++;
 		}
 
 	}

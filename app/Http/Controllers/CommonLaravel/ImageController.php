@@ -13,7 +13,7 @@ use Intervention\Image\ImageManager;
 class ImageController extends Controller
 {
 
-    function setImage(Request $request, $prop_name) {
+    function setImage(Request $request, $prop_type, $prop_key) {
         $manager = new ImageManager();
         $croppedImage = $manager->make($request->image_url);              
         $croppedImage->crop($request->width, $request->height, $request->left, $request->top);
@@ -38,17 +38,30 @@ class ImageController extends Controller
         $model = $model_name::find($request->model_id);
         Log::info('model_name: '.$model_name);
         $image = null;
-        if ($prop_name == 'has_many') {
-            $image = Image::create([
-                env('IMAGE_URL_PROP_NAME', 'image_url')     => $name,
-                'imageable_id'                              => !is_null($model) ? $request->model_id : null,
-                'imageable_type'                            => $request->model_name,
-                'temporal_id'                               => $this->getTemporalId($request),
-            ]);
+        if ($prop_type == 'images') {
+            if ($prop_key == 'images') {
+                $image = Image::create([
+                    env('IMAGE_URL_PROP_NAME', 'image_url')     => $name,
+                    'imageable_id'                              => !is_null($model) ? $request->model_id : null,
+                    'imageable_type'                            => $request->model_name,
+                    'temporal_id'                               => $this->getTemporalId($request),
+                ]);
+            } else {
+                $image_model_name = 'App\Models\!';
+                $image_model_name = str_replace('!', '', $image_model_name);
+                foreach(explode('_', $prop_key) as $nombre_separado_por_guion) {
+                    $image_model_name .= ucfirst($nombre_separado_por_guion);
+                } 
+                $image = $image_model_name::create([
+                    'image_url'                                 => $name,
+                    $request->model_name.'_id'                           => !is_null($model) ? $request->model_id : null,
+                    'temporal_id'                               => $this->getTemporalId($request),
+                ]);
+            }
         } else {
             if (!is_null($request->model_id)) {
-                $this->deleteImageProp($request->model_name, $request->model_id, $prop_name);
-                $model->{$prop_name} = $name;
+                $this->deleteImageProp($request->model_name, $request->model_id, $prop_key);
+                $model->{$prop_key} = $name;
                 $model->save();
             } 
         }
@@ -59,14 +72,14 @@ class ImageController extends Controller
         return response()->json(['model' => $this->fullModel($request->model_name, $request->model_id), 'image_url' => $name, 'image_model' => $image], 200);
     }
 
-    function deleteImageProp($_model_name, $id, $prop_name = 'image_url') {
+    function deleteImageProp($_model_name, $id, $prop_key = 'image_url') {
         $model_name = GeneralHelper::getModelName($_model_name);
         $model = $model_name::find($id);
-        if (!is_null($model->{$prop_name})) {
-            Self::deleteImage($model->{$prop_name});
-            $model->{$prop_name} = null;
+        if (!is_null($model->{$prop_key})) {
+            Self::deleteImage($model->{$prop_key});
+            $model->{$prop_key} = null;
             $model->save();
-            Log::info('Se elimino '.$prop_name);
+            Log::info('Se elimino '.$prop_key);
         }
         return response()->json(['model' => $this->fullModel($_model_name, $id)], 200);
     }
