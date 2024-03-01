@@ -84,8 +84,10 @@ class ImageController extends Controller
         return response()->json(['model' => $this->fullModel($_model_name, $id)], 200);
     }
 
-    function deleteImageModel($model_name, $model_id, $image_id) {
-        $image = Image::find($image_id);
+    function deleteImageModel($model_name, $model_id, $image_model_name, $image_id) {
+        $image_model_name = GeneralHelper::getModelName($image_model_name);
+        Log::info('image_model_name: '.$image_model_name);
+        $image = $image_model_name::find($image_id);
         $image_name = $image->{env('IMAGE_URL_PROP_NAME', 'image_url')};
         $array = explode('/', $image_name);
         $image_name = $array[count($array)-1];

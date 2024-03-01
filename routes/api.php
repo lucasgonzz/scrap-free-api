@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')->group(function() {
     // Images
     Route::post('set-image/{prop_type}/{prop_key}', 'CommonLaravel\ImageController@setImage');
     Route::delete('delete-image-prop/{model_name}/{id}/{prop_name}', 'CommonLaravel\ImageController@deleteImageProp');
-    Route::delete('delete-image-model/{model_name}/{model_id}/{image_id}', 'CommonLaravel\ImageController@deleteImageModel');
+    Route::delete('delete-image-model/{model_name}/{model_id}/{image_model_name}/{image_id}', 'CommonLaravel\ImageController@deleteImageModel');
 
     // Error
     Route::post('error', 'CommonLaravel\ErrorController@store');
