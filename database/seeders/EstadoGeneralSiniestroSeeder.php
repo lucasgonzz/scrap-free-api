@@ -23,6 +23,7 @@ class EstadoGeneralSiniestroSeeder extends Seeder
             [
                 'num'   => 2,
                 'nombre' => 'Rechazo',
+                'svg'    => 'http://scrap-free.local:8000/storage/mail.svg',
                 'user_id'   => 1,
             ],
             [

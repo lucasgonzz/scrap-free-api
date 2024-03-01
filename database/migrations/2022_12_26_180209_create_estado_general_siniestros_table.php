@@ -18,6 +18,7 @@ class CreateEstadoGeneralSiniestrosTable extends Migration
             $table->integer('num');
             $table->string('nombre');
             $table->integer('user_id');
+            $table->string('svg')->nullable();
             $table->timestamps();
         });
     }

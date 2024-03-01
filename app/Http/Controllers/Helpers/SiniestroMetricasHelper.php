@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Helpers;
 
 use App\Http\Controllers\CommonLaravel\Helpers\UserHelper;
 use App\Models\EstadoSiniestro;
+use App\Models\EstadoSiniestroSiniestro;
 use App\Models\Siniestro;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -22,15 +23,15 @@ class SiniestroMetricasHelper {
 
         $start = Carbon::createFromFormat('Y-m-d', $from_date)->startOfDay();
         $end = Carbon::createFromFormat('Y-m-d', $until_date)->startOfDay();
-        
+
         while ($start->lte($end)) {
             $casos_por_dia = [
-                'created_at'        => $start->toFormattedDateString(),
+                'created_at'        => $start,
                 'siniestros_count'  => 0,
             ];
 
             $casos_coinciden_estado = [
-                'created_at'        => $start->toFormattedDateString(),
+                'created_at'        => $start,
                 'siniestros_count'  => 0,
             ];
 
@@ -39,16 +40,26 @@ class SiniestroMetricasHelper {
         			$casos_por_dia['siniestros_count']++;
         		}
 
-                foreach ($siniestro->estado_siniestros as $estado_siniestro) {
-                    if ($estado_siniestro->pivot->created_at->startOfDay()->eq($start)) {
-                        foreach ($estados_coinciden_id as $estado_id) {
-                            if ($estado_id == $estado_siniestro->id) {
-                                $casos_coinciden_estado['siniestros_count']++;
-                            }
-                        }
-                    }
-                }
+                // foreach ($siniestro->estado_siniestros as $estado_siniestro) {
+                //     if ($estado_siniestro->pivot->created_at->startOfDay()->eq($start)) {
+                //         foreach ($estados_coinciden_id as $estado_id) {
+                //             if ($estado_id == $estado_siniestro->id) {
+                //                 $casos_coinciden_estado['siniestros_count']++;
+                //             }
+                //         }
+                //     }
+                // }
         	}
+
+
+            foreach ($estados_coinciden_id as $estado_id) {
+
+                $estado_siniestro_pivot = EstadoSiniestroSiniestro::where('estado_siniestro_id', $estado_id)
+                                                                    ->whereDate('created_at', $start)
+                                                                    ->count();
+                $casos_coinciden_estado['siniestros_count'] += $estado_siniestro_pivot;
+
+            }
 
             if ($casos_por_dia['siniestros_count'] > 0) {
                 $casos_por_dia_result[] = $casos_por_dia;

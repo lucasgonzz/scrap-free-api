@@ -102,10 +102,10 @@ class InformeLiquidadorPdf extends fpdf {
 
 		$this->y += 2;
 		$this->x = 25;
-		$this->Cell(80, 5, 'Fecha Reporte: '. $this->siniestro->fecha_informe_tecnico->format('d/m/Y'), $this->b, 1, 'L');
+		$this->Cell(80, 5, 'Fecha Reporte: '. !is_null($this->siniestro->fecha_informe_tecnico) ? $this->siniestro->fecha_informe_tecnico->format('d/m/Y') : null, $this->b, 1, 'L');
 
 		$this->x = 25;
-		$this->Cell(80, 5, 'Aseguradora:'. $this->siniestro->aseguradora->nombre, $this->b, 1, 'L');
+		$this->Cell(80, 5, 'Aseguradora:'. !is_null($this->siniestro->aseguradora) ? $this->siniestro->aseguradora->nombre : null, $this->b, 1, 'L');
 
 		$this->x = 25;
 		$this->Cell(80, 5, 'Siniestro:'. $this->siniestro->numero_siniestro, $this->b, 1, 'L');
