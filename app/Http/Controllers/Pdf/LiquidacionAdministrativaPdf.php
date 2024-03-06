@@ -214,7 +214,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 
 		$this->x = $start_x;
 		$this->y += $this->height;
-		$this->Cell($this->valor_w, $this->height, $bien->fecha_compra->format('d/m/Y'), 1, 0, 'C');
+		$this->Cell($this->valor_w, $this->height, !is_null($bien->fecha_compra) ? $bien->fecha_compra->format('d/m/Y') : null, 1, 0, 'C');
 		$this->Cell(50, $this->height, 'Fecha Compra', 1, 0, 'L');
 
 

@@ -35,7 +35,7 @@ class CreateBiensTable extends Migration
             $table->text('comentarios_tecnico')->nullable();
             $table->text('descripcion')->nullable();
 
-            $table->text('foto_estudio_mercado')->nullable();
+            $table->integer('posicion_en_liquidacion')->nullable();
             $table->text('foto_factura_compra_asegurado')->nullable();
             $table->text('foto_factura_tecnico_asegurado')->nullable();
             $table->text('foto_factura_tecnico_scrap_free')->nullable();

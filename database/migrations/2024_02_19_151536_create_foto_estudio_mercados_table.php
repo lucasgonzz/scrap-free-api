@@ -16,7 +16,7 @@ class CreateFotoEstudioMercadosTable extends Migration
         Schema::create('foto_estudio_mercados', function (Blueprint $table) {
             $table->id();
             $table->text('image_url');
-            $table->integer('bien_id');
+            $table->integer('bien_id')->nullable();
             $table->text('temporal_id')->nullable();
             $table->timestamps();
         });

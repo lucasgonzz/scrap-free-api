@@ -65,6 +65,7 @@ class BienController extends Controller
             'valor_reposicion_a_nuevo'              => $request->valor_reposicion_a_nuevo,
             'valor_reparacion'                      => $request->valor_reparacion,
             'usar_el_valor_de_indemnizacion'        => $request->usar_el_valor_de_indemnizacion,
+            'posicion_en_liquidacion'               => $request->posicion_en_liquidacion,
             'user_id'                               => $this->userId(),
         ]);
         $this->updateRelationsCreated('bien', $model->id, $request->childrens);
@@ -119,6 +120,7 @@ class BienController extends Controller
         $model->valor_reposicion_a_nuevo              = $request->valor_reposicion_a_nuevo;
         $model->valor_reparacion                      = $request->valor_reparacion;
         $model->usar_el_valor_de_indemnizacion        = $request->usar_el_valor_de_indemnizacion;
+        $model->posicion_en_liquidacion               = $request->posicion_en_liquidacion;
         $model->save();
 
         GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['suma_asegurada', 'deducible']);

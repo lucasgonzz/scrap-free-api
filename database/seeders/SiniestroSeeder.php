@@ -127,7 +127,7 @@ class SiniestroSeeder extends Seeder
                 'fecha_compra'                          => '2023-01-08',
                 // 'fecha_compra'                          => Carbon::now()->subMonths(14),
                 'valor_reposicion_a_nuevo'              => 554999,
-                'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
+                // 'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
                 'valor_reparacion'                      => 260800,
 
                 // Hay que revisar si este es foto o cometario 
@@ -164,7 +164,7 @@ class SiniestroSeeder extends Seeder
                 'fecha_compra'                          => '2014-01-08',
                 // 'fecha_compra'                          => Carbon::now()->subMonths(14),
                 'valor_reposicion_a_nuevo'              => 1226399,
-                'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
+                // 'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
                 // 'valor_reparacion'                      => 50,
 
                 // Hay que revisar si este es foto o cometario 
@@ -201,7 +201,7 @@ class SiniestroSeeder extends Seeder
                 'fecha_compra'                          => '2014-01-08',
                 // 'fecha_compra'                          => Carbon::now()->subMonths(14),
                 'valor_reposicion_a_nuevo'              => 1226399,
-                'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
+                // 'foto_estudio_mercado'                  => env('APP_URL').'/storage/tele.jpeg',
                 // 'valor_reparacion'                      => 50,
 
                 // Hay que revisar si este es foto o cometario 
