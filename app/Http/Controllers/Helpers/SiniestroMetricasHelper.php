@@ -25,13 +25,14 @@ class SiniestroMetricasHelper {
         $end = Carbon::createFromFormat('Y-m-d', $until_date)->startOfDay();
 
         while ($start->lte($end)) {
+            // Log::info('Fecha '.$start);
             $casos_por_dia = [
-                'created_at'        => $start,
+                'created_at'        => $start->format('Y-m-d i:m:s'),
                 'siniestros_count'  => 0,
             ];
 
             $casos_coinciden_estado = [
-                'created_at'        => $start,
+                'created_at'        => $start->format('Y-m-d i:m:s'),
                 'siniestros_count'  => 0,
             ];
 
@@ -63,12 +64,18 @@ class SiniestroMetricasHelper {
 
             if ($casos_por_dia['siniestros_count'] > 0) {
                 $casos_por_dia_result[] = $casos_por_dia;
+                // Log::info('Tenia '.$casos_por_dia['siniestros_count'].' casos');
+                // Log::info('Quedo asi:');
+                // Log::info($casos_por_dia_result);
+            } else {
+                // Log::info('No tenia casos');
             }
 
             if ($casos_coinciden_estado['siniestros_count'] > 0) {
                 $casos_coinciden_estado_result[] = $casos_coinciden_estado;
             }
 
+            // Log::info('__________________________________________');
         	$start->addDay();
         }          
 

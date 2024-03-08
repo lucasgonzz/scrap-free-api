@@ -16,6 +16,10 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('previus-next-index/{model_name}/{id}', 'CommonLaravel\PreviusNextController@getIndexPreviusNext');
     Route::put('update/{model_name}', 'CommonLaravel\UpdateController@update');
     Route::put('delete/{model_name}', 'CommonLaravel\DeleteController@delete');
+
+
+    // Geocoder
+    Route::get('google-geocoder/{query}', 'CommonLaravel\GoogleGeocoderController@search');
     
     // User
     Route::get('user', 'CommonLaravel\AuthController@user');
