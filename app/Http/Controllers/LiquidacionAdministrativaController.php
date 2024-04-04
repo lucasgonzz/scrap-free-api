@@ -62,31 +62,32 @@ class LiquidacionAdministrativaController extends Controller
     }
 
     function attachBienes($liquidacion_administrativa, $bienes) {
+        // Log::info('attachBienes:');
+        // Log::info($bienes);
         foreach ($bienes as $bien) {
-            if ($bien['posicion_en_liquidacion'] != 0) {
+            if ($bien['posicion_en_liquidacion'] != 0 || $bien['posicion_en_liquidacion'] == '') {
                 $store_bien = Bien::find($bien['id']);
                 $coberturas_aplicadas = array_reverse($bien['coberturas_aplicadas']);
                 foreach ($coberturas_aplicadas as $cobertura_aplicada) {
                     $store_bien->coberturas_aplicadas()->attach($cobertura_aplicada['id'], [
-                        'remanente_a_cubrir_reparacion'     => $cobertura_aplicada['remanente_a_cubrir_reparacion'], 
-                        'remanente_a_cubrir_a_nuevo'        => $cobertura_aplicada['remanente_a_cubrir_a_nuevo'], 
+                        'remanente_a_cubrir'                => $cobertura_aplicada['remanente_a_cubrir'], 
                         'deducible'                         => $cobertura_aplicada['deducible'],
-                        'fondos_reparacion'                 => $cobertura_aplicada['fondos_reparacion'],
-                        'fondos_a_nuevo'                    => $cobertura_aplicada['fondos_a_nuevo'],
+                        'fondos'                            => $cobertura_aplicada['fondos'],
                         'deducible_aplicado'                => $cobertura_aplicada['deducible_aplicado'],
                     ]);
                 }
 
                 $liquidacion_administrativa->bienes()->attach($bien['id'], [
-                    'indemnizacion_reparacion'          => $bien['indemnizacion_reparacion'],
-                    'indemnizacion_a_nuevo'             => $bien['indemnizacion_a_nuevo'],
+                    'indemnizacion'                     => $bien['indemnizacion_bien'],
                     'anos_antiguedad'                   => $bien['anos_antiguedad'],
                     'procentage_depreciacion'           => $bien['procentage_depreciacion'],
                     'valor_depreciado'                  => $bien['valor_depreciado'],
-                    'ratio'                             => isset($bien['ratio']) ? $bien['ratio'] : null,
-                    'deducible_aplicado_a_reparacion'   => isset($bien['deducible_aplicado_a_reparacion']) ? $bien['deducible_aplicado_a_reparacion'] : null,
-                    'deducible_aplicado_a_nuevo'        => $bien['deducible_aplicado_a_nuevo'],
+                    'ratio'                             => isset($bien['ratio']) && is_numeric($bien['ratio']) ? $bien['ratio'] : null,
+                    'deducible_aplicado'                => $bien['deducible_aplicado'],
                 ]);
+                // Log::info('Se le puso el bien '.$bien['nombre']);
+            } else {
+                Log::info('No se va a usar el bien '.$bien['nombre'].', posicion_en_liquidacion: '.$bien['posicion_en_liquidacion']);
             }
         }
     }

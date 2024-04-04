@@ -114,7 +114,6 @@ class LiquidacionAdministrativaPdf extends fpdf {
 
 		$index = 1;
 
-
 		foreach ($this->liquidacion_administrativa->bienes as $bien) {
 			foreach ($bien->foto_estudio_mercado as $foto) {
 				$image = null;
@@ -248,7 +247,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 			$this->x = $start_x;
 
 			$this->Cell(50, $this->height, 'Ahorro Sancor', 0, 0, 'L');
-			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price((float)$bien->pivot->indemnizacion_a_nuevo - (float)$bien->valor_reparacion), 0, 0, 'C');
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price((float)$bien->valor_reposicion_a_nuevo - (float)$bien->valor_reparacion), 0, 0, 'C');
 
 			$this->y -= $this->height + $this->height;
 
@@ -267,7 +266,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 			if ($index > 1) {
 				$this->x = $this->start_x;
 				$this->y += $this->height + $this->height;
-				$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->remanente_a_cubrir_a_nuevo), 1, 0, 'C');
+				$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->remanente_a_cubrir), 1, 0, 'C');
 				$this->Cell($this->text_w, $this->height, 'Remanente a cubrir', 1, 0, 'L');
 			}
 
@@ -289,7 +288,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 			$this->SetFillColor(40,173,19);
 			$this->x = $this->start_x;
 			$this->y += $this->height;
-			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->fondos_a_nuevo), 1, 0, 'C', 1);
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->fondos), 1, 0, 'C', 1);
 			$this->Cell($this->text_w, $this->height, 'Cobertura '.$index, 1, 0, 'L');
 
 			$index++;
@@ -304,14 +303,14 @@ class LiquidacionAdministrativaPdf extends fpdf {
 		$this->SetFont('Arial', 'b', 12);
 		$this->SetTextColor(93,143,243);
 		
-		$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->deducible_aplicado_a_nuevo), 1, 0, 'C');
+		$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->deducible_aplicado), 1, 0, 'C');
 		$this->Cell($this->text_w, $this->height, 'Deducible', 1, 0, 'L');
 
 		$this->y += $this->height;
 		$this->x = $this->start_x;
 
 		$this->SetTextColor(202,46,46);
-		$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->indemnizacion_a_nuevo), 1, 0, 'C');
+		$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->indemnizacion), 1, 0, 'C');
 		$this->Cell($this->text_w, $this->height, 'Indemnizacion asegurado', 1, 0, 'L');
 
 
@@ -331,6 +330,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 			$this->SetTextColor(202,46,46);
 			$this->Cell($this->text_w - 40, $this->height, 'Reparacion', 1, 0, 'L');
 			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->indemnizacion_reparacion), 1, 0, 'C');
+			// $this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->indemnizacion_reparacion), 1, 0, 'C');
 		}
 		
 		$this->y += $this->height + $this->height + $this->height;

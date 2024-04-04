@@ -46,7 +46,7 @@ class SiniestroHelper {
 				$bien_encontrado = null;
 
 				foreach ($bienes as $bien) {
-					if ($bien_siniestro->id == $bien['id']) {
+					if (isset($bien['id']) && $bien_siniestro->id == $bien['id']) {
 						$bien_encontrado = $bien;
 					}
 				}
