@@ -83,6 +83,11 @@ class LiquidacionAdministrativaController extends Controller
                     'procentage_depreciacion'           => $bien['procentage_depreciacion'],
                     'valor_depreciado'                  => $bien['valor_depreciado'],
                     'ratio'                             => isset($bien['ratio']) && is_numeric($bien['ratio']) ? $bien['ratio'] : null,
+                    
+                    'reparacion_con_deducible'          => isset($bien['reparacion_con_deducible']) && is_numeric($bien['reparacion_con_deducible']) ? $bien['reparacion_con_deducible'] : null,
+                    
+                    'deducible_aplicado_a_reparacion'   => isset($bien['deducible_aplicado_a_reparacion']) && is_numeric($bien['deducible_aplicado_a_reparacion']) ? $bien['deducible_aplicado_a_reparacion'] : null,
+                    
                     'deducible_aplicado'                => $bien['deducible_aplicado'],
                 ]);
                 // Log::info('Se le puso el bien '.$bien['nombre']);

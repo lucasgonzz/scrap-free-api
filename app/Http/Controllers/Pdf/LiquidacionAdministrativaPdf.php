@@ -329,7 +329,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 
 			$this->SetTextColor(202,46,46);
 			$this->Cell($this->text_w - 40, $this->height, 'Reparacion', 1, 0, 'L');
-			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->indemnizacion_reparacion), 1, 0, 'C');
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->reparacion_con_deducible), 1, 0, 'C');
 			// $this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->indemnizacion_reparacion), 1, 0, 'C');
 		}
 		
