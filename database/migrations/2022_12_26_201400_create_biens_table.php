@@ -64,6 +64,12 @@ class CreateBiensTable extends Migration
             $table->decimal('valor_reposicion_a_nuevo', 12,2)->nullable();
             $table->decimal('valor_reparacion', 12,2)->nullable();
             $table->boolean('usar_el_valor_de_indemnizacion')->nullable();
+            
+            $table->decimal('indemnizacion_a_nuevo', 18,2)->nullable();
+            $table->decimal('deducible_aplicado_a_indemnizacion', 18,2)->nullable();
+            $table->decimal('indemnizacion_reparacion', 18,2)->nullable();
+            $table->decimal('deducible_aplicado_a_reparacion', 18,2)->nullable();
+            
             $table->integer('user_id');
             $table->timestamps();
         });

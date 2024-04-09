@@ -17,6 +17,6 @@ class LiquidacionAdministrativa extends Model
     }
 
     function bienes() {
-        return $this->belongsToMany(Bien::class)->withPivot('anos_antiguedad', 'procentage_depreciacion', 'valor_depreciado', 'indemnizacion', 'ratio', 'deducible_aplicado', 'reparacion_con_deducible', 'deducible_aplicado_a_reparacion')->orderBy('created_at', 'ASC');
+        return $this->belongsToMany(Bien::class)->withPivot('anos_antiguedad', 'procentage_depreciacion', 'valor_depreciado', 'indemnizacion', 'ratio', 'deducible_aplicado', 'reparacion_con_deducible', 'deducible_aplicado_a_reparacion')->orderBy('posicion_en_liquidacion', 'ASC');
     }
 }
