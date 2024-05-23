@@ -136,6 +136,9 @@ class InformeLiquidadorPdf extends fpdf {
 				$border = 'B';
 			}
 			$this->Cell(80, 5, 'Numero de serie: '.$bien->numero_serie, $border, 1, 'L');
+
+			$this->x = 105;
+			$this->Cell(80, 5, 'Modelo: '.$bien->modelo, $border, 1, 'L');
 		}
 	}
 

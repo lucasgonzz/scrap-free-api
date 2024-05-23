@@ -66,41 +66,48 @@ class LiquidacionAdministrativaController extends Controller
         // Log::info($bienes);
         foreach ($bienes as $bien) {
             Log::info('Se agrego bien '.$bien['nombre']);
-            if ($bien['posicion_en_liquidacion'] != 0 || $bien['posicion_en_liquidacion'] == '') {
+            Log::info('posicion_en_liquidacion = '.(float)$bien['posicion_en_liquidacion'].'.');
+            if ($bien['posicion_en_liquidacion'] === '' || (float)$bien['posicion_en_liquidacion'] > 0) {
+                Log::info('entro el id '.$bien['id']);
                 $store_bien = Bien::find($bien['id']);
-                $coberturas_aplicadas = array_reverse($bien['coberturas_aplicadas']);
-                foreach ($coberturas_aplicadas as $cobertura_aplicada) {
-                    $store_bien->coberturas_aplicadas()->attach($cobertura_aplicada['id'], [
-                        'remanente_a_cubrir'                => $cobertura_aplicada['remanente_a_cubrir'], 
-                        'deducible'                         => $cobertura_aplicada['deducible'],
-                        'fondos'                            => $cobertura_aplicada['fondos'],
-                        'deducible_aplicado'                => isset($cobertura_aplicada['deducible_aplicado']) ? $cobertura_aplicada['deducible_aplicado'] : null,
+
+                if (!is_null($store_bien)) {
+                    if (isset($bien['coberturas_aplicadas'])) {
+                        $coberturas_aplicadas = array_reverse($bien['coberturas_aplicadas']);
+                        foreach ($coberturas_aplicadas as $cobertura_aplicada) {
+                            $store_bien->coberturas_aplicadas()->attach($cobertura_aplicada['id'], [
+                                'remanente_a_cubrir'                => $cobertura_aplicada['remanente_a_cubrir'], 
+                                'deducible'                         => $cobertura_aplicada['deducible'],
+                                'fondos'                            => $cobertura_aplicada['fondos'],
+                                'deducible_aplicado'                => isset($cobertura_aplicada['deducible_aplicado']) ? $cobertura_aplicada['deducible_aplicado'] : null,
+                            ]);
+                        }
+                    }
+
+                    $liquidacion_administrativa->bienes()->attach($bien['id'], [
+                        // 'indemnizacion'                     => $bien['indemnizacion_bien'],
+                        'anos_antiguedad'                   => $bien['anos_antiguedad'],
+                        'procentage_depreciacion'           => $bien['procentage_depreciacion'],
+                        'valor_depreciado'                  => $bien['valor_depreciado'],
+                        'ratio'                             => isset($bien['ratio']) && is_numeric($bien['ratio']) ? $bien['ratio'] : null,
+                        
+                        'reparacion_con_deducible'          => isset($bien['reparacion_con_deducible']) && is_numeric($bien['reparacion_con_deducible']) ? $bien['reparacion_con_deducible'] : null,
+                        
+                        'deducible_aplicado_a_reparacion'   => isset($bien['deducible_aplicado_a_reparacion']) && is_numeric($bien['deducible_aplicado_a_reparacion']) ? $bien['deducible_aplicado_a_reparacion'] : null,
+                        
+                        // 'deducible_aplicado'                => $bien['deducible_aplicado'],
                     ]);
+
+                    $store_bien->indemnizacion_a_nuevo = $bien['indemnizacion_a_nuevo'];
+                    $store_bien->deducible_aplicado_a_indemnizacion = $bien['deducible_aplicado_a_indemnizacion'];
+
+                    if (isset($bien['deducible_aplicado_a_reparacion'])) {
+                        $store_bien->indemnizacion_reparacion = $bien['indemnizacion_reparacion'];
+                        $store_bien->deducible_aplicado_a_reparacion = $bien['deducible_aplicado_a_reparacion'];
+                    }
+
+                    $store_bien->save();
                 }
-
-                $liquidacion_administrativa->bienes()->attach($bien['id'], [
-                    // 'indemnizacion'                     => $bien['indemnizacion_bien'],
-                    'anos_antiguedad'                   => $bien['anos_antiguedad'],
-                    'procentage_depreciacion'           => $bien['procentage_depreciacion'],
-                    'valor_depreciado'                  => $bien['valor_depreciado'],
-                    'ratio'                             => isset($bien['ratio']) && is_numeric($bien['ratio']) ? $bien['ratio'] : null,
-                    
-                    'reparacion_con_deducible'          => isset($bien['reparacion_con_deducible']) && is_numeric($bien['reparacion_con_deducible']) ? $bien['reparacion_con_deducible'] : null,
-                    
-                    'deducible_aplicado_a_reparacion'   => isset($bien['deducible_aplicado_a_reparacion']) && is_numeric($bien['deducible_aplicado_a_reparacion']) ? $bien['deducible_aplicado_a_reparacion'] : null,
-                    
-                    // 'deducible_aplicado'                => $bien['deducible_aplicado'],
-                ]);
-
-                $store_bien->indemnizacion_a_nuevo = $bien['indemnizacion_a_nuevo'];
-                $store_bien->deducible_aplicado_a_indemnizacion = $bien['deducible_aplicado_a_indemnizacion'];
-
-                if (isset($bien['deducible_aplicado_a_reparacion'])) {
-                    $store_bien->indemnizacion_reparacion = $bien['indemnizacion_reparacion'];
-                    $store_bien->deducible_aplicado_a_reparacion = $bien['deducible_aplicado_a_reparacion'];
-                }
-
-                $store_bien->save();
 
                 // Log::info('Se le puso el bien '.$bien['nombre']);
             } else {

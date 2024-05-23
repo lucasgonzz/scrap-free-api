@@ -64,7 +64,7 @@ class ConformidadPagoIndemnizatorioSancorPdf extends fpdf {
 		$this->x = 15;
 		$this->MultiCell(180, 5, $text, $this->b, 'J', 0);
 
-		$text = 'Asimismo, acepto que el referido pago indemnizatorio sea efectivizado dentro de los 15 (quince) días de la firma del presente, a través de transferencia bancaria a la cuenta:';
+		$text = 'Asimismo, acepto que el referido pago indemnizatorio sea efectivizado dentro de los 15 (quince) días habiles de la firma del presente, a través de transferencia bancaria a la cuenta:';
 		$this->y += 3;
 		$this->x = 15;
 		$this->MultiCell(180, 5, $text, $this->b, 'J', 0);

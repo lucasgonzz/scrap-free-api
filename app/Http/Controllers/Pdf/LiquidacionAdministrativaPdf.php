@@ -247,7 +247,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 			$this->x = $start_x;
 
 			$this->Cell(50, $this->height, 'Ahorro Sancor', 0, 0, 'L');
-			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price((float)$bien->valor_reposicion_a_nuevo - (float)$bien->valor_reparacion), 0, 0, 'C');
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price((float)$bien->indemnizacion_a_nuevo - (float)$bien->indemnizacion_reparacion), 0, 0, 'C');
 
 			$this->y -= $this->height + $this->height;
 
@@ -329,7 +329,8 @@ class LiquidacionAdministrativaPdf extends fpdf {
 
 			$this->SetTextColor(202,46,46);
 			$this->Cell($this->text_w - 40, $this->height, 'Reparacion', 1, 0, 'L');
-			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->indemnizacion_reparacion), 1, 0, 'C');
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->valor_reparacion - $bien->deducible_aplicado_a_reparacion), 1, 0, 'C');
+			// $this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->indemnizacion_reparacion), 1, 0, 'C');
 			// $this->Cell($this->valor_w, $this->height, '$'.Numbers::price($bien->pivot->indemnizacion_reparacion), 1, 0, 'C');
 		}
 		
