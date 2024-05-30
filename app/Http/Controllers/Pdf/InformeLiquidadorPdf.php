@@ -291,6 +291,11 @@ class InformeLiquidadorPdf extends fpdf {
 	        			$x = 105;
 	        		}
 
+	        		if ($this->y >= 220) {
+	        			$this->AddPage();
+	        			$this->y = 50;
+	        		}
+
 	        		$rutaImagen = PdfHelper::imageUrl($image);
 
 					$dimensiones = getimagesize($rutaImagen);

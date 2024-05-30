@@ -67,6 +67,8 @@ class PdfHelper {
 
 	static function imageUrl($image) {
 		if (env('APP_ENV') == 'local') {
+			return 'https://api.scrapfree.com.ar/public/storage/1708364064930.jpg';
+
 			if (str_contains($image->image_url, 'tele2')) {
 				return 'https://cdn.pixabay.com/photo/2015/02/07/20/58/tv-627876_1280.jpg';
 			}

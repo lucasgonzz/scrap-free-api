@@ -73,6 +73,7 @@ class LiquidacionAdministrativaController extends Controller
 
                 if (!is_null($store_bien)) {
                     if (isset($bien['coberturas_aplicadas'])) {
+                        // $coberturas_aplicadas = $bien['coberturas_aplicadas'];
                         $coberturas_aplicadas = array_reverse($bien['coberturas_aplicadas']);
                         foreach ($coberturas_aplicadas as $cobertura_aplicada) {
                             $store_bien->coberturas_aplicadas()->attach($cobertura_aplicada['id'], [
