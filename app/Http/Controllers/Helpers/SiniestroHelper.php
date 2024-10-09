@@ -4,10 +4,24 @@ namespace App\Http\Controllers\Helpers;
 
 use App\Http\Controllers\BienController;
 use App\Models\Siniestro;
+use App\Models\SiniestroInputValue;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class SiniestroHelper {
+
+	static function attachSiniestroInputValues($siniestro, $inputs_values) {
+		foreach ($inputs_values as $inputs_value) {
+			SiniestroInputValue::create([
+
+	            'siniestro_id'		=> $siniestro->id,	
+	            'input_id'			=> $inputs_value['input_id'],
+	            'input_value'		=> $inputs_value['input_value'],
+	            'observations'		=> isset($inputs_value['observations']) ? $inputs_value['observations'] : null,
+
+			]);
+		}
+	}
 	
 	static function attachEstadoSiniestro($model, $estado_siniestro_id, $from_store = false, $created_at = null) {
 		if (is_null($created_at)) {

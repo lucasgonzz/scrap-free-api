@@ -19,6 +19,15 @@ class SiniestroController extends Controller
     }
    
     public function index() {
+        if (env('APP_ENV') == 'local') {
+            $models = Siniestro::where('user_id', $this->userId())
+                                ->orderBy('created_at', 'DESC')
+                                // ->where('cerrado', 0)
+                                ->where('id', '<', 10)
+                                ->withAll()
+                                ->paginate(100);
+            return response()->json(['models' => $models], 200);
+        }
         $models = Siniestro::where('user_id', $this->userId())
                             ->orderBy('created_at', 'DESC')
                             // ->where('cerrado', 0)
@@ -27,83 +36,96 @@ class SiniestroController extends Controller
         return response()->json(['models' => $models], 200);
     }
 
+    function ya_esta_creado($request) {
+        $siniestro = Siniestro::where('numero_siniestro', $request->numero_siniestro)
+                                ->first();
+        return !is_null($siniestro);
+    }
+
     public function store(Request $request) {
         Log::info('siniestro store $request:');
         Log::info($request);
-        $model = Siniestro::create([
-            'num'                               => $this->num('siniestros'),
-            'aseguradora_id'                    => $request->aseguradora_id,
-            'asegurado_id'                      => $request->asegurado_id,
+        if (!$this->ya_esta_creado($request)) {
+            $model = Siniestro::create([
+                'num'                               => $this->num('siniestros'),
+                'aseguradora_id'                    => $request->aseguradora_id,
+                'asegurado_id'                      => $request->asegurado_id,
 
-            'asegurado'                         => $request->asegurado,
-            'telefono'                          => $request->telefono,
-            'telefono_alternativo'              => $request->telefono_alternativo,
-            'email'                             => $request->email,
-            'referencia'                        => $request->referencia,
-            'numero_poliza'                     => $request->numero_poliza,
-            'tipo_producto_de_seguro_id'        => $request->tipo_producto_de_seguro_id,
-            'numero_asociado'                   => $request->numero_asociado,
-            'tipo_documento_id'                 => $request->tipo_documento_id,
-            'ramo_id'                           => $request->ramo_id,
-            'numero_documento'                  => $request->numero_documento,
+                'asegurado'                         => $request->asegurado,
+                'telefono'                          => $request->telefono,
+                'telefono_alternativo'              => $request->telefono_alternativo,
+                'email'                             => $request->email,
+                'referencia'                        => $request->referencia,
+                'numero_poliza'                     => $request->numero_poliza,
+                'tipo_producto_de_seguro_id'        => $request->tipo_producto_de_seguro_id,
+                'numero_asociado'                   => $request->numero_asociado,
+                'tipo_documento_id'                 => $request->tipo_documento_id,
+                'ramo_id'                           => $request->ramo_id,
+                'numero_documento'                  => $request->numero_documento,
 
-            'causa_siniestro_id'                => $request->causa_siniestro_id,
-            'estado_siniestro_id'               => $request->estado_siniestro_id,
-            'estado_general_siniestro_id'       => $request->estado_general_siniestro_id,
-            'localidad_id'                      => $request->localidad_id,
-            'provincia_id'                      => $request->provincia_id,
-            'tipo_orden_de_servicio_id'         => $request->tipo_orden_de_servicio_id,
-            'gestor_scrap_free_id'              => $request->gestor_scrap_free_id,
-            'gestor_aseguradora_id'             => $request->gestor_aseguradora_id,
-            'codigo_postal'                     => $request->codigo_postal,
-            'comentarios_seguro'                => $request->comentarios_seguro,
-            'costo_reporte'                     => $request->costo_reporte,
-            'denunciante'                       => $request->denunciante,
-            'foto_deposito_deducible'           => $request->foto_deposito_deducible,
-            'domicilio_completo_google'         => $request->domicilio_completo_google,
-            'domicilio_completo_google_lat'     => $request->domicilio_completo_google_lat,
-            'domicilio_completo_google_lng'     => $request->domicilio_completo_google_lng,
-            'descripcion_bien'                  => $request->descripcion_bien,
-            'descripcion_del_hecho'             => $request->descripcion_del_hecho,
-            'entre_calles'                      => $request->entre_calles,
-            'fecha_alta_scrap_free'             => $request->fecha_alta_scrap_free,
-            'fecha_cierre_administrativo'       => $request->fecha_cierre_administrativo,
-            'fecha_cierre_aseguradora'          => $request->fecha_cierre_aseguradora,
-            'fecha_cierre_scrap_free'           => $request->fecha_cierre_scrap_free,
-            'fecha_denuncia'                    => $request->fecha_denuncia,
-            'fecha_ocurrencia'                  => $request->fecha_ocurrencia,
-            'liquidacion_deducible'             => $request->liquidacion_deducible,
-            'liquidacion_siniestro'             => $request->liquidacion_siniestro,
-            'notas_domicilio'                   => $request->notas_domicilio,
-            'notas_importantes'                 => $request->notas_importantes,
-            'notas_transporte'                  => $request->notas_transporte,
-            'orden_servicio'                    => $request->orden_servicio,
-            'recomendacion'                     => $request->recomendacion,
-            'reparacion_deducible'              => $request->reparacion_deducible,
-            'reparacion_paga_asegurado'         => $request->reparacion_paga_asegurado,
-            'reparacion_siniestro'              => $request->reparacion_siniestro,
-            'numero_siniestro'                  => $request->numero_siniestro,
-            'poliza_id'                         => $request->poliza_id,
-            'centro_reparacion_id'              => $request->centro_reparacion_id,
-            'cantidad_bienes'                   => $request->cantidad_bienes,
+                'causa_siniestro_id'                => $request->causa_siniestro_id,
+                'estado_siniestro_id'               => $request->estado_siniestro_id,
+                'estado_general_siniestro_id'       => $request->estado_general_siniestro_id,
+                'localidad_id'                      => $request->localidad_id,
+                'provincia_id'                      => $request->provincia_id,
+                'tipo_orden_de_servicio_id'         => $request->tipo_orden_de_servicio_id,
+                'gestor_scrap_free_id'              => $request->gestor_scrap_free_id,
+                'gestor_aseguradora_id'             => $request->gestor_aseguradora_id,
+                'codigo_postal'                     => $request->codigo_postal,
+                'comentarios_seguro'                => $request->comentarios_seguro,
+                'costo_reporte'                     => $request->costo_reporte,
+                'denunciante'                       => $request->denunciante,
+                'foto_deposito_deducible'           => $request->foto_deposito_deducible,
+                'domicilio_completo_google'         => $request->domicilio_completo_google,
+                'domicilio_completo_google_lat'     => $request->domicilio_completo_google_lat,
+                'domicilio_completo_google_lng'     => $request->domicilio_completo_google_lng,
+                'descripcion_bien'                  => $request->descripcion_bien,
+                'descripcion_del_hecho'             => $request->descripcion_del_hecho,
+                'entre_calles'                      => $request->entre_calles,
+                'fecha_alta_scrap_free'             => $request->fecha_alta_scrap_free,
+                'fecha_cierre_administrativo'       => $request->fecha_cierre_administrativo,
+                'fecha_cierre_aseguradora'          => $request->fecha_cierre_aseguradora,
+                'fecha_cierre_scrap_free'           => $request->fecha_cierre_scrap_free,
+                'fecha_denuncia'                    => $request->fecha_denuncia,
+                'fecha_ocurrencia'                  => $request->fecha_ocurrencia,
+                'liquidacion_deducible'             => $request->liquidacion_deducible,
+                'liquidacion_siniestro'             => $request->liquidacion_siniestro,
+                'notas_domicilio'                   => $request->notas_domicilio,
+                'notas_importantes'                 => $request->notas_importantes,
+                'notas_transporte'                  => $request->notas_transporte,
+                'orden_servicio'                    => $request->orden_servicio,
+                'recomendacion'                     => $request->recomendacion,
+                'reparacion_deducible'              => $request->reparacion_deducible,
+                'reparacion_paga_asegurado'         => $request->reparacion_paga_asegurado,
+                'reparacion_siniestro'              => $request->reparacion_siniestro,
+                'numero_siniestro'                  => $request->numero_siniestro,
+                'poliza_id'                         => $request->poliza_id,
+                'centro_reparacion_id'              => $request->centro_reparacion_id,
+                'cantidad_bienes'                   => $request->cantidad_bienes,
 
-            'fecha_informe_tecnico'             => $request->fecha_informe_tecnico,
-            'tecnico'                           => $request->tecnico,
-            'comentarios_tecnico'               => $request->comentarios_tecnico,
-            'posible_causa'                     => $request->posible_causa,
-            'recomendacion'                     => $request->recomendacion,
-            
-            'user_id'                           => $this->userId(),
-        ]);
-        SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id, true);
-        SiniestroHelper::attachBienes($model, $request->bienes);
-        if (property_exists($request, 'coberturas')) {
-            GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);
-        } 
-        // SiniestroHelper::checkEstadoSiniestroCerrado($model);
-        $this->updateRelationsCreated('siniestro', $model->id, $request->childrens);
-        $this->sendAddModelNotification('Siniestro', $model->id, false);
-        return response()->json(['model' => $this->fullModel('Siniestro', $model->id)], 201);
+                'fecha_informe_tecnico'             => $request->fecha_informe_tecnico,
+                'tecnico'                           => $request->tecnico,
+                'comentarios_tecnico'               => $request->comentarios_tecnico,
+                'posible_causa'                     => $request->posible_causa,
+                'recomendacion'                     => $request->recomendacion,
+                
+                'user_id'                           => $this->userId(),
+            ]);
+            SiniestroHelper::attachEstadoSiniestro($model, $request->estado_siniestro_id, true);
+
+            SiniestroHelper::attachBienes($model, $request->bienes);
+
+            // SiniestroHelper::attachSiniestroInputValues($model, $request->input_values);
+
+            if (property_exists($request, 'coberturas')) {
+                GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['cobertura', 'deducible']);
+            } 
+            // SiniestroHelper::checkEstadoSiniestroCerrado($model);
+            $this->updateRelationsCreated('siniestro', $model->id, $request->childrens);
+            $this->sendAddModelNotification('Siniestro', $model->id, false);
+            return response()->json(['model' => $this->fullModel('Siniestro', $model->id)], 201);
+        }
+        return response()->json(['model' => null], 200);
     }  
 
     public function show($id) {
