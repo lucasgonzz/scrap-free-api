@@ -39,6 +39,10 @@ class Siniestro extends Model
     //     return '-';
     // }
 
+    function tipo_documento() {
+        return $this->belongsTo(TipoDocumento::class);
+    }
+
     function getDiasEnEstadoSiniestroAttribute() {
         if (!is_null($this->estado_siniestro)) {
             if (count($this->estado_siniestros) == 1) {

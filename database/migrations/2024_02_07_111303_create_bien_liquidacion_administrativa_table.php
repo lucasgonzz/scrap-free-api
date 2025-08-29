@@ -21,6 +21,7 @@ class CreateBienLiquidacionAdministrativaTable extends Migration
             $table->decimal('procentage_depreciacion', 12,2)->nullable();
             $table->decimal('valor_depreciado', 12,2)->nullable();
             $table->decimal('indemnizacion_bien', 18,2)->nullable();
+            $table->decimal('indemnizacion', 18,2)->nullable();
             $table->decimal('ratio', 18,2)->nullable();
             $table->decimal('reparacion_con_deducible', 18,2)->nullable();
             $table->decimal('deducible_aplicado', 18,2)->nullable();

@@ -125,7 +125,6 @@ class LiquidacionAdministrativaA4Pdf extends fpdf {
 		$this->Cell(32, 7, 'Deducible Aseg. $', 1, 0, 'C');
 		$this->Cell(30, 7, 'Indemnización', 1, 0, 'C');
 
-
 		$this->SetFont('Arial', '', 10);
 
 		$height = 7;

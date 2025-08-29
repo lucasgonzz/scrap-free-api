@@ -70,7 +70,7 @@ class BienController extends Controller
         ]);
         $this->updateRelationsCreated('bien', $model->id, $request->childrens);
 
-        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['suma_asegurada', 'deducible']);
+        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['suma_asegurada', 'deducible', 'deducible_monto']);
 
         return response()->json(['model' => $this->fullModel('Bien', $model->id)], 201);
     }  
@@ -123,7 +123,7 @@ class BienController extends Controller
         $model->posicion_en_liquidacion               = $request->posicion_en_liquidacion;
         $model->save();
 
-        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['suma_asegurada', 'deducible']);
+        GeneralHelper::attachModels($model, 'coberturas', $request->coberturas, ['suma_asegurada', 'deducible', 'deducible_monto']);
         
         return response()->json(['model' => $this->fullModel('Bien', $model->id)], 200);
     }

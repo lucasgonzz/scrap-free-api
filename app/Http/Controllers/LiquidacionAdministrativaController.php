@@ -65,8 +65,10 @@ class LiquidacionAdministrativaController extends Controller
         // Log::info('attachBienes:');
         // Log::info($bienes);
         foreach ($bienes as $bien) {
+            
             Log::info('Se agrego bien '.$bien['nombre']);
             Log::info('posicion_en_liquidacion = '.(float)$bien['posicion_en_liquidacion'].'.');
+
             if ($bien['posicion_en_liquidacion'] === '' || (float)$bien['posicion_en_liquidacion'] > 0) {
                 Log::info('entro el id '.$bien['id']);
                 $store_bien = Bien::find($bien['id']);
@@ -79,6 +81,7 @@ class LiquidacionAdministrativaController extends Controller
                             $store_bien->coberturas_aplicadas()->attach($cobertura_aplicada['id'], [
                                 'remanente_a_cubrir'                => $cobertura_aplicada['remanente_a_cubrir'], 
                                 'deducible'                         => $cobertura_aplicada['deducible'],
+                                'deducible_monto'                         => $cobertura_aplicada['deducible_monto'],
                                 'fondos'                            => $cobertura_aplicada['fondos'],
                                 'deducible_aplicado'                => isset($cobertura_aplicada['deducible_aplicado']) ? $cobertura_aplicada['deducible_aplicado'] : null,
                             ]);

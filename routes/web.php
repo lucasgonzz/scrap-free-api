@@ -16,6 +16,8 @@ Route::post('/password-reset/update-password',
 	'CommonLaravel\PasswordResetController@updatePassword'
 );
 
+Route::post('siniestro', 'SiniestroController@store');
+
 
 // PDF
 Route::get('/pdf/{siniestro_id}/{name}',

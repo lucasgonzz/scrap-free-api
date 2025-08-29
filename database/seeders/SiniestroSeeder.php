@@ -219,74 +219,74 @@ class SiniestroSeeder extends Seeder
                 'liquidacion_paga_asegurado'            => null,
                 'user_id'                               => 1,
             ],
-            // [
-            //     'nombre'                                => 'Heladera',       
-            //     'causa_bien_id'                         => 2,
-            //     'estado_bien_id'                        => 2,
-            //     'linea_id'                              => 2,
-            //     'sub_linea_id'                          => 6,
-            //     'tecnico_asegurado_id'                  => 1,
-            //     'tecnico_scrap_free_id'                 => 1,
-            //     'logistica_id'                          => null,
-            //     'accesorios'                            => 'Tiene la puerta floja',
-            //     'tiene_base'                            => 0,
-            //     'tiene_cable'                           => 1,
-            //     'tiene_cargador'                        => 0,
-            //     'tiene_control'                         => 0,
-            //     'comentarios_tecnico'                   => 'Medio pelo la puerta, estaba floja antes de que llegue',
-            //     'descripcion'                           => 'Es una heladera vieja pero anda bien',
-            //     'fecha_compra'                          => Carbon::now()->subMonths(48),
-            //     'valor_reposicion_a_nuevo'              => 200,
+            [
+                'nombre'                                => 'Heladera',       
+                'causa_bien_id'                         => 2,
+                'estado_bien_id'                        => 2,
+                'linea_id'                              => 2,
+                'sub_linea_id'                          => 6,
+                'tecnico_asegurado_id'                  => 1,
+                'tecnico_scrap_free_id'                 => 1,
+                'logistica_id'                          => null,
+                'accesorios'                            => 'Tiene la puerta floja',
+                'tiene_base'                            => 0,
+                'tiene_cable'                           => 1,
+                'tiene_cargador'                        => 0,
+                'tiene_control'                         => 0,
+                'comentarios_tecnico'                   => 'Medio pelo la puerta, estaba floja antes de que llegue',
+                'descripcion'                           => 'Es una heladera vieja pero anda bien',
+                'fecha_compra'                          => Carbon::now()->subMonths(48),
+                'valor_reposicion_a_nuevo'              => 200,
 
-            //     // Hay que revisar si este es foto o cometario 
-            //     'informe_tecnico_asegurado'             => 'El tecnico del asegurado dice que esta rota',
-            //     'marca'                                 => 'Freezer',
-            //     'modelo'                                => 'YHHH-223',
-            //     'numero_serie'                          => '-',
-            //     'notas'                                 => null,
-            //     'pagado_tecnico'                        => null,
-            //     'posible_causa_asegurado'               => null,
-            //     'precisa_embalaje'                      => null,
-            //     'presupuesto_monto_asegurado'           => null,
-            //     'liquidacion_bien'                      => null,
-            //     'liquidacion_deducible'                 => null,
-            //     'liquidacion_paga_asegurado'            => null,
-            //     'user_id'                               => 1,
-            // ],
-            // [
-            //     'nombre'                                => 'Licuadora electrica',       
-            //     'causa_bien_id'                         => 2,
-            //     'estado_bien_id'                        => 2,
-            //     'linea_id'                              => 2,
-            //     'sub_linea_id'                          => 6,
-            //     'tecnico_asegurado_id'                  => 1,
-            //     'tecnico_scrap_free_id'                 => 1,
-            //     'logistica_id'                          => null,
-            //     'accesorios'                            => 'THubo un corte de luz y despues de eso no volvio a andar como lo hacia antes, una lastima.',
-            //     'tiene_base'                            => 0,
-            //     'tiene_cable'                           => 1,
-            //     'tiene_cargador'                        => 0,
-            //     'tiene_control'                         => 0,
-            //     'comentarios_tecnico'                   => 'Medio pelo la puerta, estaba floja antes de que llegue',
-            //     'descripcion'                           => 'Es una heladera vieja pero anda bien',
-            //     'fecha_compra'                          => Carbon::now()->subMonths(80),
-            //     'valor_reposicion_a_nuevo'              => 300,
+                // Hay que revisar si este es foto o cometario 
+                'informe_tecnico_asegurado'             => 'El tecnico del asegurado dice que esta rota',
+                'marca'                                 => 'Freezer',
+                'modelo'                                => 'YHHH-223',
+                'numero_serie'                          => '-',
+                'notas'                                 => null,
+                'pagado_tecnico'                        => null,
+                'posible_causa_asegurado'               => null,
+                'precisa_embalaje'                      => null,
+                'presupuesto_monto_asegurado'           => null,
+                'liquidacion_bien'                      => null,
+                'liquidacion_deducible'                 => null,
+                'liquidacion_paga_asegurado'            => null,
+                'user_id'                               => 1,
+            ],
+            [
+                'nombre'                                => 'Licuadora electrica',       
+                'causa_bien_id'                         => 2,
+                'estado_bien_id'                        => 2,
+                'linea_id'                              => 2,
+                'sub_linea_id'                          => 6,
+                'tecnico_asegurado_id'                  => 1,
+                'tecnico_scrap_free_id'                 => 1,
+                'logistica_id'                          => null,
+                'accesorios'                            => 'THubo un corte de luz y despues de eso no volvio a andar como lo hacia antes, una lastima.',
+                'tiene_base'                            => 0,
+                'tiene_cable'                           => 1,
+                'tiene_cargador'                        => 0,
+                'tiene_control'                         => 0,
+                'comentarios_tecnico'                   => 'Medio pelo la puerta, estaba floja antes de que llegue',
+                'descripcion'                           => 'Es una heladera vieja pero anda bien',
+                'fecha_compra'                          => Carbon::now()->subMonths(80),
+                'valor_reposicion_a_nuevo'              => 300,
 
-            //     // Hay que revisar si este es foto o cometario 
-            //     'informe_tecnico_asegurado'             => 'El tecnico del asegurado dice que esta rota',
-            //     'marca'                                 => 'Freezer',
-            //     'modelo'                                => 'YHHH-223',
-            //     'numero_serie'                          => '-',
-            //     'notas'                                 => null,
-            //     'pagado_tecnico'                        => null,
-            //     'posible_causa_asegurado'               => null,
-            //     'precisa_embalaje'                      => null,
-            //     'presupuesto_monto_asegurado'           => null,
-            //     'liquidacion_bien'                      => null,
-            //     'liquidacion_deducible'                 => null,
-            //     'liquidacion_paga_asegurado'            => null,
-            //     'user_id'                               => 1,
-            // ],
+                // Hay que revisar si este es foto o cometario 
+                'informe_tecnico_asegurado'             => 'El tecnico del asegurado dice que esta rota',
+                'marca'                                 => 'Freezer',
+                'modelo'                                => 'YHHH-223',
+                'numero_serie'                          => '-',
+                'notas'                                 => null,
+                'pagado_tecnico'                        => null,
+                'posible_causa_asegurado'               => null,
+                'precisa_embalaje'                      => null,
+                'presupuesto_monto_asegurado'           => null,
+                'liquidacion_bien'                      => null,
+                'liquidacion_deducible'                 => null,
+                'liquidacion_paga_asegurado'            => null,
+                'user_id'                               => 1,
+            ],
         ];
 
         $estados_siniestro = EstadoSiniestro::orderBy('id', 'ASC')
@@ -329,10 +329,13 @@ class SiniestroSeeder extends Seeder
                         $_bienes = $bienes;
                     }
 
+                    $posicion_en_liquidacion = 1;
                     foreach ($_bienes as $bien) {
                         $bien['num'] = $ct->num('biens');
                         $bien['siniestro_id'] = $created_siniestro->id;
                         $bien['nombre'] .= ' con muchas cosas';
+                        $bien['posicion_en_liquidacion'] = $posicion_en_liquidacion;
+                        $posicion_en_liquidacion++;
                         $created_bien = Bien::create($bien);
                         $this->bienImages($bien, $created_bien, $created_siniestro);
                         $this->bienCoberturas($bien, $created_bien);
@@ -382,6 +385,16 @@ class SiniestroSeeder extends Seeder
         }
         if ($bien['nombre'] == 'Licuadora electrica con muchas cosas') {
             $coberturas = [
+                [
+                    'id'                => 2,
+                    'suma_asegurada'    => null,
+                    'deducible'         => null,
+                ],
+                [
+                    'id'                => 2,
+                    'suma_asegurada'    => null,
+                    'deducible'         => null,
+                ],
                 [
                     'id'                => 2,
                     'suma_asegurada'    => null,

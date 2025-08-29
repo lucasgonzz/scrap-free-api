@@ -19,6 +19,7 @@ class CreateBienCoberturaTable extends Migration
             $table->integer('cobertura_id');
             $table->decimal('suma_asegurada', 14,2)->nullable();
             $table->decimal('deducible', 14,2)->nullable();
+            $table->decimal('deducible_monto', 14,2)->nullable();
             $table->timestamps();
         });
     }

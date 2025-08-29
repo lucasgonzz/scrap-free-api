@@ -67,6 +67,7 @@ class SiniestroHelper {
 
 				if (is_null($bien_encontrado)) {
 					$bien_siniestro->delete();
+					Log::info('Eliminando bien '.$bien_siniestro->nombre.' del siniestro '.$siniestro->numero_siniestro);
 				}
 			}
 

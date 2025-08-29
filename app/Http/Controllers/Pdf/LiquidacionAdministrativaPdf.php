@@ -55,8 +55,10 @@ class LiquidacionAdministrativaPdf extends fpdf {
 
 		$this->bienes();
 
-
 		$this->bienes_imagenes_estudio_mercado();
+
+		// Lo que me pidio Mauro en septiembre 2024
+		$this->tabla_en_limpio();
 	}
 
 	function amortizaciones() {
@@ -113,7 +115,6 @@ class LiquidacionAdministrativaPdf extends fpdf {
 		}
 
 		$index = 1;
-
 		foreach ($this->liquidacion_administrativa->bienes as $bien) {
 			foreach ($bien->foto_estudio_mercado as $foto) {
 				$image = null;
@@ -139,7 +140,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 					
 	        		$this->Image($image, $start_x, $this->y, $nuevo_ancho, $nuevo_alto);
 					
-	        		if ($index == 6 || $index == 12 || $index == 18) {
+	        		if ($index == 4 || $index == 8 || $index == 12) {
 	        			$this->AddPage();
 	        			$this->y = 10;
 	        			$start_x = 10;
@@ -158,10 +159,159 @@ class LiquidacionAdministrativaPdf extends fpdf {
 
 	}
 
+	function tabla_en_limpio() {
+		
+		$this->AddPage();
+
+		$this->y = 5;
+		$this->y = 5;
+		$this->SetTextColor(0,0,0);
+		$this->start_x = 5;
+
+		$ancho_campo = 130;
+
+		// dd($this->liquidacion_administrativa->bienes);
+		foreach ($this->liquidacion_administrativa->bienes as $bien) {
+
+			$this->SetFont('Arial', 'B', 18);
+
+			$this->x = $this->start_x;
+			$this->Cell(100, 10, 'Equipo', 1, 0, 'L', 0);
+			$this->Cell($ancho_campo, 10, $bien->nombre, 1, 1, 'L', 0);
+			
+			// dd($bien->coberturas_aplicadas);
+			foreach ($bien->coberturas_aplicadas as $cobertura) {
+
+				$this->SetFont('Arial', '', 18);
+
+				$this->x = $this->start_x;
+				$this->Cell(100, 10, 'Cobertura', 1, 0, 'L', 0);
+				$this->Cell($ancho_campo, 10, '$'.Numbers::price($cobertura->pivot->fondos), 1, 1, 'L', 0);
+
+				$this->x = $this->start_x;
+
+				$this->Cell(100, 10, 'Valor a nuevo', 1, 0, 'L', 0);
+				$this->Cell($ancho_campo, 10, '$'.Numbers::price($bien->valor_reposicion_a_nuevo), 1, 1, 'L', 0);
+
+				$this->x = $this->start_x;
+
+				$this->Cell(100, 10, 'Valor reparación', 1, 0, 'L', 0);
+				$this->Cell($ancho_campo, 10, '$'.Numbers::price($bien->valor_reparacion), 1, 1, 'L', 0);
+
+				$this->x = $this->start_x;
+
+				$this->Cell(100, 10, 'Fecha de compra', 1, 0, 'L', 0);
+				$this->Cell($ancho_campo, 10, !is_null($bien->fecha_compra) ? $bien->fecha_compra->format('d/m/Y') : null, 1, 1, 'L', 0);
+
+				$this->x = $this->start_x;
+
+				$this->Cell(100, 10, 'Antigüedad', 1, 0, 'L', 0);
+				$this->Cell($ancho_campo, 10, $bien->pivot->anos_antiguedad, 1, 1, 'L', 0);
+
+				$this->x = $this->start_x;
+
+				$this->Cell(100, 10, 'Amortización a aplicar', 1, 0, 'L', 0);
+				$this->Cell($ancho_campo, 10, $bien->pivot->procentage_depreciacion, 1, 1, 'L', 0);
+
+				$this->x = $this->start_x;
+
+				$this->Cell(100, 10, 'Valor a nuevo depreciado', 1, 0, 'L', 0);
+				$this->Cell($ancho_campo, 10, '$'.Numbers::price($bien->pivot->valor_depreciado), 1, 1, 'L', 0);
+
+				$this->x = $this->start_x;
+
+				$this->Cell(100, 10, 'Deducible Cobertura', 1, 0, 'L', 0);
+				$this->Cell($ancho_campo, 10, $cobertura->pivot->deducible.'%', 1, 1, 'L', 0);
+
+				$this->x = $this->start_x;
+
+				$this->Cell(100, 10, 'Deducible', 1, 0, 'L', 0);
+				$this->Cell($ancho_campo, 10, '$'.Numbers::price($bien->pivot->valor_depreciado * $cobertura->pivot->deducible  / 100), 1, 1, 'L', 0);
+
+				$this->x = $this->start_x;
+
+				$this->SetFillColor(116,234,127);
+				$this->Cell(100, 10, 'Indemnización asegurado', 1, 0, 'L', 1);
+				$this->Cell($ancho_campo, 10, '$'.Numbers::price($bien->indemnizacion_a_nuevo), 1, 1, 'L', 1);
+
+				$this->x = $this->start_x;
+				// $this->Cell($ancho_campo, 10, 'Y: '.$this->y, 1, 1, 'L', 1);
+
+			}
+
+			if ($this->y >= 430) {
+
+				if ($this->x == 250) {
+
+					$this->AddPage();
+					
+					$this->y = 5;
+					$this->start_x = 5;
+					// $this->x = 5;
+
+				} else {
+
+					$this->y = 5;
+					// $this->x = 250;
+					$this->start_x = 20 + 100 + $ancho_campo;
+
+				}
+
+			
+			} else {
+
+				$this->y += 5;
+			}
+		}
+
+	}
+
+
+
+	function asdinfo_coberturas_aplicadas($bien) {
+
+		$index = 1;
+		$this->x = $this->start_x;
+		// $this->y += $this->height;
+
+		// $this->Cell($this->text_w, $this->height, 'Coberturas', 0, 0, 'L');
+		foreach ($bien->coberturas_aplicadas as $cobertura_aplicada) {
+
+			if ($index > 1) {
+				$this->x = $this->start_x;
+				$this->y += $this->height + $this->height;
+				$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->remanente_a_cubrir), 1, 0, 'C');
+				$this->Cell($this->text_w, $this->height, 'Remanente a cubrir', 1, 0, 'L');
+			}
+
+			$this->SetTextColor(93,143,243);
+			$this->x = $this->start_x;
+			$this->y += $this->height;
+			$this->Cell($this->valor_w, $this->height, $cobertura_aplicada->pivot->deducible.'%', 1, 0, 'C');
+			$this->Cell($this->text_w, $this->height, 'Deducible Cobertura '.$index.' (A cargo Asegurado)', 1, 0, 'L');
+			$this->SetTextColor(0,0,0);
+			
+
+			$this->x = $this->start_x;
+			$this->y += $this->height;
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->deducible_aplicado), 1, 0, 'C');
+			$this->Cell($this->text_w, $this->height, 'Perdida luego aplicar deducible Cobertura '.$index, 1, 0, 'L');
+
+
+
+			$this->SetFillColor(40,173,19);
+			$this->x = $this->start_x;
+			$this->y += $this->height;
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->fondos), 1, 0, 'C', 1);
+			$this->Cell($this->text_w, $this->height, 'Cobertura '.$index, 1, 0, 'L');
+
+			$index++;
+		}
+	}
+
 	function bienes() {
 		
 		$this->y = 5;
-		
 		foreach ($this->liquidacion_administrativa->bienes as $bien) {
 			$this->SetTextColor(0,0,0);
 			
@@ -189,7 +339,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 		$this->x = $this->start_x;
 		$this->y += $this->height;
 		$this->Cell($this->valor_w, $this->height, $bien->pivot->anos_antiguedad, 0, 0, 'C');
-		$this->Cell($this->text_w, $this->height, 'Antiguedad al momento reporte', 0, 0, 'L');
+		$this->Cell($this->text_w, $this->height, 'Antigüedad al momento reporte', 0, 0, 'L');
 
 
 		$this->x = $this->start_x;
@@ -275,6 +425,14 @@ class LiquidacionAdministrativaPdf extends fpdf {
 			$this->y += $this->height;
 			$this->Cell($this->valor_w, $this->height, $cobertura_aplicada->pivot->deducible.'%', 1, 0, 'C');
 			$this->Cell($this->text_w, $this->height, 'Deducible Cobertura '.$index.' (A cargo Asegurado)', 1, 0, 'L');
+			$this->SetTextColor(0,0,0);
+
+			// dd($cobertura_aplicada->pivot);
+			$this->SetTextColor(93,143,243);
+			$this->x = $this->start_x;
+			$this->y += $this->height;
+			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price($cobertura_aplicada->pivot->deducible_monto), 1, 0, 'C');
+			$this->Cell($this->text_w, $this->height, 'Monto Deducible Cob. '.$index.' (A cargo Asegurado)', 1, 0, 'L');
 			$this->SetTextColor(0,0,0);
 			
 

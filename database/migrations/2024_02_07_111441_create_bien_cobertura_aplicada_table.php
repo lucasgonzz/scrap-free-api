@@ -22,6 +22,7 @@ class CreateBienCoberturaAplicadaTable extends Migration
             $table->decimal('deducible', 18,2)->nullable();
             $table->decimal('fondos', 18,2)->nullable();
             $table->decimal('deducible_aplicado', 18,2)->nullable();
+            $table->decimal('deducible_monto', 14,2)->nullable();
             $table->timestamps();
         });
     }
