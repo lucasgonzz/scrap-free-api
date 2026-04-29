@@ -58,7 +58,7 @@ class LiquidacionAdministrativaA4Pdf extends fpdf {
 
 		$this->y += 10;
 		$this->x = 10;
-		$this->Cell(160, 10, 's.scrap.free@gmail.com' , $this->b, 0, 'L');
+		$this->Cell(160, 10, 'siniestros@scrapfree.com.ar' , $this->b, 0, 'L');
 		// $this->y += 15;
 
 	}

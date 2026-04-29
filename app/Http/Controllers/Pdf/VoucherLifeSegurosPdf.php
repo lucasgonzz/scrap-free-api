@@ -30,14 +30,31 @@ class VoucherLifeSegurosPdf extends fpdf {
 	}
 
 	function Header() {
-        $this->Image(storage_path().'/app/public/life_logo.png', 130, 10, 60, 20);
 
-		$this->SetFont('Arial', '', 11);
-		$this->y += 25;
-        $this->x = 105;
-		$this->Cell(85, 5, 'Fecha: ................, Lugar: .........................', $this->b, 1, 'R');
+        $this->Image(storage_path().'/app/public/life.jpg', 10, 15, 17, 15);
 
+		$this->SetFont('Arial', 'B', 9);
+		// $this->SetTextColor(5, 99, 193);
+		$this->y = 18;
+        $this->x = 27;
+		$this->Cell(85, 5, 'Life Seguro de Personas y Patrimoniales S.A | CUIT 30-50005154-6', $this->b, 1, 'L');
+
+		$this->SetFont('Arial', '', 9);
+        $this->x = 27;
+		$this->Cell(85, 5, 'Tte. Gral Perón 646 3° piso (C1038AAN) CABA - Argentina | Centro de atencion al cliente: 0800-222-7500', $this->b, 1, 'L');
+
+        $this->y += 7;
 	}
+
+	// function Header() {
+    //     $this->Image(storage_path().'/app/public/life_logo.png', 130, 10, 60, 20);
+
+	// 	$this->SetFont('Arial', '', 11);
+	// 	$this->y += 25;
+    //     $this->x = 105;
+	// 	$this->Cell(85, 5, 'Fecha: ................, Lugar: .........................', $this->b, 1, 'R');
+
+	// }
 
 	function gerente() {
         $this->x = 20;
@@ -85,7 +102,16 @@ class VoucherLifeSegurosPdf extends fpdf {
 		$this->SetFont('Arial', 'BU', 11);
 		$this->y +=3;
         $this->x = 20;
-		$this->Cell(170, 5, 'Orden de reposición Abierta en Musimundo S.A.I.C.e.I. por la suma de $'.$this->siniestro->liquidacion_siniestro.' (Pesos). --', $this->b, 1, 'L');
+		$this->Cell(170, 5, 'Indemnización dineraria a través de transferencia bancaria de $ '.$this->siniestro->liquidacion_siniestro.' (Pesos). -', $this->b, 1, 'L');
+		
+		$this->y +=3;
+        $this->x = 20;
+		$this->Cell(170, 5, 'Orden de reposición Abierta en Musimundo S.A.I.C.e.I. por la suma de $'.$this->siniestro->liquidacion_siniestro.' (Pesos). -', $this->b, 1, 'L');
+
+
+		$this->info_transferencia();
+
+
 
 		$this->SetFont('Arial', '', 11);
 		$text = 'Asimismo, cumplo en ratificar que el seguro contratado con esa Aseguradora es el único vigente con relación al riesgo afectado, no existiendo otras coberturas susceptibles de ser convocadas a contribuir a la indemnización del siniestro detallado en la referencia.';
@@ -96,6 +122,28 @@ class VoucherLifeSegurosPdf extends fpdf {
 		$this->y += 3;
 		$this->x = 20;
 		$this->Cell(170, 5, 'Sin más saludo a Ud. Muy atte.', $this->b, 1, 'L');
+	}
+
+	function info_transferencia() {
+
+		$this->SetFont('Arial', '', 11);
+		$this->y += 5;
+		$text = 'Autorizo a Life Seguros de Personas y Patrimoniales S.A. a acreditar el importe citado en la cuenta bancaria que a continuación detallo:';
+		$this->x = 20;
+		$this->MultiCell(170, 5, $text, $this->b, 'J', 0);
+
+		$this->SetFont('Arial', 'B', 11);
+		$this->y +=3;
+        $this->x = 20;
+		$this->Cell(170, 10, 'Titular de la cta. y DNI:', $this->b, 1, 'L');
+        $this->x = 20;
+		$this->Cell(170, 10, 'Banco y Sucursal:', $this->b, 1, 'L');
+        $this->x = 20;
+		$this->Cell(170, 10, 'Tipo y Nro de cta:', $this->b, 1, 'L');
+        $this->x = 20;
+		$this->Cell(170, 10, 'CBU Nro: ', $this->b, 1, 'L');
+        $this->x = 20;
+		$this->Cell(170, 10, 'Cuil:', $this->b, 1, 'L');
 	}
 
 	function firma() {

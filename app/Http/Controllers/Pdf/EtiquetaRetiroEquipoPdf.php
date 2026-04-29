@@ -44,7 +44,7 @@ class EtiquetaRetiroEquipoPdf extends fpdf {
         $this->SetFont('Arial', 'B', 20);
 		$this->Cell(47, 5, 'SCRAP FREE', $this->b, 0, 'L');
         $this->SetFont('Arial', '', 20);
-		$this->Cell(80, 5, 'Reparaciones Sustentables', $this->b, 0, 'L');
+		$this->Cell(80, 5, 'Estudio Liquidador', $this->b, 0, 'L');
 	}
 
 	function infoSiniestro() {

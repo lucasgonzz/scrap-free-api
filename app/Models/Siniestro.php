@@ -39,6 +39,14 @@ class Siniestro extends Model
     //     return '-';
     // }
 
+    function posible_causa_relation() {
+        return $this->belongsTo(PosibleCausa::class, 'posible_causa_id');
+    }
+
+    function resolucion_siniestro() {
+        return $this->belongsTo(ResolucionSiniestro::class);
+    }
+
     function tipo_documento() {
         return $this->belongsTo(TipoDocumento::class);
     }

@@ -44,7 +44,7 @@ class InformeLiquidadorCelularesPdf extends fpdf {
 
 		$this->SetFont('Arial', '', 12);
 		$this->x = 25;
-		$this->Cell(75, 5, 'Scrap Free Reparaciones Sustentables', $this->b, 1, 'L');
+		$this->Cell(75, 5, 'Scrap Free Estudio Liquidador', $this->b, 1, 'L');
 
 		$this->SetFont('Arial', '', 10);
 		$this->x = 25;
@@ -57,7 +57,7 @@ class InformeLiquidadorCelularesPdf extends fpdf {
 		$this->Cell(75, 5, '+54 (9) 11 2654-9045 / +54 (9) 3444 41-9053', $this->b, 1, 'L');
 		
 		$this->x = 25;
-		$this->Cell(75, 5, 's.scrap.free@gmail.com', $this->b, 1, 'L');
+		$this->Cell(75, 5, 'siniestros@scrapfree.com.ar', $this->b, 1, 'L');
 
         $this->Image(storage_path().'/app/public/logo.png', 160, 40, 25, 25);
 

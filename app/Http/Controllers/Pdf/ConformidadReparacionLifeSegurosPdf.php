@@ -27,28 +27,45 @@ class ConformidadReparacionLifeSegurosPdf extends fpdf {
 	}
 
 	function Header() {
-		$this->SetFont('Arial', 'B', 12);
-		$this->y = 15;
-        $this->x = 15;
-		$this->Cell(85, 5, 'CONFORMIDAD REPARACION', $this->b, 1, 'L');
 
-		$this->SetFont('Arial', 'U', 9);
-		$this->SetTextColor(5, 99, 193);
-        $this->x = 15;
-		$this->Cell(85, 5, 'siniestros.patrimoniales@lifeseguros.com.ar', $this->b, 1, 'L');
-        $this->x = 15;
-		$this->Cell(85, 5, 'https://www.lifeseguros.com.ar/', $this->b, 1, 'L');
+        $this->Image(storage_path().'/app/public/life.jpg', 10, 15, 17, 15);
+
+		$this->SetFont('Arial', 'B', 9);
+		// $this->SetTextColor(5, 99, 193);
+		$this->y = 18;
+        $this->x = 27;
+		$this->Cell(85, 5, 'Life Seguro de Personas y Patrimoniales S.A | CUIT 30-50005154-6', $this->b, 1, 'L');
 
 		$this->SetFont('Arial', '', 9);
-		$this->SetTextColor(0, 0, 0);
-        $this->x = 15;
-		$this->Cell(85, 5, 'Tte. Gral. Juan D. Perón 646 - CABA - C1038AAN', $this->b, 1, 'L');
+        $this->x = 27;
+		$this->Cell(85, 5, 'Tte. Gral Perón 646 3° piso (C1038AAN) CABA - Argentina | Centro de atencion al cliente: 0800-222-7500', $this->b, 1, 'L');
 
-        $this->Image(storage_path().'/app/public/life_logo.png', 125, 15, 70, 20);
-
-        $this->y += 3;
-        $this->Line(15, $this->y, 195, $this->y);
+        $this->y += 7;
 	}
+
+	// function Header() {
+	// 	$this->SetFont('Arial', 'B', 12);
+	// 	$this->y = 15;
+    //     $this->x = 15;
+	// 	$this->Cell(85, 5, 'CONFORMIDAD REPARACION', $this->b, 1, 'L');
+
+	// 	$this->SetFont('Arial', 'U', 9);
+	// 	$this->SetTextColor(5, 99, 193);
+    //     $this->x = 15;
+	// 	$this->Cell(85, 5, 'siniestros.patrimoniales@lifeseguros.com.ar', $this->b, 1, 'L');
+    //     $this->x = 15;
+	// 	$this->Cell(85, 5, 'https://www.lifeseguros.com.ar/', $this->b, 1, 'L');
+
+	// 	$this->SetFont('Arial', '', 9);
+	// 	$this->SetTextColor(0, 0, 0);
+    //     $this->x = 15;
+	// 	$this->Cell(85, 5, 'Tte. Gral. Juan D. Perón 646 - CABA - C1038AAN', $this->b, 1, 'L');
+
+    //     $this->Image(storage_path().'/app/public/life_logo.png', 125, 15, 70, 20);
+
+    //     $this->y += 3;
+    //     $this->Line(15, $this->y, 195, $this->y);
+	// }
 
 	function body() {
 		$this->SetFont('Arial', '', 11);

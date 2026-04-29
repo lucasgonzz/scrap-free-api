@@ -22,7 +22,7 @@ class PdfHelper {
 		$instace->SetFont('Arial', '', 10);
 
 		$instace->x = 25;
-		$instace->Cell(80, 5, 'Scrap Free Reparaciones Sustentables', $instace->b, 1, 'L');
+		$instace->Cell(80, 5, 'Scrap Free Estudio Liquidador', $instace->b, 1, 'L');
 		
 		$instace->x = 25;
 		$instace->Cell(80, 5, '+54 (9) 11 2654-9045', $instace->b, 1, 'L');
@@ -31,7 +31,7 @@ class PdfHelper {
 		$instace->Cell(80, 5, '+54 (9) 3444 41-9053', $instace->b, 1, 'L');
 		
 		$instace->x = 25;
-		$instace->Cell(80, 5, 's.scrap.free@gmail.com', $instace->b, 1, 'L');
+		$instace->Cell(80, 5, 'siniestros@scrapfree.com.ar', $instace->b, 1, 'L');
 	}
 
 	function footerScrapFree($instace, $drow_line = true, $cuit_and_address = false, $print_logo = true) {
@@ -44,7 +44,7 @@ class PdfHelper {
 		$instace->y += 5;	
 		$instace->SetFont('Arial', 'BU', 11);
 		$instace->x = 15;
-		$instace->Cell(100, 5, 'Scrap Free Reparaciones Sustentables', $instace->b, 1, 'L');
+		$instace->Cell(100, 5, 'Scrap Free Estudio Liquidador', $instace->b, 1, 'L');
 
 		$instace->SetFont('Arial', '', 9);
 
@@ -58,7 +58,7 @@ class PdfHelper {
 		$instace->x = 15;
 		$instace->Cell(100, 5, '+54 (9) 11 2654-9045 / +54 (9) 3444 41-9053', $instace->b, 1, 'L');
 		$instace->x = 15;
-		$instace->Cell(100, 5, 's.scrap.free@gmail.com', $instace->b, 1, 'L');
+		$instace->Cell(100, 5, 'siniestros@scrapfree.com.ar', $instace->b, 1, 'L');
 
 		if ($print_logo) {
         	$instace->Image(storage_path().'/app/public/logo.png', 170, $start_y, 25, 25);

@@ -15,7 +15,7 @@ class LiquidacionAdministrativaHelperPDf {
 	}
 
 	function print() {
-		$this->header();
+		// $this->header();
 		$this->body();
 		$this->footer();
 
@@ -70,7 +70,7 @@ class LiquidacionAdministrativaHelperPDf {
 
 		$this->instance->y += 10;
 		$this->instance->x = $this->start_x;
-		$this->instance->Cell(160, 10, 's.scrap.free@gmail.com' , $this->instance->b, 0, 'L');
+		$this->instance->Cell(160, 10, 'siniestros@scrapfree.com.ar' , $this->instance->b, 0, 'L');
 		$this->instance->y += 20;
 
 		$this->instance->liquidacion_gestor_finish_y = $this->instance->y;

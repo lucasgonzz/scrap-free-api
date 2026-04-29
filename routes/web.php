@@ -24,4 +24,10 @@ Route::get('/pdf/{siniestro_id}/{name}',
 	'PdfController@pdf'
 );
 
+
+// Excel
+Route::get('/excel/metricas/{inicio}/{fin}/{aseguradora_id}/{gestores_id}',
+	'ExcelController@metricas'
+);
+
 Route::get('helpers/{method}', 'HelperController@callMethod');

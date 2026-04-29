@@ -56,7 +56,7 @@ class PedidoInspeccionLifeSegurosPdf extends fpdf {
 		$this->x = 30;
 		$this->MultiCell(150, 5, $text, $this->b, 'J', 0);
 
-		$text = '- Coordinar inspección del bien denunciado con el Perito Liquidador designado, Scrap Free (s.scrap.free@gmail.com / 011 15 2654-9045 o al 03444 15 41-9053)';
+		$text = '- Coordinar inspección del bien denunciado con el Perito Liquidador designado, Scrap Free (siniestros@scrapfree.com.ar / 011 15 2654-9045 o al 03444 15 41-9053)';
 		$this->x = 30;
 		$this->y += 10;
 		$this->MultiCell(150, 5, $text, $this->b, 'J', 0);

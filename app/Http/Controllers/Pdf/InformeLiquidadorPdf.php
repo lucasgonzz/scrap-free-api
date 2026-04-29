@@ -48,7 +48,7 @@ class InformeLiquidadorPdf extends fpdf {
 
 		$this->SetFont('Arial', '', 12);
 		$this->x = 25;
-		$this->Cell(75, 5, 'Scrap Free Reparaciones Sustentables', $this->b, 1, 'L');
+		$this->Cell(75, 5, 'Scrap Free Estudio Liquidador', $this->b, 1, 'L');
 
 		$this->SetFont('Arial', '', 10);
 		$this->x = 25;
@@ -61,7 +61,7 @@ class InformeLiquidadorPdf extends fpdf {
 		$this->Cell(75, 5, '+54 (9) 11 2654-9045 / +54 (9) 3444 41-9053', $this->b, 1, 'L');
 		
 		$this->x = 25;
-		$this->Cell(75, 5, 's.scrap.free@gmail.com', $this->b, 1, 'L');
+		$this->Cell(75, 5, 'siniestros@scrapfree.com.ar', $this->b, 1, 'L');
 
         $this->Image(storage_path().'/app/public/logo.png', 160, 40, 25, 25);
 
@@ -192,7 +192,7 @@ class InformeLiquidadorPdf extends fpdf {
 
 		$this->print_data('Detalle: ', $this->siniestro->comentarios_tecnico, 18);
 
-		$this->print_data('Posible causa: ', $this->siniestro->posible_causa, 32);
+		$this->print_data('Posible causa: ', $this->siniestro->posible_causa_relation ? $this->siniestro->posible_causa_relation->nombre : $this->siniestro->posible_causa, 32);
 
 		$this->Line(25, $this->y, 185, $this->y);
 		$this->Line(25, $start_y, 25, $this->y);

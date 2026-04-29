@@ -84,6 +84,8 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::resource('nota-importante', 'NotaImportanteController');
     Route::resource('amortizacion', 'AmortizacionController');
     Route::resource('liquidacion-administrativa', 'LiquidacionAdministrativaController');
+    Route::resource('resolucion-siniestro', 'ResolucionSiniestroController');
+    Route::resource('posible-causa', 'PosibleCausaController');
 
 
     Route::resource('sale', 'SaleController')->except(['show']);

@@ -120,6 +120,8 @@ class SiniestroController extends Controller
                         'comentarios_tecnico'               => $request->comentarios_tecnico,
                         'posible_causa'                     => $request->posible_causa,
                         'recomendacion'                     => $request->recomendacion,
+                        'resolucion_siniestro_id'           => $request->resolucion_siniestro_id,
+                        'posible_causa_id'                  => $request->posible_causa_id,
                         
                         'user_id'                           => $this->userId(),
                     ]);
@@ -240,6 +242,9 @@ class SiniestroController extends Controller
                 $model->tecnico                         = $request->tecnico;
                 $model->comentarios_tecnico             = $request->comentarios_tecnico;
                 $model->posible_causa                   = $request->posible_causa;
+                $model->resolucion_siniestro_id         = $request->resolucion_siniestro_id;
+
+                $model->posible_causa_id                = $request->posible_causa_id;
 
                 $model->save();
                 if (property_exists($request, 'coberturas')) {

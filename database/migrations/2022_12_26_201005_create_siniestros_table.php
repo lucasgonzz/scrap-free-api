@@ -85,6 +85,10 @@ class CreateSiniestrosTable extends Migration
             $table->boolean('cerrado')->default(0);
             $table->integer('cantidad_bienes')->nullable();
             $table->integer('user_id')->nullable();
+
+            $table->integer('resolucion_siniestro_id')->nullable();
+            $table->integer('posible_causa_id')->nullable();
+
             $table->timestamps();
         });
     }

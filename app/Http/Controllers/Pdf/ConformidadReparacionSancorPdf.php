@@ -43,7 +43,7 @@ class ConformidadReparacionSancorPdf extends fpdf {
         $this->x = 15;
 		$this->Cell(85, 5, 'Ruta Nacional 34 km 257 - 2322 - Sunchales - Santa Fe', $this->b, 1, 'L');
 
-        $this->Image(storage_path().'/app/public/sancor_75_anos.jpg', 125, 15, 70, 20);
+        $this->Image(storage_path().'/app/public/sancor_75_anos.jpg', 170, 10, 25, 20);
 
         $this->y += 7;
         $this->Line(15, $this->y, 195, $this->y);

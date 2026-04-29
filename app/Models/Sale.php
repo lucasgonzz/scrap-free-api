@@ -9,6 +9,8 @@ class Sale extends Model
 {
     protected $guarded = [];
 
+    protected $dates = ['created_at'];
+
     function scopeWithAll($query) {
         $query->with('products');
     } 

@@ -69,7 +69,10 @@ class LiquidacionAdministrativaPdf extends fpdf {
 		$this->Cell(13, $this->height, 'Años', 1, 0, 'C', 1);
 		$this->Cell(17, $this->height, 'Depre', 1, 0, 'C', 1);
 
-		$amortizaciones = Amortizacion::where('aseguradora_id', $this->siniestro->aseguradora_id)
+		// $amortizaciones = Amortizacion::where('aseguradora_id', $this->siniestro->aseguradora_id)
+		// 								->get();
+
+		$amortizaciones = Amortizacion::orderBy('anos', 'ASC')
 										->get();
 
 		$this->SetFont('Arial', '', 12);
@@ -227,6 +230,11 @@ class LiquidacionAdministrativaPdf extends fpdf {
 
 				$this->Cell(100, 10, 'Deducible', 1, 0, 'L', 0);
 				$this->Cell($ancho_campo, 10, '$'.Numbers::price($bien->pivot->valor_depreciado * $cobertura->pivot->deducible  / 100), 1, 1, 'L', 0);
+
+				$this->x = $this->start_x;
+
+				$this->Cell(100, 10, 'Deducible monto', 1, 0, 'L', 0);
+				$this->Cell($ancho_campo, 10, '$'.Numbers::price($cobertura->pivot->deducible_monto), 1, 1, 'L', 0);
 
 				$this->x = $this->start_x;
 
@@ -396,7 +404,7 @@ class LiquidacionAdministrativaPdf extends fpdf {
 			$this->y += $this->height;
 			$this->x = $start_x;
 
-			$this->Cell(50, $this->height, 'Ahorro Sancor', 0, 0, 'L');
+			$this->Cell(50, $this->height, 'Ahorro compañia', 0, 0, 'L');
 			$this->Cell($this->valor_w, $this->height, '$'.Numbers::price((float)$bien->indemnizacion_a_nuevo - (float)$bien->indemnizacion_reparacion), 0, 0, 'C');
 
 			$this->y -= $this->height + $this->height;

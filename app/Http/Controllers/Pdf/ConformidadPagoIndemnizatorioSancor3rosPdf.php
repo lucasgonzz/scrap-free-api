@@ -114,13 +114,13 @@ class ConformidadPagoIndemnizatorioSancor3rosPdf extends fpdf {
 		$this->y += 5;	
 		$this->SetFont('Arial', 'BU', 11);
 		$this->x = 15;
-		$this->Cell(100, 5, 'Scrap Free Reparaciones Sustentables', $this->b, 1, 'L');
+		$this->Cell(100, 5, 'Scrap Free Estudio Liquidador', $this->b, 1, 'L');
 
 		$this->SetFont('Arial', '', 9);
 		$this->x = 15;
 		$this->Cell(100, 5, '+54 (9) 11 2654-9045 / +54 (9) 3444 41-9053', $this->b, 1, 'L');
 		$this->x = 15;
-		$this->Cell(100, 5, 's.scrap.free@gmail.com', $this->b, 1, 'L');
+		$this->Cell(100, 5, 'siniestros@scrapfree.com.ar', $this->b, 1, 'L');
         $this->Image(storage_path().'/app/public/logo.png', 170, $start_y, 25, 25);
 	}
 
